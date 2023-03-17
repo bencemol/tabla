@@ -25,7 +25,7 @@ export default async function Columns({ boardId }: BoardProps) {
     <section className="h-full grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-auto">
       {Array.from(columns.keys()).map((status) => (
         <section key={status}>
-          <h4 className="mt-4 mb-3">{status}</h4>
+          <h5 className="mt-4 mb-3">{status}</h5>
           <section className="flex flex-col gap-3">
             {columns.get(status)?.map((task) => (
               <article className="p-2 bg-slate-300 rounded" key={task.id}>

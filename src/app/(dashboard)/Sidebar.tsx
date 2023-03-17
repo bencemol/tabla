@@ -9,9 +9,9 @@ export default async function Sidebar() {
   const boards = await getBoards();
 
   return (
-    <aside className="h-full p-6 bg-white dark:bg-slate-700">
+    <aside className="h-full p-4 bg-white dark:bg-slate-700">
       <h1 className="mb-6">logo comes here</h1>
-      <h4 className="mb-5">All boards ({boards.length})</h4>
+      <h5 className="mb-5">All boards ({boards.length})</h5>
       <nav>
         <ul>
           {boards.map(({ id, name }) => (
