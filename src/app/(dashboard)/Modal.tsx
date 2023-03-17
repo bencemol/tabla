@@ -32,6 +32,14 @@ export default function Modal({
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (isLoading) {
+      dialogRef.current?.setAttribute("inert", "");
+    } else {
+      dialogRef.current?.removeAttribute("inert");
+    }
+  }, [isLoading]);
+
   const confirm = (event: FormEvent) => {
     event.preventDefault();
     const form = formRef.current!;
@@ -50,10 +58,15 @@ export default function Modal({
       ref={dialogRef}
       onClick={dismiss}
       onCancel={onClose}
-      className="dialog fixed m-auto rounded-md p-4 shadow-md backdrop:bg-black/20 backdrop:backdrop-blur-sm"
+      className="dialog fixed m-auto rounded-md p-4 shadow-md  backdrop:backdrop-blur-sm"
     >
-      <form ref={formRef} onSubmit={confirm}>
-        <h3>{title}</h3>
+      <form
+        ref={formRef}
+        onSubmit={confirm}
+        autoComplete="off"
+        className="grid gap-5"
+      >
+        <h2>{title}</h2>
         {children}
       </form>
     </dialog>
