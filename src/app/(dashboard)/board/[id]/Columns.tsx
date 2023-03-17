@@ -22,6 +22,7 @@ type BoardProps = {
 
 export default async function Columns({ boardId, className }: BoardProps) {
   const columns = await getTasks(boardId).then(groupTasksByState);
+  const charWidth = 60;
   return (
     <section
       className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-x-auto overscroll-contain ${className}`}
@@ -33,7 +34,10 @@ export default async function Columns({ boardId, className }: BoardProps) {
             {columns.get(status)?.map((task) => (
               <article draggable className="p-2 border-2 rounded" key={task.id}>
                 <h3>{task.title}</h3>
-                <p>{task.description}</p>
+                <p>
+                  {task.description?.slice(0, charWidth) +
+                    ((task.description?.length ?? 0) > charWidth ? "..." : "")}
+                </p>
               </article>
             ))}
           </section>

@@ -63,7 +63,13 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
         </section>
         <section>
           <label htmlFor="description">Description</label>
-          <textarea id="description" name="description" rows={5} cols={30} />
+          <textarea
+            id="description"
+            name="description"
+            rows={5}
+            cols={30}
+            className="resize-none"
+          />
         </section>
         <section>
           <button type="submit">Save</button>

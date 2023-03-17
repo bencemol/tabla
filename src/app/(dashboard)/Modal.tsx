@@ -48,7 +48,8 @@ export default function Modal({
     onClose();
   };
 
-  const dismiss = ({ target }: MouseEvent<HTMLDialogElement>) => {
+  const dismiss = (event: MouseEvent<HTMLDialogElement>) => {
+    const { target } = event;
     if (target instanceof HTMLDialogElement && target.nodeName === "DIALOG") {
       onClose();
     }
