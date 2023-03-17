@@ -1,11 +1,12 @@
 "use client";
 
-import { FormEvent, useEffect, useRef } from "react";
+import { FormEvent, MouseEvent, useEffect, useRef } from "react";
 import "./Modal.module.css";
 
 type ModalProps = {
   title: string;
   isOpen: boolean;
+  isLoading: boolean;
   onConfirm: <T>(data: T) => void;
   onClose: () => void;
   children: React.ReactNode;
@@ -14,6 +15,7 @@ type ModalProps = {
 export default function Modal({
   title,
   isOpen,
+  isLoading,
   onConfirm,
   onClose,
   children,
@@ -23,28 +25,34 @@ export default function Modal({
 
   useEffect(() => {
     if (isOpen) {
+      formRef.current?.reset();
       dialogRef.current?.showModal();
     } else {
       dialogRef.current?.close();
     }
   }, [isOpen]);
 
-  const confirmAndClose = () => {
-    if (!formRef.current) {
-      console.error("formRef was undefined");
-      return;
+  const confirm = (event: FormEvent) => {
+    event.preventDefault();
+    const form = formRef.current!;
+    const data = Object.fromEntries(new FormData(form));
+    onConfirm(data);
+  };
+
+  const dismiss = ({ target }: MouseEvent<HTMLDialogElement>) => {
+    if (target instanceof HTMLDialogElement && target.nodeName === "DIALOG") {
+      onClose();
     }
-    console.log(new FormData(formRef.current));
-    onClose();
   };
 
   return (
     <dialog
       ref={dialogRef}
+      onClick={dismiss}
       onCancel={onClose}
-      className="dialog fixed left-[50%] top-[50%] p-4 shadow-md backdrop:bg-slate-700/50"
+      className="dialog fixed m-auto rounded-md p-4 shadow-md backdrop:bg-black/20 backdrop:backdrop-blur-sm"
     >
-      <form method="dialog" ref={formRef} onSubmit={confirmAndClose}>
+      <form ref={formRef} onSubmit={confirm}>
         <h3>{title}</h3>
         {children}
       </form>

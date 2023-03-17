@@ -33,7 +33,7 @@ export default async function Columns({ boardId, className }: BoardProps) {
             {columns.get(status)?.map((task) => (
               <article
                 draggable
-                className="p-2 bg-slate-300 rounded"
+                className="p-2 border-2 border-slate-500 rounded"
                 key={task.id}
               >
                 <h3>{task.title}</h3>

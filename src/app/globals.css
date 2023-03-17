@@ -47,3 +47,12 @@ h4 {
 h5 {
   @apply text-sm;
 }
+
+form label {
+  display: block;
+}
+
+button {
+  @apply leading-none;
+  @apply rounded-md p-1 border-2 border-slate-500;
+}
