@@ -1,0 +1,4 @@
+.dialog::backdrop {
+  pointer-events: none;
+  overscroll-behavior: contain;
+}

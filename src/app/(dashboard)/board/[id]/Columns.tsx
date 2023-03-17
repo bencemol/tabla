@@ -31,7 +31,11 @@ export default async function Columns({ boardId, className }: BoardProps) {
           <h5 className="mb-3">{status}</h5>
           <section className="flex flex-col gap-3">
             {columns.get(status)?.map((task) => (
-              <article className="p-2 bg-slate-300 rounded" key={task.id}>
+              <article
+                draggable
+                className="p-2 bg-slate-300 rounded"
+                key={task.id}
+              >
                 <h3>{task.title}</h3>
                 <p>{task.description}</p>
               </article>

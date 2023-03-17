@@ -1,5 +1,6 @@
 import { db } from "@/app/db";
 import Link from "next/link";
+import CreateBoard from "./CreateBoard";
 
 function getBoards() {
   return db.board.findMany();
@@ -21,6 +22,7 @@ export default async function Sidebar() {
           ))}
         </ul>
       </nav>
+      <CreateBoard />
     </aside>
   );
 }
