@@ -54,9 +54,13 @@ form label {
 
 button {
   @apply leading-none;
-  @apply rounded-md p-1 border-2 border-slate-500;
+  @apply rounded-md p-1 border-2;
 }
 
 .dialog form *:last-child {
   @apply flex justify-end gap-3;
+}
+
+html:has(dialog) *:not(dialog) {
+  overflow: hidden;
 }

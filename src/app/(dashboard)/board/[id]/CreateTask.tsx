@@ -1,11 +1,16 @@
 "use client";
 
-import { Board } from "@prisma/client";
+import { Prisma, Task } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import Modal from "./Modal";
+import Modal from "../../Modal";
 
-export default function CreateBoard() {
+type CreateTaskProps = {
+  boardId: string;
+  className?: string;
+};
+
+export default function CreateTask({ boardId, className }: CreateTaskProps) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -13,11 +18,19 @@ export default function CreateBoard() {
   const isLoading = isFetching || isPending;
 
   const onClose = () => setIsModalOpen(false);
-  const onConfirm = async (data: unknown) => {
+  const onConfirm = async (formData: {
+    title: string;
+    description?: string;
+  }) => {
+    const data: Prisma.TaskUncheckedCreateInput = {
+      ...formData,
+      boardId,
+      state: "TODO",
+    };
+    let task: Task;
     setIsFetching(true);
-    let board: Board;
     try {
-      board = await fetch(`/api/board`, {
+      task = await fetch(`/api/board/${boardId}/task`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -28,24 +41,29 @@ export default function CreateBoard() {
 
     setIsFetching(false);
     startTransition(() => {
-      router.push(`/board/${board.id}`);
       router.refresh();
     });
   };
 
   return (
     <>
-      <button onClick={() => setIsModalOpen(true)}>Create board</button>
+      <button className={className} onClick={() => setIsModalOpen(true)}>
+        Create task
+      </button>
       <Modal
-        title="Create new board"
+        title="Create new task"
         isOpen={isModalOpen}
         isLoading={isLoading}
         onClose={onClose}
         onConfirm={onConfirm}
       >
         <section>
-          <label htmlFor="name">Name</label>
-          <input id="name" name="name" type="text" required />
+          <label htmlFor="title">Title</label>
+          <input id="title" name="title" type="text" required />
+        </section>
+        <section>
+          <label htmlFor="description">Description</label>
+          <textarea id="description" name="description" rows={5} cols={30} />
         </section>
         <section>
           <button type="submit">Save</button>

@@ -1,4 +1,4 @@
-import styles from "./page.module.css";
+import styles from "./layout.module.css";
 import Sidebar from "./Sidebar";
 
 export default async function DashboardLayout({

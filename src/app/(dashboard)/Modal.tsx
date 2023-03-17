@@ -7,7 +7,7 @@ type ModalProps = {
   title: string;
   isOpen: boolean;
   isLoading: boolean;
-  onConfirm: <T>(data: T) => void;
+  onConfirm: (data: any) => Promise<void>;
   onClose: () => void;
   children: React.ReactNode;
 };
@@ -40,11 +40,12 @@ export default function Modal({
     }
   }, [isLoading]);
 
-  const confirm = (event: FormEvent) => {
+  const confirm = async (event: FormEvent) => {
     event.preventDefault();
     const form = formRef.current!;
     const data = Object.fromEntries(new FormData(form));
-    onConfirm(data);
+    await onConfirm(data);
+    onClose();
   };
 
   const dismiss = ({ target }: MouseEvent<HTMLDialogElement>) => {
