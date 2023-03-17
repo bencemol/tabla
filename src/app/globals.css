@@ -15,6 +15,7 @@ body {
 }
 
 body {
+  @apply text-base;
 }
 
 a {
@@ -26,4 +27,24 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+h1 {
+  @apply text-2xl;
+}
+
+h2 {
+  @apply text-xl;
+}
+
+h3 {
+  @apply text-lg;
+}
+
+h4 {
+  @apply text-base;
+}
+
+h5 {
+  @apply text-sm;
 }
