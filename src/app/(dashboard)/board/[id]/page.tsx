@@ -29,10 +29,10 @@ export async function generateMetadata({
 export default async function Board({ params }: BoardProps) {
   const board = await getBoard(params.id);
   return (
-    <section className="p-4">
-      <h1>{board.name}</h1>
+    <section className="flex flex-col bg-slate-100">
+      <h1 className="m-4 mb-6">{board.name}</h1>
       {/* @ts-expect-error Async Server Component */}
-      <Columns boardId={board.id} />
+      <Columns className="flex-grow px-4" boardId={board.id} />
     </section>
   );
 }

@@ -17,15 +17,18 @@ function groupTasksByState(tasks: Task[]): Map<string, Task[]> {
 
 type BoardProps = {
   boardId: string;
+  className: string;
 };
 
-export default async function Columns({ boardId }: BoardProps) {
+export default async function Columns({ boardId, className }: BoardProps) {
   const columns = await getTasks(boardId).then(groupTasksByState);
   return (
-    <section className="h-full grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-auto">
+    <section
+      className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-x-auto ${className}`}
+    >
       {Array.from(columns.keys()).map((status) => (
         <section key={status}>
-          <h5 className="mt-4 mb-3">{status}</h5>
+          <h5 className="mb-3">{status}</h5>
           <section className="flex flex-col gap-3">
             {columns.get(status)?.map((task) => (
               <article className="p-2 bg-slate-300 rounded" key={task.id}>
