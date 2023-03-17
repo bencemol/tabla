@@ -1,5 +1,5 @@
 .main {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 30ch min-content;
   min-height: 100vh;
 }
