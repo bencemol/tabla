@@ -52,3 +52,18 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Board {
+  id    String @id @default(cuid())
+  name  String
+  tasks Task[]
+}
+
+model Task {
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+  state       String
+  board       Board   @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  boardId     String
+}
