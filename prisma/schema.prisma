@@ -67,6 +67,4 @@ model Task {
   board       Board   @relation(fields: [boardId], references: [id], onDelete: Cascade)
   boardId     String
   priority    Int     @default(autoincrement())
-
-  @@unique([boardId, state, priority])
 }

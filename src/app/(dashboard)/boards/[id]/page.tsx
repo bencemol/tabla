@@ -39,6 +39,7 @@ export default async function Board({ params }: BoardProps) {
     getBoard(params.id),
     getTasks(params.id),
   ]);
+
   return (
     <section className="flex flex-col">
       <section className="flex align-top p-4 pb-6 border-b-2 border-neutral-100">

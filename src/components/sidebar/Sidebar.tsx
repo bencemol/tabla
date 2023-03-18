@@ -22,7 +22,7 @@ export default async function Sidebar() {
           {boards.map(({ id, name }) => (
             <li key={id}>
               <ActiveLink
-                href={`/board/${id}`}
+                href={`/boards/${id}`}
                 className="flex items-center gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
                 activeClassName="bg-neutral-200 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-800"
               >
