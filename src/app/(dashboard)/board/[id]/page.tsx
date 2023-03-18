@@ -31,7 +31,7 @@ export default async function Board({ params }: BoardProps) {
   const board = await getBoard(params.id);
   return (
     <section className="flex flex-col">
-      <section className="flex m-4 mb-6">
+      <section className="flex align-top m-4 mb-6">
         <h1>{board.name}</h1>
         <CreateTask className="ml-auto" boardId={params.id} />
       </section>

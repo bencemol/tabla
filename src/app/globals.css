@@ -66,7 +66,7 @@ form label:has(+ input:invalid) {
 
 form input,
 form textarea {
-  @apply w-full max-w-[30ch];
+  @apply w-full min-w-[30ch] max-w-[50ch];
   @apply p-2;
   @apply border-2 border-neutral-300 rounded-md;
   @apply invalid:border-rose-900/70;

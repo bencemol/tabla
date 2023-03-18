@@ -20,10 +20,10 @@ export default async function Sidebar() {
             <li key={id}>
               <ActiveLink
                 href={`/board/${id}`}
-                className="flex gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
+                className="flex items-center gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
                 activeClassName="bg-neutral-200 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-800"
               >
-                <IconLayoutBoard />
+                <IconLayoutBoard size="1.25rem" stroke={1.625} />
                 {name}
               </ActiveLink>
             </li>

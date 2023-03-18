@@ -41,7 +41,7 @@ export default function CreateBoard() {
         variant="primary"
         className="w-full"
       >
-        <IconPlus />
+        <IconPlus size="1.25rem" stroke={1.625} />
         Create Board
       </Button>
       <Modal

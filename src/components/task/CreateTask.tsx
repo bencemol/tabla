@@ -53,7 +53,7 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
         onClick={() => setIsModalOpen(true)}
         variant="primary"
       >
-        <IconPlus />
+        <IconPlus size="1.25rem" stroke={1.625} />
         Add Task
       </Button>
       <Modal

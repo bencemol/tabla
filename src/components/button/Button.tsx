@@ -1,5 +1,6 @@
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: keyof typeof variants;
+  isLoading?: boolean;
 };
 
 const variants = {
@@ -11,16 +12,17 @@ export default function Button({
   type = "button",
   children,
   className,
+  isLoading,
   variant = "default",
   ...props
 }: ButtonProps) {
   return (
     <button
       type={type}
-      className={`flex gap-2 p-2 rounded-md  transition-colors ${variants[variant]} ${className}`}
+      className={` p-2 rounded-md  transition-colors ${variants[variant]} ${className}`}
       {...props}
     >
-      {children}
+      <span className="flex items-center gap-2">{children}</span>
     </button>
   );
 }
