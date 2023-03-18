@@ -19,7 +19,7 @@ export default function CreateBoard() {
     setIsFetching(true);
     let board: Board;
     try {
-      board = await fetch(`/api/board`, {
+      board = await fetch(`/api/boards`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

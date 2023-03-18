@@ -1,29 +1,35 @@
 "use client";
 
+import { useTasks } from "@/app/lib/queries";
 import { Task } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useCallback, useTransition } from "react";
 import TaskCard from "./TaskCard";
 
 export default function Column({
   boardId,
-  state,
-  tasks,
+  state: columnState,
 }: {
   boardId: string;
   state: string;
-  tasks: Task[];
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const { data: tasks } = useTasks({
+    boardId,
+    select: useCallback(
+      (data: Task[]) => data.filter((task) => task.state === columnState),
+      [columnState]
+    ),
+  });
   const moveTask = async (data: Task, priority = 0) => {
-    if (data.state === state && data.priority === priority) {
+    if (data.state === columnState && data.priority === priority) {
       return;
     }
-    data.state = state;
+    data.state = columnState;
     data.priority = priority;
     try {
-      await fetch(`/api/board/${boardId}/task/${data.id}`, {
+      await fetch(`/api/boards/${boardId}/tasks/${data.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -34,10 +40,10 @@ export default function Column({
     }
   };
   return (
-    <section className="flex flex-col" key={state}>
-      <h5 className="mb-3">{state}</h5>
+    <section className="flex flex-col" key={columnState}>
+      <h5 className="mb-3">{columnState}</h5>
       <section className="grow">
-        {tasks.map((task, index) => (
+        {tasks?.map((task, index) => (
           <TaskCard
             key={task.id}
             task={task}

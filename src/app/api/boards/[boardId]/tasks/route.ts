@@ -5,6 +5,14 @@ type Options = {
   params: { boardId: string };
 };
 
+export async function GET(_: NextRequest, { params: { boardId } }: Options) {
+  const tasks = await db.task.findMany({
+    where: { boardId },
+    orderBy: { priority: "asc" },
+  });
+  return new Response(JSON.stringify(tasks), { status: 200, statusText: "Ok" });
+}
+
 export async function POST(
   request: NextRequest,
   { params: { boardId } }: Options

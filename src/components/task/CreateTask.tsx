@@ -32,7 +32,7 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
     let task: Task;
     setIsFetching(true);
     try {
-      task = await fetch(`/api/board/${boardId}/task`, {
+      task = await fetch(`/api/boards/${boardId}/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
