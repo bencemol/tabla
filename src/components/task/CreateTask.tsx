@@ -1,9 +1,11 @@
 "use client";
 
+import Button from "@/components/button/Button";
+import Modal from "@/components/modal/Modal";
 import { Prisma, Task } from "@prisma/client";
+import { IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import Modal from "@/components/modal/Modal";
 
 type CreateTaskProps = {
   boardId: string;
@@ -46,9 +48,14 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
 
   return (
     <>
-      <button className={className} onClick={() => setIsModalOpen(true)}>
-        + Task
-      </button>
+      <Button
+        className={className}
+        onClick={() => setIsModalOpen(true)}
+        variant="primary"
+      >
+        <IconPlus />
+        Add Task
+      </Button>
       <Modal
         title="Add New Task"
         isOpen={isModalOpen}
@@ -58,24 +65,33 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
       >
         <section>
           <label htmlFor="title">Title</label>
-          <input id="title" name="title" type="text" required />
+          <input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="e.g. Take coffee break"
+            required
+          />
         </section>
         <section>
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
             name="description"
+            placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the a batteries a little."
             rows={5}
             cols={30}
             className="resize-none"
           />
         </section>
-        <section>
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => setIsModalOpen(false)}>
+        <footer>
+          <Button type="submit" variant="primary">
+            Save
+          </Button>
+          <Button type="button" onClick={() => setIsModalOpen(false)}>
             Cancel
-          </button>
-        </section>
+          </Button>
+        </footer>
       </Modal>
     </>
   );

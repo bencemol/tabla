@@ -1,9 +1,11 @@
 "use client";
 
+import Button from "@/components/button/Button";
+import Modal from "@/components/modal/Modal";
 import { Board } from "@prisma/client";
+import { IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import Modal from "@/components/modal/Modal";
 
 export default function CreateBoard() {
   const router = useRouter();
@@ -34,7 +36,14 @@ export default function CreateBoard() {
 
   return (
     <>
-      <button onClick={() => setIsModalOpen(true)}>+ Board</button>
+      <Button
+        onClick={() => setIsModalOpen(true)}
+        variant="primary"
+        className="w-full"
+      >
+        <IconPlus />
+        Create Board
+      </Button>
       <Modal
         title="Create New Board"
         isOpen={isModalOpen}
@@ -44,14 +53,22 @@ export default function CreateBoard() {
       >
         <section>
           <label htmlFor="name">Name</label>
-          <input id="name" name="name" type="text" required />
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="e.g. Roadmap"
+            required
+          />
         </section>
-        <section>
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => setIsModalOpen(false)}>
+        <footer>
+          <Button type="submit" variant="primary">
+            Save
+          </Button>
+          <Button type="button" onClick={() => setIsModalOpen(false)}>
             Cancel
-          </button>
-        </section>
+          </Button>
+        </footer>
       </Modal>
     </>
   );

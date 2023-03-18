@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, MouseEvent, useEffect, useRef } from "react";
-import "./Modal.module.css";
 
 type ModalProps = {
   title: string;
@@ -60,15 +59,17 @@ export default function Modal({
       ref={dialogRef}
       onClick={dismiss}
       onCancel={onClose}
-      className="dialog fixed m-auto rounded-md p-4 shadow-md  backdrop:backdrop-blur-sm"
+      className="fixed m-auto rounded-md p-4 shadow-lg backdrop:backdrop-blur-sm"
     >
       <form
         ref={formRef}
         onSubmit={confirm}
         autoComplete="off"
-        className="grid gap-5"
+        className="grid gap-8 [&>footer]:flex [&>footer]:justify-end [&>footer]:gap-3"
       >
-        <h2>{title}</h2>
+        <header className="-m-4 p-4 pb-4 bg-neutral-100">
+          <h2>{title}</h2>
+        </header>
         {children}
       </form>
     </dialog>

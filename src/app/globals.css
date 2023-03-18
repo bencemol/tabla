@@ -8,9 +8,17 @@
   margin: 0;
 }
 
+*:focus-visible:focus {
+  @apply outline-1 outline-neutral-700;
+}
+
 html,
 body {
   max-width: 100vw;
+}
+
+html {
+  @apply text-sm;
 }
 
 body {
@@ -49,18 +57,17 @@ h5 {
 }
 
 form label {
-  display: block;
+  @apply block mb-1;
 }
 
-button {
-  @apply leading-none;
-  @apply rounded-md p-1 border-2;
+form label:has(+ input:invalid) {
+  @apply text-rose-900;
 }
 
-.dialog form *:last-child {
-  @apply flex justify-end gap-3;
-}
-
-html:has(dialog) *:not(dialog) {
-  overflow: hidden;
+form input,
+form textarea {
+  @apply w-full max-w-[30ch];
+  @apply p-2;
+  @apply border-2 border-neutral-300 rounded-md;
+  @apply invalid:border-rose-900/70;
 }
