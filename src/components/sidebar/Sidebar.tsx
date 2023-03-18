@@ -12,8 +12,11 @@ export default async function Sidebar() {
 
   return (
     <aside className="h-full p-4 border-r-2 border-neutral-100 bg-white dark:border-emerald-900/30 dark:bg-neutral-900/20">
-      <h1 className="mb-6">logo comes here</h1>
-      <h5 className="mb-5">All boards ({boards.length})</h5>
+      <h1 className="mb-8">logo comes here</h1>
+      <div className="mb-6">
+        <CreateBoard />
+      </div>
+      <h5 className="mb-2">All boards ({boards.length})</h5>
       <nav>
         <ul className="grid gap-1">
           {boards.map(({ id, name }) => (
@@ -30,9 +33,6 @@ export default async function Sidebar() {
           ))}
         </ul>
       </nav>
-      <div className="mt-1">
-        <CreateBoard />
-      </div>
     </aside>
   );
 }

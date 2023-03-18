@@ -60,7 +60,7 @@ form label {
   @apply block mb-1;
 }
 
-form label:has(+ input:invalid) {
+form label:has(+ input:invalid:not(:focus)) {
   @apply text-rose-900;
 }
 
@@ -70,4 +70,10 @@ form textarea {
   @apply p-2;
   @apply border-2 border-neutral-300 rounded-md;
   @apply invalid:border-rose-900/70;
+  @apply hover:border-neutral-400;
+  @apply transition-colors;
+}
+
+.drag-over ~ * {
+  transform: translateY(50px);
 }

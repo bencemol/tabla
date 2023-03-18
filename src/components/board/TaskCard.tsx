@@ -1,23 +1,36 @@
 "use client";
 
-import { useDrag } from "@/app/lib/drag-n-drop";
+import { useDrag, useDrop } from "@/app/lib/drag-n-drop";
 import { Task } from "@prisma/client";
 
 type TaskProps = React.HtmlHTMLAttributes<HTMLDivElement> & {
   task: Task;
+  onMove: (data: Task) => void;
 };
 
-export default function TaskCard({ task, ...props }: TaskProps) {
+export default function TaskCard({
+  task,
+  onMove,
+  className,
+  ...props
+}: TaskProps) {
   const charWidth = 60;
-  const [isDragging, handleDragStart, handleDragEnd] = useDrag<{
-    id: string;
-  }>();
+  const [isDragging, handleDragStart, handleDragEnd] = useDrag<Task>();
+  const [isOverlapping, handleDragOver, handleDragLeave, handleDrop] =
+    useDrop<Task>();
+
   return (
     <article
       draggable
-      onDragStart={handleDragStart({ id: task.id })}
+      onDragStart={handleDragStart(task)}
       onDragEnd={handleDragEnd}
-      className="p-2 rounded-md bg-neutral-100 hover:bg-emerald-100 transition-colors"
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop(onMove)}
+      className={`p-2 rounded-md bg-neutral-100 hover:bg-emerald-100 transition-colors transition-transform 
+      ${isOverlapping && "drag-over"} ${
+        isDragging && "opacity-50"
+      } ${className}`}
       {...props}
     >
       <h3>{task.title}</h3>

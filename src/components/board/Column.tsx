@@ -1,8 +1,8 @@
 "use client";
 
-import { useDrop } from "@/app/lib/drag-n-drop";
 import { Task } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import TaskCard from "./TaskCard";
 
 export default function Column({
@@ -15,20 +15,20 @@ export default function Column({
   tasks: Task[];
 }) {
   const router = useRouter();
-  const [isOverlapping, handleDragOver, handleDragLeave, handleDrop] =
-    useDrop<Task>();
-  const moveTask = async (data: Task) => {
-    if (data.state === state) {
+  const [isPending, startTransition] = useTransition();
+  const moveTask = async (data: Task, priority = 0) => {
+    if (data.state === state && data.priority === priority) {
       return;
     }
     data.state = state;
+    data.priority = priority;
     try {
       await fetch(`/api/board/${boardId}/task/${data.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      router.refresh();
+      startTransition(() => router.refresh());
     } catch (e) {
       console.error(e);
     }
@@ -36,14 +36,14 @@ export default function Column({
   return (
     <section className="flex flex-col" key={state}>
       <h5 className="mb-3">{state}</h5>
-      <section
-        className="grow flex flex-col gap-3"
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop(moveTask)}
-      >
-        {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+      <section className="grow">
+        {tasks.map((task, index) => (
+          <TaskCard
+            key={task.id}
+            task={task}
+            onMove={(d) => moveTask(d, index)}
+            className="mb-3"
+          />
         ))}
       </section>
     </section>

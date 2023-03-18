@@ -33,6 +33,7 @@ export function useDrop<T>() {
           callback(data);
         }
       } catch {}
+      setIsOverlapping(false);
     };
 
   const handleDragLeave: DragEventHandler = () => setIsOverlapping(false);

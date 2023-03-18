@@ -67,7 +67,7 @@ export default function Modal({
         autoComplete="off"
         className="grid gap-8 [&>footer]:flex [&>footer]:justify-end [&>footer]:gap-3"
       >
-        <header className="-m-4 p-4 pb-4 bg-neutral-100">
+        <header className="-m-4 p-4 pb-4 border-t-8 border-black dark:border-white">
           <h2>{title}</h2>
         </header>
         {children}

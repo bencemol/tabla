@@ -41,9 +41,7 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
       console.error(e);
     }
     setIsFetching(false);
-    startTransition(() => {
-      router.refresh();
-    });
+    startTransition(() => router.refresh());
   };
 
   return (

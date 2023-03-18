@@ -3,7 +3,10 @@ import { Task } from "@prisma/client";
 import Column from "./Column";
 
 function getTasks(boardId: string) {
-  return db.task.findMany({ where: { boardId } });
+  return db.task.findMany({
+    where: { boardId },
+    orderBy: [{ state: "desc" }, { priority: "asc" }],
+  });
 }
 
 function groupTasksByState(tasks: Task[]): Map<string, Task[]> {
