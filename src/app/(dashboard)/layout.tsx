@@ -1,5 +1,5 @@
 import styles from "./layout.module.css";
-import Sidebar from "./Sidebar";
+import Sidebar from "../../components/sidebar/Sidebar";
 
 export default async function DashboardLayout({
   children,

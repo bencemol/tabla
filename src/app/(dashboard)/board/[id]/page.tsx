@@ -1,8 +1,8 @@
 import { db } from "@/app/db";
+import Columns from "@/components/board/Columns";
+import CreateTask from "@/components/task/CreateTask";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Columns from "./Columns";
-import CreateTask from "./CreateTask";
 
 async function getBoard(id: string) {
   const board = await db.board.findUnique({ where: { id } });

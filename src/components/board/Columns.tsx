@@ -34,10 +34,12 @@ export default async function Columns({ boardId, className }: BoardProps) {
             {columns.get(status)?.map((task) => (
               <article draggable className="p-2 border-2 rounded" key={task.id}>
                 <h3>{task.title}</h3>
-                <p>
-                  {task.description?.slice(0, charWidth) +
-                    ((task.description?.length ?? 0) > charWidth ? "..." : "")}
-                </p>
+                {task.description && (
+                  <p>
+                    {task.description.slice(0, charWidth) +
+                      ((task.description.length ?? 0) > charWidth ? "..." : "")}
+                  </p>
+                )}
               </article>
             ))}
           </section>

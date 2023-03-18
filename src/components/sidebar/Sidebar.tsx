@@ -1,6 +1,6 @@
 import { db } from "@/app/db";
 import Link from "next/link";
-import CreateBoard from "./CreateBoard";
+import CreateBoard from "@/components/board/CreateBoard";
 
 function getBoards() {
   return db.board.findMany();

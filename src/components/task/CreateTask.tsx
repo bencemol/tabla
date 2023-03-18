@@ -3,7 +3,7 @@
 import { Prisma, Task } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import Modal from "../../Modal";
+import Modal from "@/components/modal/Modal";
 
 type CreateTaskProps = {
   boardId: string;
@@ -38,7 +38,6 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
     } catch (e) {
       console.error(e);
     }
-
     setIsFetching(false);
     startTransition(() => {
       router.refresh();
@@ -48,10 +47,10 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
   return (
     <>
       <button className={className} onClick={() => setIsModalOpen(true)}>
-        Create task
+        + Task
       </button>
       <Modal
-        title="Create new task"
+        title="Add New Task"
         isOpen={isModalOpen}
         isLoading={isLoading}
         onClose={onClose}

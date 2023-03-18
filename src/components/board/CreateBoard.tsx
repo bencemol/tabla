@@ -3,7 +3,7 @@
 import { Board } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import Modal from "./Modal";
+import Modal from "@/components/modal/Modal";
 
 export default function CreateBoard() {
   const router = useRouter();
@@ -25,7 +25,6 @@ export default function CreateBoard() {
     } catch (e) {
       console.error(e);
     }
-
     setIsFetching(false);
     startTransition(() => {
       router.push(`/board/${board.id}`);
@@ -35,9 +34,9 @@ export default function CreateBoard() {
 
   return (
     <>
-      <button onClick={() => setIsModalOpen(true)}>Create board</button>
+      <button onClick={() => setIsModalOpen(true)}>+ Board</button>
       <Modal
-        title="Create new board"
+        title="Create New Board"
         isOpen={isModalOpen}
         isLoading={isLoading}
         onClose={onClose}
