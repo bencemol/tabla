@@ -14,7 +14,7 @@ export default function Column({
   const { data, mutate } = useTasks(boardId);
   const tasks = data?.filter((task) => task.state === state) ?? [];
   const moveTask = async (task: Task, state: string, index: number) => {
-    if (task.state === state && tasks.indexOf(task) === index) {
+    if (task.state === state && task.priority === index) {
       return;
     }
     task.state = state;
@@ -24,7 +24,15 @@ export default function Column({
       ...task,
       priority,
     }));
-    mutate(updatedTasks, { optimisticData: updatedTasks, revalidate: false });
+    mutate(
+      [
+        ...data!.filter((t1) => !tasks.find((t2) => t1.id === t2.id)),
+        ...updatedTasks,
+      ],
+      {
+        revalidate: false,
+      }
+    );
     await fetch(`/api/boards/${boardId}/tasks`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

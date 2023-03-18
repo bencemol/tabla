@@ -27,7 +27,7 @@ export default function TaskCard({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop(onMove)}
-      className={`p-2 rounded-md bg-neutral-100 hover:bg-emerald-100 transition-colors transition-transform 
+      className={`p-2 rounded-md bg-neutral-100 hover:bg-emerald-100 dark:bg-neutral-800 dark:hover:bg-emerald-900 transition-all 
       ${isOverlapping && "drag-over"} ${
         isDragging && "opacity-50"
       } ${className}`}

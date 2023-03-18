@@ -1,11 +1,11 @@
 "use client";
 
+import { useTasks } from "@/app/lib/swr";
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
-import { Prisma, Task } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { IconPlus } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState } from "react";
 
 type CreateTaskProps = {
   boardId: string;
@@ -13,11 +13,9 @@ type CreateTaskProps = {
 };
 
 export default function CreateTask({ boardId, className }: CreateTaskProps) {
-  const router = useRouter();
+  const { mutate } = useTasks(boardId);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
-  const [isFetching, setIsFetching] = useState(false);
-  const isLoading = isFetching || isPending;
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClose = () => setIsModalOpen(false);
   const onConfirm = async (formData: {
@@ -29,19 +27,18 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
       boardId,
       state: "TODO",
     };
-    let task: Task;
-    setIsFetching(true);
+    setIsLoading(true);
     try {
-      task = await fetch(`/api/boards/${boardId}/tasks`, {
+      await fetch(`/api/boards/${boardId}/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       }).then((res) => res.json());
+      mutate();
     } catch (e) {
       console.error(e);
     }
-    setIsFetching(false);
-    startTransition(() => router.refresh());
+    setIsLoading(false);
   };
 
   return (

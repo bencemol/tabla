@@ -9,7 +9,7 @@
 }
 
 *:focus-visible:focus {
-  @apply outline-1 outline-neutral-700;
+  @apply outline-1 outline-neutral-700 dark:outline-neutral-300;
 }
 
 html,
@@ -61,16 +61,17 @@ form label {
 }
 
 form label:has(+ input:invalid:not(:focus)) {
-  @apply text-rose-900;
+  @apply text-rose-900 dark:text-red-300;
 }
 
 form input,
 form textarea {
   @apply w-full min-w-[30ch] max-w-[50ch];
   @apply p-2;
-  @apply border-2 border-neutral-300 rounded-md;
-  @apply invalid:border-rose-900/70;
-  @apply hover:border-neutral-400;
+  @apply bg-white dark:bg-black;
+  @apply border-2 rounded-md border-neutral-300 dark:border-neutral-700;
+  @apply invalid:border-rose-900/70 dark:invalid:border-red-300/70;
+  @apply hover:border-neutral-400 dark:hover:border-neutral-600;
   @apply transition-colors;
 }
 
