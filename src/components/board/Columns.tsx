@@ -1,7 +1,7 @@
 "use client";
 
 import { Task } from "@prisma/client";
-import { SWRConfig, unstable_serialize } from "swr";
+import { SWRConfig } from "swr";
 import Column from "./Column";
 
 type ColumnsProps = {
@@ -13,7 +13,7 @@ type ColumnsProps = {
 export default function Columns({ boardId, tasks, className }: ColumnsProps) {
   const states = ["TODO", "IN PROGRESS", "DONE"];
   const fallback = {
-    [unstable_serialize(["api", "boards", boardId, "tasks"])]: tasks,
+    [`/api/boards/${boardId}/tasks`]: tasks,
   };
 
   return (
