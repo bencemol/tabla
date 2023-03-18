@@ -28,11 +28,12 @@ export default async function Columns({ boardId, className }: BoardProps) {
     <section
       className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-x-auto overscroll-contain ${className}`}
     >
-      {Array.from(columns.keys()).map((status) => (
+      {Array.from(columns.keys()).map((state) => (
         <Column
-          key={status}
-          status={status}
-          tasks={columns.get(status) ?? []}
+          key={state}
+          boardId={boardId}
+          state={state}
+          tasks={columns.get(state) ?? []}
         />
       ))}
     </section>
