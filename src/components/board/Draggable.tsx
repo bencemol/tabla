@@ -4,7 +4,7 @@ import "./Draggable.css";
 
 type Props<Item extends unknown, Tag extends keyof JSX.IntrinsicElements> = {
   item: Item;
-  onMove: (data: Item, over?: "top" | "bottom") => void;
+  onDrop: (data: Item, over?: "top" | "bottom") => void;
   tag?: ComponentType | keyof JSX.IntrinsicElements;
   className?: string;
   children?: ReactNode;
@@ -15,20 +15,20 @@ export default function Draggable<
   Tag extends keyof JSX.IntrinsicElements = "li"
 >({
   item,
-  onMove,
+  onDrop,
   tag: Wrapper = "li",
   className = "",
   children,
   ...props
 }: Props<Item, Tag>) {
-  const [isDragging, handleDragStart, handleDragEnd] = useDrag<Item>();
-  const [
+  const { isDragging, handleDragStart, handleDragEnd } = useDrag<Item>();
+  const {
     overlapping,
     handleDragOver,
     handleDragEnter,
     handleDragLeave,
     handleDrop,
-  ] = useDrop<Item>();
+  } = useDrop<Item>();
 
   const isOverlapping = overlapping && !isDragging;
   const overlappingClass = `over-${overlapping}`;
@@ -41,7 +41,7 @@ export default function Draggable<
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
-      onDrop={handleDrop(onMove)}
+      onDrop={handleDrop(onDrop)}
       className={`grid relative transition-transform [&>*]:transition-transform ${
         isOverlapping ? overlappingClass : ""
       } ${isDragging ? "dragging opacity-50" : ""} ${className}`}
@@ -49,5 +49,25 @@ export default function Draggable<
     >
       {children}
     </Wrapper>
+  );
+}
+
+export function DropZone<Item extends unknown>({
+  onDrop,
+  className = "",
+}: {
+  onDrop: (data: Item, over?: "top" | "bottom") => void;
+  className?: string;
+}) {
+  const { handleDragOver, handleDragEnter, handleDragLeave, handleDrop } =
+    useDrop<Item>();
+  return (
+    <div
+      className={className}
+      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop(onDrop)}
+    ></div>
   );
 }

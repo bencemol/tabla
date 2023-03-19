@@ -1,6 +1,5 @@
 "use client";
 
-import { DragContext } from "@/app/lib/drag-n-drop";
 import { Task } from "@prisma/client";
 import { useState } from "react";
 import { SWRConfig } from "swr";
@@ -24,11 +23,9 @@ export default function Columns({ boardId, tasks, className }: ColumnsProps) {
       className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-x-auto overscroll-contain ${className}`}
     >
       <SWRConfig value={{ fallback }}>
-        <DragContext.Provider value={{ dragTarget, setDragTarget }}>
-          {states.map((state) => (
-            <Column key={state} boardId={boardId} state={state} />
-          ))}
-        </DragContext.Provider>
+        {states.map((state) => (
+          <Column key={state} boardId={boardId} state={state} />
+        ))}
       </SWRConfig>
     </section>
   );

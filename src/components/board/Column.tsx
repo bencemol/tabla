@@ -2,7 +2,7 @@
 
 import { useTasks } from "@/app/lib/swr";
 import { Task } from "@prisma/client";
-import Draggable from "./Draggable";
+import Draggable, { DropZone } from "./Draggable";
 import TaskCard from "./TaskCard";
 
 export default function Column({
@@ -15,12 +15,14 @@ export default function Column({
   const { data, mutate } = useTasks(boardId);
   const tasks = data?.filter((task) => task.state === state) ?? [];
   const moveTask = async (task: Task, state: string, index: number) => {
-    console.log({ index });
     if (task.state === state && task.priority === index) {
       return;
     }
     task.state = state;
-    let updatedTasks = [...tasks.filter(({ id }) => id !== task.id)];
+    let updatedTasks = tasks.filter(({ id }) => id !== task.id);
+    if (updatedTasks.length < tasks.length) {
+      index = Math.max(index - 1, 0);
+    }
     updatedTasks.splice(index, 0, task);
     updatedTasks = updatedTasks.map((task, priority) => ({
       ...task,
@@ -43,18 +45,14 @@ export default function Column({
     mutate();
   };
   return (
-    <section
-      className="flex flex-col"
-      key={state}
-      style={{ "--drag-over-offset": "59.5px" } as React.CSSProperties}
-    >
+    <section className="flex flex-col" key={state}>
       <h5 className="mb-3">{state}</h5>
-      <ul className="grow">
+      <ul className="grow flex flex-col">
         {tasks?.map((task, index) => (
           <Draggable
             key={task.id}
             item={task}
-            onMove={(d, o) =>
+            onDrop={(d, o) =>
               moveTask(
                 d,
                 state,
@@ -64,9 +62,13 @@ export default function Column({
               )
             }
           >
-            <TaskCard task={task} />
+            <TaskCard task={task} className="mb-3" />
           </Draggable>
         ))}
+        <DropZone
+          onDrop={(d: Task) => moveTask(d, state, tasks.length)}
+          className="grow"
+        />
       </ul>
     </section>
   );

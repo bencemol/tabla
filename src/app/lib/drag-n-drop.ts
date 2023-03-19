@@ -1,44 +1,35 @@
-import {
-  createContext,
-  Dispatch,
-  DragEventHandler,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
+import { DragEventHandler, useState } from "react";
 
 export function useDrag<T>() {
   const [isDragging, setIsDragging] = useState(false);
-  const { setDragTarget } = useContext(DragContext);
   const handleDragStart: (payload: T) => DragEventHandler =
     (payload) => (e) => {
       setIsDragging(true);
-      setDragTarget(e.target as HTMLElement);
       const data = JSON.stringify(payload);
       e.dataTransfer.dropEffect = "move";
       e.dataTransfer.setData("text/plain", data);
+      setOffset(e.target as HTMLElement);
     };
   const handleDragEnd: DragEventHandler = (e) => {
     setIsDragging(false);
     e.dataTransfer.clearData();
   };
 
-  return [isDragging, handleDragStart, handleDragEnd] as const;
+  return { isDragging, handleDragStart, handleDragEnd } as const;
 }
 
 export function useDrop<T>() {
   const [overlapping, setOverlapping] = useState<"top" | "bottom">();
   const [_, setDragEnterLeave] = useState(0);
-  const { dragTarget } = useContext(DragContext);
+  const [dragTargetRect, setDragTargetRect] = useState<DOMRect>();
   const handleDragOver: DragEventHandler = (e) => {
     if (e.dataTransfer.types[0] !== "text/plain") {
       return;
     }
-    const target = e.currentTarget as HTMLElement;
-    const rect = target.firstElementChild!.getBoundingClientRect();
-    const y = e.clientY - rect.top;
-    setOverlapping(y <= rect.height / 2 ? "top" : "bottom");
-    setOffset(dragTarget, target);
+    if (dragTargetRect) {
+      const y = e.clientY - dragTargetRect.top;
+      setOverlapping(y <= dragTargetRect.height / 2 ? "top" : "bottom");
+    }
     e.preventDefault();
   };
   const handleDrop: (
@@ -51,55 +42,48 @@ export function useDrop<T>() {
         callback(data, overlapping);
       }
     } catch {}
-    removeOffset(e.currentTarget as HTMLElement);
+    removeOffset();
     setOverlapping(undefined);
     setDragEnterLeave(0);
     e.preventDefault();
   };
 
-  const handleDragEnter: DragEventHandler = () => {
+  const handleDragEnter: DragEventHandler = (e) => {
     setDragEnterLeave((val) => ++val);
+    const rect = (
+      e.currentTarget as HTMLElement
+    ).firstElementChild?.getBoundingClientRect();
+    setDragTargetRect(rect);
   };
 
-  const handleDragLeave: DragEventHandler = ({ currentTarget }) =>
+  const handleDragLeave: DragEventHandler = () =>
     setDragEnterLeave((dragEnterLeave) => {
       dragEnterLeave--;
-      console.log({ dragEnterLeave });
       if (dragEnterLeave === 0) {
-        removeOffset(currentTarget as HTMLElement);
         setOverlapping(undefined);
       }
       return dragEnterLeave;
     });
 
-  return [
+  return {
     overlapping,
     handleDragOver,
     handleDragEnter,
     handleDragLeave,
     handleDrop,
-  ] as const;
+  } as const;
 }
 
-const setOffset = (dragTarget?: HTMLElement, dragOverTarget?: HTMLElement) => {
-  if (!dragTarget || !dragOverTarget) {
+const setOffset = (dragTarget?: HTMLElement) => {
+  if (!dragTarget) {
     return;
   }
   const rect = dragTarget.firstElementChild!.getBoundingClientRect();
-  dragOverTarget.parentElement!.style.setProperty(
+  document.documentElement.style.setProperty(
     "--drag-over-offset",
     `${rect.height}px`
   );
 };
 
-const removeOffset = (target: HTMLElement) =>
-  target.parentElement!.style.removeProperty("--drag-over-offset");
-
-type DragContextType = {
-  dragTarget: HTMLElement | undefined;
-  setDragTarget: Dispatch<SetStateAction<HTMLElement | undefined>>;
-};
-
-export const DragContext = createContext<DragContextType>(
-  {} as DragContextType
-);
+const removeOffset = () =>
+  document.documentElement.style.removeProperty("--drag-over-offset");
