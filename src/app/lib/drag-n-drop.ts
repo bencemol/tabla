@@ -20,15 +20,19 @@ export function useDrag<T>() {
 
 export function useDrop<T>() {
   const [overlapping, setOverlapping] = useState<"top" | "bottom">();
-  const [_, setDragEnterLeave] = useState(0);
-  const [dragTargetRect, setDragTargetRect] = useState<DOMRect>();
+  const [dragEnterLeave, setDragEnterLeave] = useState(0);
+  const [dropTarget, setDropTarget] = useState<HTMLElement>();
+  const [dropTargetRect, setDropTargetRect] = useState<DOMRect>();
+
   const handleDragOver: DragEventHandler = (e) => {
     if (e.dataTransfer.types[0] !== "text/plain") {
       return;
     }
-    if (dragTargetRect) {
-      const y = e.clientY - dragTargetRect.top;
-      setOverlapping(y <= dragTargetRect.height / 2 ? "top" : "bottom");
+    // TODO this fires way too often, move elsewhere
+    const dropTargetRect = dropTarget?.getBoundingClientRect();
+    if (dropTargetRect) {
+      const y = e.clientY - dropTargetRect.top;
+      setOverlapping(y <= dropTargetRect.height / 2 ? "top" : "bottom");
     }
     e.preventDefault();
   };
@@ -49,14 +53,17 @@ export function useDrop<T>() {
   };
 
   const handleDragEnter: DragEventHandler = (e) => {
-    setDragEnterLeave((val) => ++val);
-    const rect = (
-      e.currentTarget as HTMLElement
-    ).firstElementChild?.getBoundingClientRect();
-    setDragTargetRect(rect);
+    if (dragEnterLeave === 0) {
+      setDropTarget(
+        (e.currentTarget as HTMLElement).firstElementChild as HTMLElement
+      );
+    }
+    setDragEnterLeave((val) => {
+      return ++val;
+    });
   };
 
-  const handleDragLeave: DragEventHandler = () =>
+  const handleDragLeave: DragEventHandler = (e) =>
     setDragEnterLeave((dragEnterLeave) => {
       dragEnterLeave--;
       if (dragEnterLeave === 0) {

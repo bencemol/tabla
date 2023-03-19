@@ -41,7 +41,7 @@ export default async function Board({ params }: BoardProps) {
   ]);
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col max-h-screen">
       <section className="flex align-top p-4 pb-6 border-b-2 border-neutral-100 dark:border-neutral-800">
         <h1>{board.name}</h1>
         <CreateTask className="ml-auto" boardId={params.id} />

@@ -58,7 +58,8 @@ export default function Column({
                 state,
                 o === "bottom"
                   ? Math.min(index + 1, tasks.length)
-                  : Math.max(index - 1, 0)
+                  : // TODO fix this
+                    Math.max(index - 1, 0)
               )
             }
           >

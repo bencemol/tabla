@@ -1,5 +1,5 @@
-.over-top > *:first-child::before,
-.over-bottom > *:first-child::after {
+.over-top > *::before,
+.over-bottom > *::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -7,13 +7,15 @@
   left: 0;
 }
 
-:not(.dragging) + .over-top > *:first-child::before,
-.over-top:first-child > *:first-child::before {
+:not(.dragging) + .over-top > *::before,
+.over-top:first-child > *::before {
   top: calc(-1 * var(--drag-over-offset));
+  /* background: darkolivegreen; */
 }
 
-.over-bottom:not(:has(+ .dragging)) > *:first-child::after {
+.over-bottom:not(:has(+ .dragging)) > *::after {
   bottom: calc(-1 * var(--drag-over-offset));
+  /* background: darkslateblue; */
 }
 
 .over-top:first-child,
