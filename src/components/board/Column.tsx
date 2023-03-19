@@ -43,7 +43,11 @@ export default function Column({
     mutate();
   };
   return (
-    <section className="flex flex-col" key={state}>
+    <section
+      className="flex flex-col"
+      key={state}
+      style={{ "--drag-over-offset": "59.5px" } as React.CSSProperties}
+    >
       <h5 className="mb-3">{state}</h5>
       <ul className="grow">
         {tasks?.map((task, index) => (
@@ -54,11 +58,13 @@ export default function Column({
               moveTask(
                 d,
                 state,
-                o === "bottom" ? index : Math.min(index - 1, 0)
+                o === "bottom"
+                  ? Math.min(index + 1, tasks.length)
+                  : Math.max(index - 1, 0)
               )
             }
           >
-            <TaskCard task={task} className="my-1" />
+            <TaskCard task={task} />
           </Draggable>
         ))}
       </ul>

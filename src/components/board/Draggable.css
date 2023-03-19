@@ -1,48 +1,25 @@
-/* [draggable] {
-  position: relative;
-}
-
-[draggable]::before,
-[draggable]::after {
+.over-top > *:first-child::before,
+.over-bottom > *:first-child::after {
   content: "";
   position: absolute;
   width: 100%;
   height: var(--drag-over-offset);
   left: 0;
-  pointer-events: none;
-  opacity: 0.3;
 }
 
-[draggable]::before {
-  background: darkolivegreen;
-  top: -100%;
+:not(.dragging) + .over-top > *:first-child::before,
+.over-top:first-child > *:first-child::before {
+  top: calc(-1 * var(--drag-over-offset));
 }
 
-[draggable]::after {
-  background: darkslateblue;
-  bottom: -100%;
-} */
-
-li.over-top,
-li.over-bottom,
-li.over-top > *,
-li.over-bottom > * {
-  /* @apply bg-amber-200/50; */
+.over-bottom:not(:has(+ .dragging)) > *:first-child::after {
+  bottom: calc(-1 * var(--drag-over-offset));
 }
 
-.over-top > *:first-child,
-.over-top ~ *,
-.over-bottom,
-.over-bottom ~ * {
+.over-top:first-child,
+.over-top:first-child ~ *,
+:not(.dragging) + .over-top,
+:not(.dragging) + .over-top ~ *,
+.over-bottom:not(:has(+ .dragging)) ~ * {
   transform: translateY(var(--drag-over-offset));
 }
-
-.over-bottom > *:first-child {
-  transform: translateY(calc(-1 * var(--drag-over-offset)));
-}
-
-/* .over-top:first-child:not(.dragging)::before,
-:not(.dragging) + .over-top:not(.dragging)::before,
-.over-bottom:not(.dragging):not(:has(+ .dragging))::after {
-  pointer-events: all;
-} */

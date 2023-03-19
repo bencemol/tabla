@@ -4,7 +4,11 @@ type TaskProps = React.HtmlHTMLAttributes<HTMLDivElement> & {
   task: Task;
 };
 
-export default function TaskCard({ task, className, ...props }: TaskProps) {
+export default function TaskCard({
+  task,
+  className = "",
+  ...props
+}: TaskProps) {
   const charWidth = 60;
 
   return (

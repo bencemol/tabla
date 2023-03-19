@@ -54,6 +54,7 @@ export function useDrop<T>() {
     removeOffset(e.currentTarget as HTMLElement);
     setOverlapping(undefined);
     setDragEnterLeave(0);
+    e.preventDefault();
   };
 
   const handleDragEnter: DragEventHandler = () => {
@@ -63,6 +64,7 @@ export function useDrop<T>() {
   const handleDragLeave: DragEventHandler = ({ currentTarget }) =>
     setDragEnterLeave((dragEnterLeave) => {
       dragEnterLeave--;
+      console.log({ dragEnterLeave });
       if (dragEnterLeave === 0) {
         removeOffset(currentTarget as HTMLElement);
         setOverlapping(undefined);
