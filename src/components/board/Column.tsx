@@ -2,6 +2,7 @@
 
 import { useTasks } from "@/app/lib/swr";
 import { Task } from "@prisma/client";
+import Draggable from "./Draggable";
 import TaskCard from "./TaskCard";
 
 export default function Column({
@@ -14,6 +15,7 @@ export default function Column({
   const { data, mutate } = useTasks(boardId);
   const tasks = data?.filter((task) => task.state === state) ?? [];
   const moveTask = async (task: Task, state: string, index: number) => {
+    console.log({ index });
     if (task.state === state && task.priority === index) {
       return;
     }
@@ -43,16 +45,23 @@ export default function Column({
   return (
     <section className="flex flex-col" key={state}>
       <h5 className="mb-3">{state}</h5>
-      <section className="grow">
+      <ul className="grow">
         {tasks?.map((task, index) => (
-          <TaskCard
+          <Draggable
             key={task.id}
-            task={task}
-            onMove={(d) => moveTask(d, state, index)}
-            className="mb-3"
-          />
+            item={task}
+            onMove={(d, o) =>
+              moveTask(
+                d,
+                state,
+                o === "bottom" ? index : Math.min(index - 1, 0)
+              )
+            }
+          >
+            <TaskCard task={task} className="my-1" />
+          </Draggable>
         ))}
-      </section>
+      </ul>
     </section>
   );
 }

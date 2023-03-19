@@ -74,7 +74,3 @@ form textarea {
   @apply hover:border-neutral-400 dark:hover:border-neutral-600;
   @apply transition-colors;
 }
-
-.drag-over ~ * {
-  transform: translateY(50px);
-}
