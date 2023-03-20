@@ -1,7 +1,6 @@
 "use client";
 
 import { Task } from "@prisma/client";
-import { useState } from "react";
 import { SWRConfig } from "swr";
 import Column from "./Column";
 
@@ -16,7 +15,6 @@ export default function Columns({ boardId, tasks, className }: ColumnsProps) {
   const fallback = {
     [`/api/boards/${boardId}/tasks`]: tasks,
   };
-  const [dragTarget, setDragTarget] = useState<HTMLElement>();
 
   return (
     <section

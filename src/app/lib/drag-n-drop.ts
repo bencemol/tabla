@@ -1,4 +1,4 @@
-import { DragEventHandler, useState } from "react";
+import { DragEventHandler, useRef, useState } from "react";
 
 export function useDrag<T>() {
   const [isDragging, setIsDragging] = useState(false);
@@ -8,34 +8,37 @@ export function useDrag<T>() {
       const data = JSON.stringify(payload);
       e.dataTransfer.dropEffect = "move";
       e.dataTransfer.setData("text/plain", data);
-      setOffset(e.target as HTMLElement);
+      const target = e.target as HTMLElement;
+      setOffset(target);
     };
   const handleDragEnd: DragEventHandler = (e) => {
     setIsDragging(false);
     e.dataTransfer.clearData();
   };
 
-  return { isDragging, handleDragStart, handleDragEnd } as const;
+  return {
+    isDragging,
+    handleDragStart,
+    handleDragEnd,
+  } as const;
 }
 
 export function useDrop<T>() {
   const [overlapping, setOverlapping] = useState<"top" | "bottom">();
-  const [dragEnterLeave, setDragEnterLeave] = useState(0);
-  const [dropTarget, setDropTarget] = useState<HTMLElement>();
-  const [dropTargetRect, setDropTargetRect] = useState<DOMRect>();
+  const dragEnterLeave = useRef(0);
+  let currentFrame: number;
 
   const handleDragOver: DragEventHandler = (e) => {
     if (e.dataTransfer.types[0] !== "text/plain") {
       return;
     }
-    // TODO this fires way too often, move elsewhere
-    const dropTargetRect = dropTarget?.getBoundingClientRect();
-    if (dropTargetRect) {
-      const y = e.clientY - dropTargetRect.top;
-      setOverlapping(y <= dropTargetRect.height / 2 ? "top" : "bottom");
-    }
+    const dropTarget = e.currentTarget.firstElementChild!;
+    currentFrame = requestAnimationFrame(() =>
+      calcOverlapping(dropTarget, e.clientY)
+    );
     e.preventDefault();
   };
+
   const handleDrop: (
     callback: (data: T, over: typeof overlapping) => void
   ) => DragEventHandler = (callback) => (e) => {
@@ -48,29 +51,29 @@ export function useDrop<T>() {
     } catch {}
     removeOffset();
     setOverlapping(undefined);
-    setDragEnterLeave(0);
+    dragEnterLeave.current = 0;
+    cancelAnimationFrame(currentFrame);
     e.preventDefault();
   };
 
-  const handleDragEnter: DragEventHandler = (e) => {
-    if (dragEnterLeave === 0) {
-      setDropTarget(
-        (e.currentTarget as HTMLElement).firstElementChild as HTMLElement
-      );
+  const handleDragEnter: DragEventHandler = () => dragEnterLeave.current++;
+  const handleDragLeave: DragEventHandler = () => {
+    dragEnterLeave.current--;
+    if (dragEnterLeave.current === 0) {
+      cancelAnimationFrame(currentFrame);
+      currentFrame = requestAnimationFrame(() => setOverlapping(undefined));
     }
-    setDragEnterLeave((val) => {
-      return ++val;
-    });
   };
 
-  const handleDragLeave: DragEventHandler = (e) =>
-    setDragEnterLeave((dragEnterLeave) => {
-      dragEnterLeave--;
-      if (dragEnterLeave === 0) {
-        setOverlapping(undefined);
-      }
-      return dragEnterLeave;
-    });
+  const calcOverlapping = (dropTarget: Element, clientY: number) => {
+    const dropTargetRect = dropTarget?.getBoundingClientRect();
+    if (!dropTargetRect) {
+      return;
+    }
+    let y = clientY - dropTargetRect.top;
+    const newOverlapping = y <= dropTargetRect.height / 2 ? "top" : "bottom";
+    setOverlapping(newOverlapping);
+  };
 
   return {
     overlapping,
