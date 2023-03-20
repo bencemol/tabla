@@ -42,7 +42,7 @@ export default function Draggable<
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop(onDrop)}
-      className={`grid relative transition-transform [&>*]:transition-transform [&>*>*]:pointer-events-none ${
+      className={`grid relative transition-transform [&>*]:transition-transform ${
         isOverlapping ? overlappingClass : ""
       } ${isDragging ? "dragging opacity-50" : ""} ${className}`}
       {...props}

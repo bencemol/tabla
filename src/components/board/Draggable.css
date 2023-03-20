@@ -10,12 +10,10 @@
 :not(.dragging) + .over-top > *::before,
 .over-top:first-child > *::before {
   top: calc(-1 * var(--drag-over-offset));
-  /* background: darkolivegreen; */
 }
 
 .over-bottom:not(:has(+ .dragging)) > *::after {
   bottom: calc(-1 * var(--drag-over-offset));
-  /* background: darkslateblue; */
 }
 
 .over-top:first-child,

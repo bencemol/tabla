@@ -14,24 +14,35 @@ export default function Column({
 }) {
   const { data, mutate } = useTasks(boardId);
   const tasks = data?.filter((task) => task.state === state) ?? [];
-  const moveTask = async (task: Task, state: string, index: number) => {
-    if (task.state === state && task.priority === index) {
+  const moveTask = async (task: Task, state: string, toIndex: number) => {
+    if (task.state === state && task.priority === toIndex) {
       return;
     }
     task.state = state;
-    let updatedTasks = tasks.filter(({ id }) => id !== task.id);
-    if (updatedTasks.length < tasks.length) {
-      index = Math.max(index - 1, 0);
+    task.priority = toIndex;
+    const fromIndex = tasks.findIndex(({ id }) => id === task.id);
+    if (fromIndex >= 0) {
+      tasks?.splice(fromIndex, 1);
     }
-    updatedTasks.splice(index, 0, task);
-    updatedTasks = updatedTasks.map((task, priority) => ({
-      ...task,
-      priority,
-    }));
+    if (fromIndex >= 0 && toIndex > fromIndex) {
+      toIndex--;
+    }
+    tasks?.splice(toIndex, 0, task);
+    const sortedTasks =
+      tasks
+        ?.filter((task) => task.state === state)
+        .map((task, priority) => ({
+          ...task,
+          priority,
+        })) ?? [];
+    updateTasks(sortedTasks, task.id);
+  };
+
+  const updateTasks = async (tasks: Task[], movedTaskId: string) => {
     mutate(
       [
-        ...data!.filter((t1) => !tasks.find((t2) => t1.id === t2.id)),
-        ...updatedTasks,
+        ...data!.filter((t) => t.state !== state && t.id !== movedTaskId), // fast deduplication
+        ...tasks,
       ],
       {
         revalidate: false,
@@ -40,10 +51,11 @@ export default function Column({
     await fetch(`/api/boards/${boardId}/tasks`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedTasks),
+      body: JSON.stringify(tasks),
     });
     mutate();
   };
+
   return (
     <section className="flex flex-col" key={state}>
       <h5 className="mb-3">{state}</h5>
@@ -52,16 +64,11 @@ export default function Column({
           <Draggable
             key={task.id}
             item={task}
-            onDrop={(d, o) =>
-              moveTask(
-                d,
-                state,
-                o === "bottom"
-                  ? Math.min(index + 1, tasks.length)
-                  : // TODO fix this
-                    Math.max(index - 1, 0)
-              )
-            }
+            onDrop={(d, o) => {
+              const i =
+                o === "bottom" ? Math.min(index + 1, tasks.length) : index;
+              moveTask(d, state, i);
+            }}
           >
             <TaskCard task={task} className="mb-3" />
           </Draggable>
