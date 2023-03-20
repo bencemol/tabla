@@ -21,7 +21,8 @@ html {
   @apply text-sm;
 }
 
-html:has(dialog[open]) {
+html:has(dialog[open]),
+html:has([data-popover]) {
   overflow: hidden;
 }
 

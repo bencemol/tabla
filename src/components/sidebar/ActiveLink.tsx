@@ -6,17 +6,15 @@ import { PropsWithChildren, useEffect, useState } from "react";
 
 type ActiveLinkProps = LinkProps & {
   className?: string;
-  activeClassName: string;
 };
 
 const ActiveLink = ({
   children,
-  activeClassName,
   className,
   ...props
 }: PropsWithChildren<ActiveLinkProps>) => {
   const activePathname = usePathname();
-  const [computedClassName, setComputedClassName] = useState(className);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     const linkPathname = new URL(
@@ -24,27 +22,11 @@ const ActiveLink = ({
       location.href
     ).pathname;
 
-    // Using URL().pathname to get rid of query and hash
-
-    const newClassName =
-      linkPathname === activePathname
-        ? `${className} ${activeClassName}`.trim()
-        : className;
-
-    if (newClassName !== computedClassName) {
-      setComputedClassName(newClassName);
-    }
-  }, [
-    activePathname,
-    props.as,
-    props.href,
-    activeClassName,
-    className,
-    computedClassName,
-  ]);
+    setIsActive(linkPathname === activePathname);
+  }, [activePathname, props.as, props.href]);
 
   return (
-    <Link className={computedClassName} {...props}>
+    <Link className={className} data-active={isActive} {...props}>
       {children}
     </Link>
   );

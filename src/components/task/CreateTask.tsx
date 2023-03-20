@@ -44,7 +44,7 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
   return (
     <>
       <Button
-        className={className}
+        className={`aspect-square sm:aspect-auto grow-0 ${className}`}
         onClick={() => setIsModalOpen(true)}
         variant="primary"
       >

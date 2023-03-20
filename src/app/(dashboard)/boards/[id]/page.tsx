@@ -1,8 +1,12 @@
 import { db } from "@/app/db";
 import Columns from "@/components/board/Columns";
-import CreateTask from "@/components/task/CreateTask";
+import Header from "@/components/board/Header";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+function getBoards() {
+  return db.board.findMany();
+}
 
 async function getBoard(id: string) {
   const board = await db.board.findUnique({ where: { id } });
@@ -57,17 +61,15 @@ export async function generateMetadata({
 }
 
 export default async function Board({ params }: BoardProps) {
-  const [board, tasks] = await Promise.all([
+  const [board, boards, tasks] = await Promise.all([
     getBoard(params.id),
+    getBoards(),
     getTasks(params.id),
   ]);
 
   return (
     <section className="grow flex flex-col max-h-screen">
-      <section className="flex align-top p-4 pb-6 border-b-2 border-neutral-100 dark:border-neutral-800">
-        <h1>{board.name}</h1>
-        <CreateTask className="ml-auto" boardId={params.id} />
-      </section>
+      <Header board={board} boards={boards} />
       <Columns
         className="flex-grow mt-4 px-4"
         boardId={params.id}
