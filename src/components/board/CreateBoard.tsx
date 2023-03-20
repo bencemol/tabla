@@ -29,7 +29,7 @@ export default function CreateBoard() {
     }
     setIsFetching(false);
     startTransition(() => {
-      router.push(`/board/${board.id}`);
+      router.push(`/boards/${board.id}`);
       router.refresh();
     });
   };

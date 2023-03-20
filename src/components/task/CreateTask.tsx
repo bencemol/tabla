@@ -49,7 +49,7 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
         variant="primary"
       >
         <IconPlus size="1.25rem" stroke={1.625} />
-        Add Task
+        <span className="hidden sm:inline">Add Task</span>
       </Button>
       <Modal
         title="Add New Task"

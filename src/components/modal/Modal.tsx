@@ -1,5 +1,3 @@
-"use client";
-
 import { FormEvent, MouseEvent, useEffect, useRef } from "react";
 
 type ModalProps = {
@@ -59,7 +57,7 @@ export default function Modal({
       ref={dialogRef}
       onClick={dismiss}
       onCancel={onClose}
-      className="fixed m-auto rounded-md p-4 shadow-lg backdrop:backdrop-blur-sm"
+      className="fixed m-auto mt-20 sm:mt-auto rounded-md p-4 shadow-lg backdrop:backdrop-blur-sm backdrop:overflow-hidden"
     >
       <form
         ref={formRef}

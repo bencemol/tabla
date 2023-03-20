@@ -21,7 +21,7 @@ export default function Button({
   return (
     <button
       type={type}
-      className={` p-2 rounded-md  transition-colors ${variants[variant]} ${className}`}
+      className={`p-2 rounded-md transition-colors ${variants[variant]} ${className}`}
       {...props}
     >
       <span className="flex items-center gap-2">{children}</span>

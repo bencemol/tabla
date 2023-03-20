@@ -1,5 +1,4 @@
 import Sidebar from "../../components/sidebar/Sidebar";
-import styles from "./layout.module.css";
 
 export default async function DashboardLayout({
   children,
@@ -7,7 +6,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className={styles.main}>
+    <main className="flex flex-col sm:grid grid-cols-[auto_minmax(0,1fr)] min-h-screen">
       {/* @ts-expect-error Async Server Component */}
       <Sidebar />
       {children}

@@ -18,7 +18,7 @@ export default function Columns({ boardId, tasks, className }: ColumnsProps) {
 
   return (
     <section
-      className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-x-auto overscroll-contain ${className}`}
+      className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-x-auto overscroll-x-contain ${className}`}
     >
       <SWRConfig value={{ fallback }}>
         {states.map((state) => (

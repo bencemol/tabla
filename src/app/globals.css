@@ -21,6 +21,10 @@ html {
   @apply text-sm;
 }
 
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
 body {
   @apply text-base;
 }
