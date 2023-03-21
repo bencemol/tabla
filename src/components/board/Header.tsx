@@ -15,10 +15,10 @@ type HeaderProps = {
 
 export default function Header({ board, boards }: HeaderProps) {
   return (
-    <header className="flex align-top p-4 border-b-2 border-neutral-100 dark:border-neutral-800">
+    <header className="grid grid-flow-col justify-between items-center auto-cols-max align-top p-4 border-b-2 border-neutral-100 dark:border-neutral-800">
       <Title board={board} className="hidden sm:flex items-center" />
       <MobileNav board={board} boards={boards} className="block sm:hidden" />
-      <CreateTask className="ml-auto" boardId={board.id} />
+      <CreateTask className="" boardId={board.id} />
     </header>
   );
 }
