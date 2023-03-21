@@ -22,7 +22,7 @@ const ActiveLink = ({
       location.href
     ).pathname;
 
-    setIsActive(linkPathname === activePathname);
+    setIsActive(activePathname.startsWith(linkPathname));
   }, [activePathname, props.as, props.href]);
 
   return (

@@ -17,7 +17,7 @@ export default function TaskCard({
       className={`p-2 rounded-md bg-neutral-100 dark:bg-neutral-800 ${className}`}
       {...props}
     >
-      <Link href={`/boards/${task.boardId}?task=${task.id}`} draggable={false}>
+      <Link href={`/boards/${task.boardId}/tasks/${task.id}`} draggable={false}>
         <h3>{task.title}</h3>
         {task.description && (
           <p>

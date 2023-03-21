@@ -3,21 +3,14 @@
 import { Task } from "@prisma/client";
 import { SWRConfig } from "swr";
 import Column from "./Column";
-import EditTask from "./EditTask";
 
 type ColumnsProps = {
   boardId: string;
   tasks: Task[];
-  taskId?: string;
   className: string;
 };
 
-export default function Columns({
-  boardId,
-  tasks,
-  taskId,
-  className,
-}: ColumnsProps) {
+export default function Columns({ boardId, tasks, className }: ColumnsProps) {
   const states = ["TODO", "IN PROGRESS", "DONE"];
   const tasksFallback = tasks.reduce(
     (fallback, task) => ({
@@ -40,7 +33,6 @@ export default function Columns({
           <Column key={state} boardId={boardId} state={state} />
         ))}
       </section>
-      {taskId && <EditTask boardId={boardId} taskId={taskId} />}
     </SWRConfig>
   );
 }

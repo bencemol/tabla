@@ -57,7 +57,7 @@ export default function Modal({
       ref={dialogRef}
       onClick={dismiss}
       onCancel={onClose}
-      className="fixed m-auto mt-20 sm:mt-auto rounded-md border-2 border-black dark:border-neutral-700 shadow-lg bg-white dark:bg-stone-900 backdrop:backdrop-blur-sm backdrop:overflow-hidden will-change-transform animate-in slide-in-from-bottom-3"
+      className="fixed max-w-[50ch] m-auto mt-20 sm:mt-auto rounded-md border-2 border-black dark:border-neutral-700 shadow-lg bg-white dark:bg-stone-900 backdrop:backdrop-blur-sm backdrop:overflow-hidden will-change-transform animate-in slide-in-from-bottom-3"
     >
       <form
         ref={formRef}
