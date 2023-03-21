@@ -25,23 +25,22 @@ export default function CreateTask({
     title: string;
     description?: string;
   }) => {
+    setIsLoading(true);
     const task: Prisma.TaskUncheckedCreateInput = {
       ...data,
       boardId,
       state: "TODO",
     };
-    setIsLoading(true);
     try {
       await fetch(`/api/boards/${boardId}/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(task),
       }).then((res) => res.json());
-      mutate();
+      await mutate();
     } catch (e) {
       console.error(e);
     }
-    setIsLoading(false);
   };
 
   return (
@@ -51,7 +50,7 @@ export default function CreateTask({
         onClick={() => setIsModalOpen(true)}
         variant="primary"
       >
-        <IconPlus size="1.25rem" stroke={1.625} />
+        <IconPlus className="w-6 stroke-2" />
         <span className="hidden sm:inline">Add Task</span>
       </Button>
       <Modal
@@ -83,7 +82,7 @@ export default function CreateTask({
           />
         </section>
         <footer>
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
           <Button type="button" onClick={() => setIsModalOpen(false)}>

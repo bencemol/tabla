@@ -1,6 +1,6 @@
 "use client";
 
-import { useTask } from "@/app/lib/swr";
+import { useTask, useTasks } from "@/app/lib/swr";
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
 import { Prisma } from "@prisma/client";
@@ -10,41 +10,46 @@ import { useState } from "react";
 type EditTaskProps = {
   boardId: string;
   taskId: string;
-  className?: string;
 };
 
-export default function EditTask({
-  boardId,
-  taskId,
-  className = "",
-}: EditTaskProps) {
+export default function EditTask({ boardId, taskId }: EditTaskProps) {
   const router = useRouter();
-  const { data, mutate, error } = useTask(boardId, taskId);
+  const { mutate } = useTasks(boardId);
+  const { data } = useTask(boardId, taskId);
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClose = () => {
-    setIsModalOpen(false);
     router.push(`/boards/${boardId}`);
+    router.refresh();
   };
 
   const handleConfirm = async (data: {
     title: string;
     description?: string;
   }) => {
+    setIsLoading(true);
     const task: Prisma.TaskUpdateInput = {
       ...data,
     };
-    console.log(task);
+    try {
+      await fetch(`/api/boards/${boardId}/tasks/${taskId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(task),
+      }).then((res) => res.json());
+      await mutate();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
     <>
       {data && (
         <Modal
-          title={data.title}
-          isOpen={isModalOpen}
+          title={`Edit ${data.title}`}
+          isOpen={true}
           isLoading={isLoading}
           onClose={handleClose}
           onConfirm={handleConfirm}
@@ -73,7 +78,7 @@ export default function EditTask({
             />
           </section>
           <footer>
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" isLoading={isLoading}>
               Save
             </Button>
             <Button type="button" onClick={handleClose}>

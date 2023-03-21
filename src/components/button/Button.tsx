@@ -1,3 +1,5 @@
+import { IconLoader2 } from "@tabler/icons-react";
+
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: keyof typeof variants;
   isLoading?: boolean;
@@ -22,10 +24,15 @@ export default function Button({
   return (
     <button
       type={type}
-      className={`flex items-center gap-2 p-2 rounded-md transition-colors ${variants[variant]} ${className}`}
+      className={`relative p-2 rounded-md transition-colors ${variants[variant]} ${className}`}
       {...props}
     >
-      {children}
+      <span className={`flex items-center gap-2 ${isLoading && `invisible`}`}>
+        {children}
+      </span>
+      {isLoading && (
+        <IconLoader2 className="absolute w-6 stroke-2 m-auto inset-0 animate-spin" />
+      )}
     </button>
   );
 }

@@ -41,7 +41,7 @@ export default function CreateBoard() {
         variant="primary"
         className="w-full"
       >
-        <IconPlus size="1.25rem" stroke={1.625} />
+        <IconPlus className="w-6 stroke-2" />
         Create Board
       </Button>
       <Modal
@@ -62,7 +62,7 @@ export default function CreateBoard() {
           />
         </section>
         <footer>
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
           <Button type="button" onClick={() => setIsModalOpen(false)}>

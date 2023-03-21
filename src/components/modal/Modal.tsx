@@ -1,4 +1,11 @@
-import { FormEvent, MouseEvent, useEffect, useRef } from "react";
+import {
+  DragEventHandler,
+  FormEvent,
+  MouseEvent,
+  ReactEventHandler,
+  useEffect,
+  useRef,
+} from "react";
 
 type ModalProps = {
   title: string;
@@ -47,19 +54,32 @@ export default function Modal({
 
   const dismiss = (event: MouseEvent<HTMLDialogElement>) => {
     const { target } = event;
-    if (target instanceof HTMLDialogElement && target.nodeName === "DIALOG") {
+    if (
+      !isLoading &&
+      target instanceof HTMLDialogElement &&
+      target.nodeName === "DIALOG"
+    ) {
       onClose();
     }
+  };
+
+  const handleCancel: ReactEventHandler<HTMLDialogElement> = (e) => {
+    if (isLoading) {
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
+    onClose();
   };
 
   return (
     <dialog
       ref={dialogRef}
       onClick={dismiss}
-      onCancel={onClose}
-      className="fixed m-auto my-0 sm:my-auto p-6 bg-transparent backdrop:backdrop-blur-sm backdrop:overflow-hidden will-change-transform animate-in slide-in-from-bottom-3"
+      onCancel={handleCancel}
+      className="fixed w-full max-w-[50ch] m-auto my-0 sm:my-auto p-6 bg-transparent backdrop:backdrop-blur-sm backdrop:overflow-hidden will-change-transform animate-in slide-in-from-bottom-3"
     >
-      <main className="w-full max-w-[50ch] rounded-md border-2 border-black dark:border-neutral-700 shadow-lg bg-white dark:bg-stone-900">
+      <main className="rounded-md border-2 border-black dark:border-neutral-700 shadow-lg bg-white dark:bg-stone-900">
         <form
           ref={formRef}
           onSubmit={confirm}

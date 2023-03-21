@@ -22,7 +22,7 @@ export default function BoardsNav({
               href={`/boards/${id}`}
               className={`flex items-center gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors data-[active=true]:bg-neutral-200 data-[active=true]:hover:bg-neutral-200 data-[active=true]:dark:bg-neutral-600 data-[active=true]:dark:hover:bg-neutral-600 ${linkClassName}`}
             >
-              <IconLayoutBoard size="1.25rem" stroke={1.625} />
+              <IconLayoutBoard className="w-6 stroke-2" />
               {name}
             </ActiveLink>
           </li>
