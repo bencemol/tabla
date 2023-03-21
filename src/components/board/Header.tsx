@@ -1,6 +1,5 @@
 "use client";
 
-import useMediaQuery from "@/app/lib/media-query";
 import Button from "@/components/button/Button";
 import Popover from "@/components/popover/Popover";
 import BoardsNav from "@/components/sidebar/BoardsNav";
@@ -15,27 +14,36 @@ type HeaderProps = {
 };
 
 export default function Header({ board, boards }: HeaderProps) {
-  const isLargerThanMobile = useMediaQuery("(min-width: 640px)");
-
   return (
     <header className="flex align-top p-4 border-b-2 border-neutral-100 dark:border-neutral-800">
-      {isLargerThanMobile ? (
-        <Title board={board} />
-      ) : (
-        <MobileNav board={board} boards={boards} />
-      )}
+      <Title board={board} className="hidden sm:flex items-center" />
+      <MobileNav board={board} boards={boards} className="block sm:hidden" />
       <CreateTask className="ml-auto" boardId={board.id} />
     </header>
   );
 }
 
-const Title = ({ board }: { board: Board }) => <h1>{board.name}</h1>;
+const Title = ({
+  board,
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement> & {
+  board: Board;
+}) => (
+  <h1 className={className} {...props}>
+    {board.name}
+  </h1>
+);
 
-const MobileNav = ({ board, boards }: { board: Board; boards: Board[] }) => {
+const MobileNav = ({
+  board,
+  boards,
+  className,
+}: React.HTMLAttributes<HTMLElement> & { board: Board; boards: Board[] }) => {
   const [isBoardNavOpen, setIsBoardNavOpen] = useState(false);
   const toggleBoardNav = () => setIsBoardNavOpen((isOpen) => !isOpen);
   return (
-    <Button variant="flat" onClick={toggleBoardNav}>
+    <Button variant="flat" onClick={toggleBoardNav} className={className}>
       <Title board={board} />
       <IconChevronDown />
       <Popover isOpen={isBoardNavOpen}>
