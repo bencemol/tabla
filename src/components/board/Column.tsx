@@ -58,7 +58,7 @@ export default function Column({
 
   return (
     <section className="flex flex-col" key={state}>
-      <h5 className="mb-3">{state}</h5>
+      <h5 className="pb-3 sticky top-0 bg-white dark:bg-stone-900">{state}</h5>
       <ul className="grow flex flex-col">
         {tasks?.map((task, index) => (
           <Draggable
