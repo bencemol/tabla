@@ -27,11 +27,11 @@ export default function CreateBoard() {
     } catch (e) {
       console.error(e);
     }
-    setIsFetching(false);
     startTransition(() => {
       router.push(`/boards/${board.id}`);
       router.refresh();
     });
+    setIsFetching(false);
   };
 
   return (
@@ -65,9 +65,7 @@ export default function CreateBoard() {
           <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
-          <Button type="button" onClick={() => setIsModalOpen(false)}>
-            Cancel
-          </Button>
+          <Button onClick={() => setIsModalOpen(false)}>Cancel</Button>
         </footer>
       </Modal>
     </>

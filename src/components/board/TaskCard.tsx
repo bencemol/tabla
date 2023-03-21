@@ -12,15 +12,16 @@ export default function TaskCard({
 }: TaskProps) {
   const router = useRouter();
   const charWidth = 60;
+  const taskUrl = `/boards/${task.boardId}/tasks/${task.id}`;
 
-  const handleClick = () => {
-    router.push(`/boards/${task.boardId}/tasks/${task.id}`);
-  };
+  const editTask = () => router.push(taskUrl);
+  const prefetchTask = () => router.prefetch(taskUrl);
 
   return (
     <button
       className={`p-2 rounded-md bg-neutral-100 dark:bg-neutral-800 text-left ${className}`}
-      onClick={handleClick}
+      onClick={editTask}
+      onMouseOver={prefetchTask}
       {...props}
     >
       <article>

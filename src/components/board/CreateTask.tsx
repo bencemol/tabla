@@ -41,6 +41,7 @@ export default function CreateTask({
     } catch (e) {
       console.error(e);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -85,9 +86,7 @@ export default function CreateTask({
           <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
-          <Button type="button" onClick={() => setIsModalOpen(false)}>
-            Cancel
-          </Button>
+          <Button onClick={() => setIsModalOpen(false)}>Cancel</Button>
         </footer>
       </Modal>
     </>

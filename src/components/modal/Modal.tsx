@@ -9,7 +9,7 @@ import {
 type ModalProps = {
   title: string;
   isOpen: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
   onConfirm?: (data: any) => Promise<void>;
   onClose?: () => void;
   children: React.ReactNode;
@@ -83,7 +83,7 @@ export default function Modal({
           ref={formRef}
           onSubmit={confirm}
           autoComplete="off"
-          className="grid gap-8 p-4 [&>footer]:flex [&>footer]:justify-end [&>footer]:flex-wrap [&>footer]:gap-3"
+          className="relative grid gap-8 p-4 [&>footer]:flex [&>footer]:justify-end [&>footer]:flex-wrap [&>footer]:gap-3"
         >
           <header className="-m-4 p-4 pb-4 border-t-8 bg-white dark:bg-stone-900 border-black dark:border-neutral-700">
             <h2>{title}</h2>

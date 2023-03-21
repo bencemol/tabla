@@ -24,3 +24,8 @@ export async function PATCH(
   });
   return new Response(JSON.stringify(task), { status: 200, statusText: "Ok" });
 }
+
+export async function DELETE(_: NextRequest, { params: { taskId } }: Options) {
+  await db.task.delete({ where: { id: taskId } });
+  return new Response(null, { status: 200, statusText: "Ok" });
+}
