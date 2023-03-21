@@ -11,7 +11,6 @@ export async function GET(_: NextRequest, { params: { boardId } }: Options) {
     where: { boardId },
     orderBy: { priority: "asc" },
   });
-  await new Promise((res) => setTimeout(res, 4000));
   return new Response(JSON.stringify(tasks), { status: 200, statusText: "Ok" });
 }
 

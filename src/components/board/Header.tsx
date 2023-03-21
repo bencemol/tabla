@@ -1,9 +1,9 @@
 "use client";
 
+import CreateTask from "@/components/board/CreateTask";
 import Button from "@/components/button/Button";
 import Popover from "@/components/popover/Popover";
 import BoardsNav from "@/components/sidebar/BoardsNav";
-import CreateTask from "@/components/task/CreateTask";
 import { Board } from "@prisma/client";
 import { IconChevronDown } from "@tabler/icons-react";
 import { useState } from "react";

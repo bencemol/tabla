@@ -47,33 +47,44 @@ async function generateTasks() {
 
 type BoardProps = {
   params: {
-    id: string;
+    boardId: string;
+  };
+  searchParams: {
+    task?: string;
   };
 };
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: BoardProps): Promise<Metadata> {
-  const board = await getBoard(params.id);
+  const board = await getBoard(params.boardId);
   return {
     title: board.name,
   };
 }
 
-export default async function Board({ params }: BoardProps) {
+export default async function Board({
+  params: { boardId },
+  searchParams: { task: taskId },
+}: BoardProps) {
   const [board, boards, tasks] = await Promise.all([
-    getBoard(params.id),
+    getBoard(boardId),
     getBoards(),
-    getTasks(params.id),
+    getTasks(boardId),
   ]);
+
+  console.log({ taskId });
 
   return (
     <section className="grow flex flex-col max-h-screen">
       <Header board={board} boards={boards} />
       <Columns
         className="flex-grow mt-4 px-4"
-        boardId={params.id}
+        boardId={boardId}
         tasks={tasks}
+        taskId={taskId}
       />
     </section>
   );

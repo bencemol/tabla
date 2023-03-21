@@ -12,18 +12,21 @@ type CreateTaskProps = {
   className?: string;
 };
 
-export default function CreateTask({ boardId, className }: CreateTaskProps) {
+export default function CreateTask({
+  boardId,
+  className = "",
+}: CreateTaskProps) {
   const { mutate } = useTasks(boardId);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const onClose = () => setIsModalOpen(false);
-  const onConfirm = async (formData: {
+  const handleClose = () => setIsModalOpen(false);
+  const handleConfirm = async (data: {
     title: string;
     description?: string;
   }) => {
-    const data: Prisma.TaskUncheckedCreateInput = {
-      ...formData,
+    const task: Prisma.TaskUncheckedCreateInput = {
+      ...data,
       boardId,
       state: "TODO",
     };
@@ -32,7 +35,7 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
       await fetch(`/api/boards/${boardId}/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(task),
       }).then((res) => res.json());
       mutate();
     } catch (e) {
@@ -55,8 +58,8 @@ export default function CreateTask({ boardId, className }: CreateTaskProps) {
         title="Add New Task"
         isOpen={isModalOpen}
         isLoading={isLoading}
-        onClose={onClose}
-        onConfirm={onConfirm}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
       >
         <section>
           <label htmlFor="title">Title</label>

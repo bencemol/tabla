@@ -1,4 +1,5 @@
 import { Task } from "@prisma/client";
+import Link from "next/link";
 
 type TaskProps = React.HtmlHTMLAttributes<HTMLDivElement> & {
   task: Task;
@@ -16,13 +17,15 @@ export default function TaskCard({
       className={`p-2 rounded-md bg-neutral-100 dark:bg-neutral-800 ${className}`}
       {...props}
     >
-      <h3>{task.title}</h3>
-      {task.description && (
-        <p>
-          {task.description.slice(0, charWidth) +
-            ((task.description.length ?? 0) > charWidth ? "..." : "")}
-        </p>
-      )}
+      <Link href={`/boards/${task.boardId}?task=${task.id}`} draggable={false}>
+        <h3>{task.title}</h3>
+        {task.description && (
+          <p>
+            {task.description.slice(0, charWidth) +
+              ((task.description.length ?? 0) > charWidth ? "..." : "")}
+          </p>
+        )}
+      </Link>
     </article>
   );
 }
