@@ -1,4 +1,9 @@
 import EditTask from "@/components/board/EditTask";
+import { notFound } from "next/navigation";
+
+async function getTask(id: string) {
+  return db.task.findUnique({ where: { id } });
+}
 
 type TaskProps = {
   params: {
@@ -7,6 +12,12 @@ type TaskProps = {
   };
 };
 
-export default function Task({ params: { boardId, taskId } }: TaskProps) {
-  return <EditTask boardId={boardId} taskId={taskId} />;
+export default async function Task({ params: { boardId, taskId } }: TaskProps) {
+  const task = await getTask(taskId);
+  if (!task) {
+    notFound();
+  }
+  await new Promise((res) => setTimeout(res, 4000));
+
+  return <EditTask boardId={boardId} task={task} />;
 }

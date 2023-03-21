@@ -50,7 +50,7 @@ export default function CreateTask({
         onClick={() => setIsModalOpen(true)}
         variant="primary"
       >
-        <IconPlus className="w-6 stroke-2" />
+        <IconPlus />
         <span className="hidden sm:inline">Add Task</span>
       </Button>
       <Modal

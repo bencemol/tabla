@@ -1,4 +1,4 @@
-import { IconLoader2 } from "@tabler/icons-react";
+import Spinner from "../spinner/Spinner";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: keyof typeof variants;
@@ -30,9 +30,7 @@ export default function Button({
       <span className={`flex items-center gap-2 ${isLoading && `invisible`}`}>
         {children}
       </span>
-      {isLoading && (
-        <IconLoader2 className="absolute w-6 stroke-2 m-auto inset-0 animate-spin" />
-      )}
+      {isLoading && <Spinner />}
     </button>
   );
 }
