@@ -1,3 +1,4 @@
+import { db } from "@/app/db";
 import EditTask from "@/components/board/EditTask";
 import { notFound } from "next/navigation";
 
@@ -17,7 +18,6 @@ export default async function Task({ params: { boardId, taskId } }: TaskProps) {
   if (!task) {
     notFound();
   }
-  await new Promise((res) => setTimeout(res, 4000));
 
   return <EditTask boardId={boardId} task={task} />;
 }

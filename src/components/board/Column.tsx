@@ -4,6 +4,7 @@ import { useTasks } from "@/app/lib/swr";
 import { Task } from "@prisma/client";
 import Draggable, { DropZone } from "./Draggable";
 import TaskCard from "./TaskCard";
+import { useDeferredValue } from "react";
 
 export default function Column({
   boardId,
@@ -14,6 +15,7 @@ export default function Column({
 }) {
   const { data, mutate } = useTasks(boardId);
   const tasks = data?.filter((task) => task.state === state) ?? [];
+  const deferredTasks = useDeferredValue(tasks);
   const moveTask = async (task: Task, state: string, toIndex: number) => {
     if (task.state === state && task.priority === toIndex) {
       return;
@@ -58,9 +60,11 @@ export default function Column({
 
   return (
     <section className="flex flex-col" key={state}>
-      <h5 className="pb-3 sticky top-0 bg-white dark:bg-stone-900">{state}</h5>
+      <h5 className="pb-3 sticky top-0 z-10 bg-white dark:bg-stone-900">
+        {state}
+      </h5>
       <ul className="grow flex flex-col">
-        {tasks?.map((task, index) => (
+        {deferredTasks?.map((task, index) => (
           <Draggable
             key={task.id}
             item={task}

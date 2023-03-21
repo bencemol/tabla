@@ -10,7 +10,6 @@ type Options = {
 
 export async function GET(_: NextRequest, { params: { taskId } }: Options) {
   const task = await db.task.findUnique({ where: { id: taskId } });
-  await new Promise((res) => setTimeout(res, 4000));
   return new Response(JSON.stringify(task), { status: 200, statusText: "Ok" });
 }
 

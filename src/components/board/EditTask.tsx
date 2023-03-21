@@ -16,11 +16,12 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
   const router = useRouter();
   const { mutate } = useTasks(boardId);
 
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClose = () => {
+    setIsModalOpen(false);
     router.push(`/boards/${boardId}`);
-    router.refresh();
   };
 
   const handleConfirm = async (data: {
@@ -28,14 +29,14 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
     description?: string;
   }) => {
     setIsLoading(true);
-    const task: Prisma.TaskUpdateInput = {
+    const payload: Prisma.TaskUpdateInput = {
       ...data,
     };
     try {
       await fetch(`/api/boards/${boardId}/tasks/${task.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(task),
+        body: JSON.stringify(payload),
       }).then((res) => res.json());
       await mutate();
     } catch (e) {
@@ -46,7 +47,7 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
   return (
     <Modal
       title={`Edit ${task.title}`}
-      isOpen={true}
+      isOpen={isModalOpen}
       isLoading={isLoading}
       onClose={handleClose}
       onConfirm={handleConfirm}

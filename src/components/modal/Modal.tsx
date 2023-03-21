@@ -1,5 +1,4 @@
 import {
-  DragEventHandler,
   FormEvent,
   MouseEvent,
   ReactEventHandler,
@@ -11,8 +10,8 @@ type ModalProps = {
   title: string;
   isOpen: boolean;
   isLoading: boolean;
-  onConfirm: (data: any) => Promise<void>;
-  onClose: () => void;
+  onConfirm?: (data: any) => Promise<void>;
+  onClose?: () => void;
   children: React.ReactNode;
 };
 
@@ -48,8 +47,8 @@ export default function Modal({
     event.preventDefault();
     const form = formRef.current!;
     const data = Object.fromEntries(new FormData(form));
-    await onConfirm(data);
-    onClose();
+    await onConfirm?.(data);
+    onClose?.();
   };
 
   const dismiss = (event: MouseEvent<HTMLDialogElement>) => {
@@ -59,7 +58,7 @@ export default function Modal({
       target instanceof HTMLDialogElement &&
       target.nodeName === "DIALOG"
     ) {
-      onClose();
+      onClose?.();
     }
   };
 
@@ -69,7 +68,7 @@ export default function Modal({
       e.preventDefault();
       return;
     }
-    onClose();
+    onClose?.();
   };
 
   return (

@@ -24,7 +24,7 @@ function getTasks(boardId: string) {
 }
 
 async function generateTasks() {
-  const board = await db.board.findFirst({ where: { name: "board 3" } });
+  const board = await db.board.findFirst({ where: { name: "stress test" } });
   if (!board) {
     return;
   }
@@ -33,13 +33,15 @@ async function generateTasks() {
     title: string;
     description: string;
     state: "TODO";
+    priority: number;
   }[] = [];
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 4000; i++) {
     tasks.push({
       boardId: board.id,
       title: `task ${i}`,
       description: `description ${i}`,
       state: "TODO",
+      priority: i,
     });
   }
   await db.task.createMany({ data: tasks });
