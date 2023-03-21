@@ -26,10 +26,12 @@ export default function Button({
   return (
     <button
       type={type}
-      className={`relative p-2 rounded-md transition-colors ${variants[variant]} ${className}`}
+      className={`relative rounded-md transition-colors ${variants[variant]} ${className}`}
       {...props}
     >
-      <span className={`flex items-center gap-2 ${isLoading && `invisible`}`}>
+      <span
+        className={`flex p-2 items-center gap-2 ${isLoading && `invisible`}`}
+      >
         {children}
       </span>
       {isLoading && <Spinner />}
