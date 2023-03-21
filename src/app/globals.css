@@ -71,7 +71,7 @@ form label:has(+ input:invalid:not(:focus)) {
 
 form input,
 form textarea {
-  @apply w-full min-w-[30ch] max-w-[50ch];
+  @apply w-full max-w-[50ch];
   @apply p-2;
   @apply bg-white dark:bg-black;
   @apply border-2 rounded-md border-neutral-300 dark:border-neutral-700;
