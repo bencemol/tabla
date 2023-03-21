@@ -7,6 +7,7 @@ import BoardsNav from "@/components/sidebar/BoardsNav";
 import { Board } from "@prisma/client";
 import { IconChevronDown } from "@tabler/icons-react";
 import { useState } from "react";
+import CreateBoard from "./CreateBoard";
 
 type HeaderProps = {
   board: Board;
@@ -47,6 +48,8 @@ const MobileNav = ({
       <Title board={board} />
       <IconChevronDown />
       <Popover isOpen={isBoardNavOpen}>
+        <CreateBoard className="w-full !bg-transparent hover:!bg-neutral-100 dark:hover:!bg-neutral-700" />
+        <div className="my-1 border-b-2 border-inherit"></div>
         <BoardsNav
           boards={boards}
           linkClassName="data-[active=true]:!bg-transparent data-[active=true]:hover:!bg-neutral-100 data-[active=true]:dark:hover:!bg-neutral-700"

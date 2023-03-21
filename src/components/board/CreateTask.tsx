@@ -52,10 +52,10 @@ export default function CreateTask({
         variant="primary"
       >
         <IconPlus />
-        <span className="hidden sm:inline">Add Task</span>
+        <span className="hidden sm:inline">Create Task</span>
       </Button>
       <Modal
-        title="Add New Task"
+        title="Create New Task"
         isOpen={isModalOpen}
         isLoading={isLoading}
         onClose={handleClose}

@@ -7,7 +7,7 @@ import { IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-export default function CreateBoard() {
+export default function CreateBoard({ className = "" }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -37,9 +37,12 @@ export default function CreateBoard() {
   return (
     <>
       <Button
-        onClick={() => setIsModalOpen(true)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsModalOpen(true);
+        }}
         variant="primary"
-        className="w-full"
+        className={className}
       >
         <IconPlus />
         Create Board
