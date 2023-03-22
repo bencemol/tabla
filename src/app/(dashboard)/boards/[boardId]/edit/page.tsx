@@ -2,7 +2,7 @@ import EditBoard from "@/components/board/EditBoard";
 import { notFound } from "next/navigation";
 
 function getBoard(id: string) {
-  return db.board.findUnique({ where: { id } });
+  return db.board.findUnique({ where: { id }, include: { tasks: true } });
 }
 
 type EditBoardProps = {

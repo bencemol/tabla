@@ -22,6 +22,8 @@ export function DeleteState({
   const [isLoading, setIsLoading] = useState(false);
   const hasTasks = taskState.tasks?.length ?? 0 > 0;
 
+  console.log(taskState);
+
   const handleConfirm = async () => {
     setIsLoading(true);
     try {
@@ -39,24 +41,24 @@ export function DeleteState({
 
   return (
     <Modal
-      title={`Delete ${taskState.name} column`}
+      title={`Delete column ${taskState.name}`}
       isOpen={isOpen}
       isLoading={isLoading}
       onConfirm={handleConfirm}
       onClose={onClose}
     >
-      <section className="h-full grid gap-8" {...props}>
+      <section {...props}>
         <p>
           Are you sure you want to delete the <strong>{taskState.name}</strong>{" "}
           column?
-          {hasTasks && (
-            <p>
-              <strong>{taskState.tasks!.length}</strong> task
-              {taskState.tasks!.length > 1 && "s"} in this column will be
-              deleted with it.
-            </p>
-          )}
         </p>
+        {hasTasks && (
+          <p>
+            <strong>{taskState.tasks!.length}</strong> task
+            {taskState.tasks!.length > 1 ? "s" : ""} in this column will be
+            deleted with it.
+          </p>
+        )}
       </section>
       <footer>
         <Button onClick={onClose}>No</Button>

@@ -2,14 +2,14 @@
 
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
-import { Board, Prisma } from "@prisma/client";
+import { Board, Prisma, Task } from "@prisma/client";
 import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteBoard from "./DeleteBoard";
 
 type EditBoardProps = {
-  board: Board;
+  board: Board & { tasks?: Task[] };
 };
 
 export default function EditBoard({ board }: EditBoardProps) {

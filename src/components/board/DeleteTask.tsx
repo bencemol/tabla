@@ -38,15 +38,16 @@ export default function DeleteTask({
 
   return (
     <Modal
-      title={`Delete ${task.title}`}
+      title={`Delete task ${task.title}`}
       isOpen={isOpen}
       isLoading={isLoading}
       onConfirm={handleConfirm}
       onClose={onClose}
     >
-      <section className="h-full grid gap-8" {...props}>
+      <section {...props}>
         <p>
-          Are you sure you want to delete <strong>{task.title}</strong>?
+          Are you sure you want to delete the <strong>{task.title}</strong>{" "}
+          task?
         </p>
       </section>
       <footer>

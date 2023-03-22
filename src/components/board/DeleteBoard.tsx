@@ -1,10 +1,10 @@
-import { Board } from "@prisma/client";
+import { Board, Task } from "@prisma/client";
 import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
 
 type DeleteBoardProps = {
-  board: Board;
+  board: Board & { tasks?: Task[] };
   isOpen: boolean;
   onConfirm?: () => void;
   onClose?: () => void;
@@ -18,6 +18,8 @@ export default function DeleteBoard({
   ...props
 }: DeleteBoardProps) {
   const [isLoading, setIsLoading] = useState(false);
+
+  const hasTasks = board.tasks?.length ?? 0 > 0;
 
   const handleConfirm = async () => {
     setIsLoading(true);
@@ -35,16 +37,23 @@ export default function DeleteBoard({
 
   return (
     <Modal
-      title={`Delete ${board.name}`}
+      title={`Delete board ${board.name}`}
       isOpen={isOpen}
       isLoading={isLoading}
       onConfirm={handleConfirm}
       onClose={onClose}
     >
-      <section className="h-full grid gap-8" {...props}>
+      <section {...props}>
         <p>
-          Are you sure you want to delete <strong>{board.name}</strong>?
+          Are you sure you want to delete the <strong>{board.name}</strong>{" "}
+          board?
         </p>
+        {hasTasks && (
+          <p>
+            <strong>{board.tasks!.length}</strong> task
+            {board.tasks!.length > 1 ? "s" : ""} will be deleted with it.
+          </p>
+        )}
       </section>
       <footer>
         <Button onClick={onClose}>No</Button>
