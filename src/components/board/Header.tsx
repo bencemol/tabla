@@ -65,7 +65,10 @@ const MobileNav = ({
       <Title board={board} />
       <IconChevronDown />
       <Popover isOpen={isOpen} onClick={toggle}>
-        <CreateBoard className="w-full !bg-transparent hover:!bg-neutral-100 dark:hover:!bg-neutral-700" />
+        <CreateBoard
+          className="w-full !bg-transparent hover:!bg-neutral-100 dark:hover:!bg-neutral-700"
+          onClose={() => setIsOpen(false)}
+        />
         <div className="my-1 border-b-2 border-inherit"></div>
         <BoardsNav
           boards={boards}

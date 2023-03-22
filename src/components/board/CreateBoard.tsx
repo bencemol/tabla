@@ -7,15 +7,18 @@ import { IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-export default function CreateBoard({ className = "" }) {
+export default function CreateBoard({ className = "", onClose = () => {} }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
   const isLoading = isFetching || isPending;
 
-  const onClose = () => setIsModalOpen(false);
-  const onConfirm = async (data: unknown) => {
+  const handleClose = () => {
+    setIsModalOpen(false);
+    onClose();
+  };
+  const handleConfirm = async (data: unknown) => {
     setIsFetching(true);
     let board: Board;
     try {
@@ -30,6 +33,7 @@ export default function CreateBoard({ className = "" }) {
     startTransition(() => {
       router.push(`/boards/${board.id}`);
       router.refresh();
+      onClose();
     });
     setIsFetching(false);
   };
@@ -51,8 +55,8 @@ export default function CreateBoard({ className = "" }) {
         title="Create New Board"
         isOpen={isModalOpen}
         isLoading={isLoading}
-        onClose={onClose}
-        onConfirm={onConfirm}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
       >
         <section>
           <label htmlFor="name">Name</label>
