@@ -1,6 +1,6 @@
 "use client";
 
-import { useTasks } from "@/app/lib/swr";
+import { useTasks } from "@/lib/swr";
 import { Task } from "@prisma/client";
 import Draggable, { DropZone } from "./Draggable";
 import TaskCard from "./TaskCard";

@@ -1,4 +1,4 @@
-import { db } from "@/app/lib/db";
+import { db } from "@/lib/db";
 import EditTask from "@/components/board/EditTask";
 import { notFound } from "next/navigation";
 

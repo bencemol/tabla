@@ -1,6 +1,6 @@
 "use client";
 
-import { useTasks } from "@/app/lib/swr";
+import { useTasks } from "@/lib/swr";
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
 import { Prisma, Task } from "@prisma/client";

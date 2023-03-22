@@ -1,4 +1,4 @@
-import { db } from "@/app/lib/db";
+import { db } from "@/lib/db";
 import CreateBoard from "@/components/board/CreateBoard";
 import BoardsNav from "./BoardsNav";
 

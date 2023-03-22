@@ -1,4 +1,4 @@
-import { useDrag, useDrop } from "@/app/lib/drag-n-drop";
+import { useDrag, useDrop } from "@/lib/drag-n-drop";
 import { ComponentType, ReactNode, SVGProps } from "react";
 import "./Draggable.css";
 
