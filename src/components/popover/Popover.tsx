@@ -1,6 +1,12 @@
 "use client";
 
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import {
+  CSSProperties,
+  HTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 
 type VerticalPos = "top" | "bottom";
@@ -11,13 +17,14 @@ type PopoverProps = {
   children: React.ReactNode;
   pos?: `${VerticalPos}-${HorizontalPos}`;
   className?: string;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
 export default function Popover({
   isOpen,
   children,
   pos = "bottom-left",
   className,
+  ...props
 }: PopoverProps) {
   const wrapper = useRef<HTMLDivElement>(null);
   const [bounds, setBounds] = useState<{
@@ -87,6 +94,7 @@ export default function Popover({
               data-popover
               className={`fixed my-2 p-1 rounded-md border-2 border-black dark:border-neutral-700 shadow-lg z-10 bg-inherit ${className}`}
               style={computedStyle}
+              {...props}
             >
               {children}
             </div>

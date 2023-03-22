@@ -58,13 +58,13 @@ const MobileNav = ({
   boards,
   className,
 }: React.HTMLAttributes<HTMLElement> & { board: Board; boards: Board[] }) => {
-  const [isBoardNavOpen, setIsBoardNavOpen] = useState(false);
-  const toggleBoardNav = () => setIsBoardNavOpen((isOpen) => !isOpen);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen((isOpen) => !isOpen);
   return (
-    <Button variant="flat" onClick={toggleBoardNav} className={className}>
+    <Button variant="flat" onClick={toggle} className={className}>
       <Title board={board} />
       <IconChevronDown />
-      <Popover isOpen={isBoardNavOpen}>
+      <Popover isOpen={isOpen} onClick={toggle}>
         <CreateBoard className="w-full !bg-transparent hover:!bg-neutral-100 dark:hover:!bg-neutral-700" />
         <div className="my-1 border-b-2 border-inherit"></div>
         <BoardsNav
