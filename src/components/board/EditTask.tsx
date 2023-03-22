@@ -7,6 +7,7 @@ import { Prisma, Task } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteTask from "./DeleteTask";
+import { IconTrash } from "@tabler/icons-react";
 
 type EditTaskProps = {
   boardId: string;
@@ -89,7 +90,7 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
             className="-order-1 mr-auto"
             onClick={() => setIsDeleteModalOpen(true)}
           >
-            Delete
+            <IconTrash />
           </Button>
         </footer>
       </Modal>

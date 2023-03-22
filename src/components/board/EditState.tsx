@@ -1,6 +1,7 @@
 "use client";
 
 import { Prisma, TaskState } from "@prisma/client";
+import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../button/Button";
@@ -78,7 +79,7 @@ export default function EditState({
             className={`-order-1 mr-auto ${!canDelete && "hidden"}`}
             onClick={() => setIsDeleteModalOpen(true)}
           >
-            Delete
+            <IconTrash />
           </Button>
         </footer>
       </Modal>

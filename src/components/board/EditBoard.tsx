@@ -3,6 +3,7 @@
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
 import { Board, Prisma } from "@prisma/client";
+import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteBoard from "./DeleteBoard";
@@ -78,7 +79,7 @@ export default function EditBoard({ board }: EditBoardProps) {
             className="-order-1 mr-auto"
             onClick={() => setIsDeleteModalOpen(true)}
           >
-            Delete
+            <IconTrash />
           </Button>
         </footer>
       </Modal>
