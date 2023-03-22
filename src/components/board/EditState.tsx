@@ -74,10 +74,9 @@ export default function EditState({
           </Button>
           <Button onClick={handleUpdate}>Cancel</Button>
           <Button
-            variant="delete"
-            className="-order-1 mr-auto"
+            variant="danger"
+            className={`-order-1 mr-auto ${!canDelete && "hidden"}`}
             onClick={() => setIsDeleteModalOpen(true)}
-            disabled={!canDelete}
           >
             Delete
           </Button>

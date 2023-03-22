@@ -19,7 +19,7 @@ export default function TaskCard({
 
   return (
     <button
-      className={`p-2 rounded-md bg-neutral-100 hover:bg-emerald-100 dark:bg-neutral-800 text-left shadow ${className}`}
+      className={`p-2 rounded-md bg-neutral-100 dark:bg-neutral-800 text-left shadow ${className}`}
       onClick={editTask}
       onMouseOver={prefetchTask}
       style={{

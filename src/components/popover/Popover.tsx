@@ -92,7 +92,7 @@ export default function Popover({
           <>
             <div
               data-popover
-              className={`fixed my-2 p-1 rounded-md border-2 border-black dark:border-neutral-700 shadow-lg z-10 bg-inherit ${className}`}
+              className={`fixed my-2 p-1 rounded-md border-2 border-black dark:border-neutral-700 shadow-lg z-10 bg-inherit animate-in slide-in-from-top-1 ${className}`}
               style={computedStyle}
               {...props}
             >

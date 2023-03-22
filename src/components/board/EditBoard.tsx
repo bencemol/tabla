@@ -74,7 +74,7 @@ export default function EditBoard({ board }: EditBoardProps) {
           </Button>
           <Button onClick={handleUpdate}>Cancel</Button>
           <Button
-            variant="delete"
+            variant="danger"
             className="-order-1 mr-auto"
             onClick={() => setIsDeleteModalOpen(true)}
           >

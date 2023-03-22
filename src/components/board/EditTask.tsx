@@ -85,7 +85,7 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
           </Button>
           <Button onClick={handleClose}>Cancel</Button>
           <Button
-            variant="delete"
+            variant="danger"
             className="-order-1 mr-auto"
             onClick={() => setIsDeleteModalOpen(true)}
           >

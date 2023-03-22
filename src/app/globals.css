@@ -70,7 +70,8 @@ form label:has(+ input:invalid:not(:focus)) {
 }
 
 form input,
-form textarea {
+form textarea,
+form select {
   @apply w-full max-w-[50ch];
   @apply p-2;
   @apply bg-white dark:bg-black;
