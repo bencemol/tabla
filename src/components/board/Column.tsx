@@ -5,6 +5,7 @@ import { Task, TaskState } from "@prisma/client";
 import { IconPencil } from "@tabler/icons-react";
 import Link from "next/link";
 import { useDeferredValue } from "react";
+import CreateTaskInline from "./CreateTaskInline";
 import Draggable, { DropZone } from "./Draggable";
 import TaskCard from "./TaskCard";
 
@@ -91,7 +92,9 @@ export default function Column({ state }: { state: TaskState }) {
         <DropZone
           onDrop={(d: Task) => moveTask(d, tasks.length)}
           className="grow"
-        />
+        >
+          <CreateTaskInline boardId={state.boardId} stateId={state.id} />
+        </DropZone>
       </ul>
     </section>
   );

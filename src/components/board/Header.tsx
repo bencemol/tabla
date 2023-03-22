@@ -1,6 +1,5 @@
 "use client";
 
-import CreateTask from "@/components/board/CreateTask";
 import Button from "@/components/button/Button";
 import Popover from "@/components/popover/Popover";
 import BoardsNav from "@/components/sidebar/BoardsNav";
@@ -10,6 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ContextMenu from "../popover/ContextMenu";
 import CreateBoard from "./CreateBoard";
+import { CreateTask } from "./CreateTask";
 
 type HeaderProps = {
   board: Board;

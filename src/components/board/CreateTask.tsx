@@ -12,23 +12,54 @@ type CreateTaskProps = {
   className?: string;
 };
 
-export default function CreateTask({
-  boardId,
-  className = "",
-}: CreateTaskProps) {
-  const { mutate } = useTasks(boardId);
+export function CreateTask({ boardId, className = "" }: CreateTaskProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <>
+      <Button
+        className={`aspect-square sm:aspect-auto grow-0 ${className}`}
+        onClick={() => setIsModalOpen(true)}
+        variant="primary"
+      >
+        <IconPlus />
+        <span className="hidden sm:inline">Create Task</span>
+      </Button>
+      <CreateTaskModal
+        boardId={boardId}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </>
+  );
+}
+
+type CreateTaskModalProps = {
+  boardId: string;
+  isOpen: boolean;
+  stateId?: string;
+  onClose?: () => void;
+};
+
+export function CreateTaskModal({
+  boardId,
+  isOpen,
+  stateId,
+  onClose,
+}: CreateTaskModalProps) {
+  const { mutate } = useTasks(boardId);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleClose = () => setIsModalOpen(false);
   const handleConfirm = async (data: {
     title: string;
     description?: string;
   }) => {
     setIsLoading(true);
-    const task: Omit<Prisma.TaskUncheckedCreateInput, "stateId"> = {
+    const task: Omit<Prisma.TaskUncheckedCreateInput, "stateId"> &
+      Partial<Pick<Prisma.TaskUncheckedCreateInput, "stateId">> = {
       ...data,
       boardId,
+      stateId,
     };
     try {
       await fetch(`/api/boards/${boardId}/tasks`, {
@@ -45,19 +76,11 @@ export default function CreateTask({
 
   return (
     <>
-      <Button
-        className={`aspect-square sm:aspect-auto grow-0 ${className}`}
-        onClick={() => setIsModalOpen(true)}
-        variant="primary"
-      >
-        <IconPlus />
-        <span className="hidden sm:inline">Create Task</span>
-      </Button>
       <Modal
         title="Create New Task"
-        isOpen={isModalOpen}
+        isOpen={isOpen}
         isLoading={isLoading}
-        onClose={handleClose}
+        onClose={onClose}
         onConfirm={handleConfirm}
       >
         <section>
@@ -85,7 +108,7 @@ export default function CreateTask({
           <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
-          <Button onClick={() => setIsModalOpen(false)}>Cancel</Button>
+          <Button onClick={onClose}>Cancel</Button>
         </footer>
       </Modal>
     </>

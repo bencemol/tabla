@@ -18,14 +18,16 @@ export async function POST(
   request: NextRequest,
   { params: { boardId } }: Options
 ) {
-  const data: Omit<Prisma.TaskUncheckedCreateInput, "stateId"> =
-    await request.json();
-  const firstState = await db.taskState.findFirstOrThrow({
-    where: { boardId: data.boardId },
-    orderBy: { order: "asc" },
-  });
+  const data = await request.json();
+  if (!data.stateId) {
+    const firstState = await db.taskState.findFirstOrThrow({
+      where: { boardId: data.boardId },
+      orderBy: { order: "asc" },
+    });
+    data.stateId = firstState.id;
+  }
   const task = await db.task.create({
-    data: { ...data, boardId, stateId: firstState?.id },
+    data: { ...data, boardId },
   });
   return new Response(JSON.stringify(task), {
     status: 201,

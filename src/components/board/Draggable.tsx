@@ -54,9 +54,11 @@ export default function Draggable<
 
 export function DropZone<Item extends unknown>({
   onDrop,
+  children,
   className = "",
 }: {
   onDrop: (data: Item, over?: "top" | "bottom") => void;
+  children?: React.ReactNode;
   className?: string;
 }) {
   const { handleDragOver, handleDragEnter, handleDragLeave, handleDrop } =
@@ -68,6 +70,8 @@ export function DropZone<Item extends unknown>({
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop(onDrop)}
-    ></div>
+    >
+      {children}
+    </div>
   );
 }
