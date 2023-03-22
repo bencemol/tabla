@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import EditTask from "@/components/board/EditTask";
 import { notFound } from "next/navigation";
 
-async function getTask(id: string) {
+function getTask(id: string) {
   return db.task.findUnique({ where: { id } });
 }
 

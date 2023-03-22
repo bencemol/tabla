@@ -5,8 +5,10 @@ import Button from "@/components/button/Button";
 import Popover from "@/components/popover/Popover";
 import BoardsNav from "@/components/sidebar/BoardsNav";
 import { Board } from "@prisma/client";
-import { IconChevronDown } from "@tabler/icons-react";
+import { IconChevronDown, IconPencil } from "@tabler/icons-react";
+import Link from "next/link";
 import { useState } from "react";
+import ContextMenu from "../popover/ContextMenu";
 import CreateBoard from "./CreateBoard";
 
 type HeaderProps = {
@@ -19,7 +21,22 @@ export default function Header({ board, boards }: HeaderProps) {
     <header className="grid grid-flow-col justify-between items-center auto-cols-max align-top p-4 border-b-2 border-neutral-100 dark:border-neutral-800">
       <Title board={board} className="hidden sm:flex items-center" />
       <MobileNav board={board} boards={boards} className="block sm:hidden" />
-      <CreateTask className="" boardId={board.id} />
+      <section className="flex gap-3">
+        <CreateTask className="" boardId={board.id} />
+        <ContextMenu>
+          <nav>
+            <ul>
+              <Link
+                href={`/boards/${board.id}/edit`}
+                className={`flex items-center gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors`}
+              >
+                <IconPencil />
+                Edit board
+              </Link>
+            </ul>
+          </nav>
+        </ContextMenu>
+      </section>
     </header>
   );
 }

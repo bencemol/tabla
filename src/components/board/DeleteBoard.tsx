@@ -1,34 +1,31 @@
-import { Task } from "@prisma/client";
+import { Board } from "@prisma/client";
+import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
-import { useState } from "react";
-import { useTasks } from "@/lib/swr";
 
-type DeleteTaskProps = {
-  task: Task;
+type DeleteBoardProps = {
+  board: Board;
   isOpen: boolean;
   onConfirm?: () => void;
   onClose?: () => void;
 } & React.HTMLAttributes<HTMLElement>;
 
-export default function DeleteTask({
-  task,
+export default function DeleteBoard({
+  board,
   isOpen,
   onConfirm,
   onClose,
   ...props
-}: DeleteTaskProps) {
-  const { mutate } = useTasks(task.boardId);
+}: DeleteBoardProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleConfirm = async () => {
     setIsLoading(true);
     try {
-      await fetch(`/api/boards/${task.boardId}/tasks/${task.id}`, {
+      await fetch(`/api/boards/${board.id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
-      await mutate();
       onConfirm?.();
     } catch (e) {
       console.error(e);
@@ -38,7 +35,7 @@ export default function DeleteTask({
 
   return (
     <Modal
-      title={`Delete ${task.title}`}
+      title={`Delete ${board.name}`}
       isOpen={isOpen}
       isLoading={isLoading}
       onConfirm={handleConfirm}
@@ -46,7 +43,7 @@ export default function DeleteTask({
     >
       <section className="h-full grid gap-8" {...props}>
         <p>
-          Are you sure you want to delete <strong>{task.title}</strong>?
+          Are you sure you want to delete <strong>{board.name}</strong>?
         </p>
       </section>
       <footer>

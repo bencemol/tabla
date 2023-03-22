@@ -1,13 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+"use client";
+
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+
+type VerticalPos = "top" | "bottom";
+type HorizontalPos = "left" | "right";
 
 type PopoverProps = {
   isOpen: boolean;
   children: React.ReactNode;
+  pos?: `${VerticalPos}-${HorizontalPos}`;
   className?: string;
 };
 
-export default function Popover({ isOpen, children, className }: PopoverProps) {
+export default function Popover({
+  isOpen,
+  children,
+  pos = "bottom-left",
+  className,
+}: PopoverProps) {
   const wrapper = useRef<HTMLDivElement>(null);
   const [bounds, setBounds] = useState<{
     top: number;
@@ -15,15 +26,56 @@ export default function Popover({ isOpen, children, className }: PopoverProps) {
     bottom: number;
     right: number;
   }>();
+  const [computedStyle, setComputedStyle] = useState<CSSProperties>();
+
+  const computeStyle = () => {
+    if (!bounds) {
+      return;
+    }
+    switch (pos) {
+      case "bottom-left":
+        setComputedStyle({
+          top: `${bounds.bottom}px`,
+          left: `${bounds.left}px`,
+        });
+        break;
+      case "bottom-right":
+        setComputedStyle({
+          top: `${bounds.bottom}px`,
+          right: `${window.innerWidth - bounds.right}px`,
+        });
+        break;
+      case "top-left":
+        setComputedStyle({
+          bottom: `${window.innerHeight - bounds.top}px`,
+          left: `${bounds.left}px`,
+        });
+        break;
+      case "top-right":
+        setComputedStyle({
+          bottom: `${window.innerHeight - bounds.top}px`,
+          right: `${window.innerWidth - bounds.right}px`,
+        });
+        break;
+      default:
+        throw Error("Unknown Popover position:", pos);
+    }
+  };
 
   useEffect(() => {
     if (!wrapper.current || !isOpen) {
       return;
     }
-    const { top, left, bottom, right } =
-      wrapper.current.parentElement!.getBoundingClientRect();
+    const rect = wrapper.current.parentElement!.getBoundingClientRect();
+    const { top, left, bottom, right } = rect;
     setBounds({ top, left, bottom, right });
   }, [isOpen]);
+
+  useEffect(
+    () => computeStyle(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pos, bounds?.top, bounds?.left, bounds?.bottom, bounds?.right]
+  );
 
   return (
     <div ref={wrapper} className="hidden">
@@ -34,7 +86,7 @@ export default function Popover({ isOpen, children, className }: PopoverProps) {
             <div
               data-popover
               className={`fixed my-2 p-1 rounded-md border-2 border-black dark:border-neutral-700 shadow-lg z-10 bg-inherit ${className}`}
-              style={{ top: `${bounds.bottom}px`, left: `${bounds.left}px` }}
+              style={computedStyle}
             >
               {children}
             </div>
