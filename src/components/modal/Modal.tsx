@@ -76,7 +76,7 @@ export default function Modal({
       ref={dialogRef}
       onClick={dismiss}
       onCancel={handleCancel}
-      className="fixed w-full max-w-[50ch] m-auto my-0 sm:my-auto p-6 bg-transparent backdrop:backdrop-blur-sm backdrop:overflow-hidden will-change-transform animate-in slide-in-from-bottom-3"
+      className="fixed w-full max-w-[50ch] m-auto my-0 sm:my-auto p-6 bg-transparent backdrop:backdrop-blur-sm backdrop:overflow-hidden will-change-contents animate-in slide-in-from-bottom-3"
     >
       <main className="rounded-md border-2 border-black dark:border-neutral-700 shadow-lg bg-white dark:bg-stone-900">
         <form
