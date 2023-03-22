@@ -1,26 +1,26 @@
 "use client";
 
 import { useTasks } from "@/lib/swr";
-import { Task } from "@prisma/client";
+import { Task, TaskState } from "@prisma/client";
+import { useDeferredValue } from "react";
 import Draggable, { DropZone } from "./Draggable";
 import TaskCard from "./TaskCard";
-import { useDeferredValue } from "react";
 
 export default function Column({
   boardId,
   state,
 }: {
   boardId: string;
-  state: string;
+  state: TaskState;
 }) {
   const { data, mutate } = useTasks(boardId);
-  const tasks = data?.filter((task) => task.state === state) ?? [];
+  const tasks = data?.filter((task) => task.stateId === state.id) ?? [];
   const deferredTasks = useDeferredValue(tasks);
-  const moveTask = async (task: Task, state: string, toIndex: number) => {
-    if (task.state === state && task.priority === toIndex) {
+  const moveTask = async (task: Task, toIndex: number) => {
+    if (task.stateId === state.id && task.priority === toIndex) {
       return;
     }
-    task.state = state;
+    task.stateId = state.id;
     task.priority = toIndex;
     const fromIndex = tasks.findIndex(({ id }) => id === task.id);
     if (fromIndex >= 0) {
@@ -32,7 +32,7 @@ export default function Column({
     tasks?.splice(toIndex, 0, task);
     const sortedTasks =
       tasks
-        ?.filter((task) => task.state === state)
+        ?.filter((task) => task.stateId === state.id)
         .map((task, priority) => ({
           ...task,
           priority,
@@ -43,7 +43,7 @@ export default function Column({
   const updateTasks = async (tasks: Task[], movedTaskId: string) => {
     mutate(
       [
-        ...data!.filter((t) => t.state !== state && t.id !== movedTaskId), // fast deduplication
+        ...data!.filter((t) => t.stateId !== state.id && t.id !== movedTaskId), // fast deduplication
         ...tasks,
       ],
       {
@@ -59,9 +59,9 @@ export default function Column({
   };
 
   return (
-    <section className="flex flex-col" key={state}>
-      <h5 className="pb-3 sticky top-0 z-10 bg-white dark:bg-stone-900">
-        {state}
+    <section className="flex flex-col" key={state.id}>
+      <h5 className="pb-3 uppercase sticky top-0 z-10 bg-white dark:bg-stone-900">
+        {state.name}
       </h5>
       <ul className="grow flex flex-col">
         {deferredTasks?.map((task, index) => (
@@ -71,14 +71,14 @@ export default function Column({
             onDrop={(d, o) => {
               const i =
                 o === "bottom" ? Math.min(index + 1, tasks.length) : index;
-              moveTask(d, state, i);
+              moveTask(d, i);
             }}
           >
             <TaskCard task={task} className="mb-3" />
           </Draggable>
         ))}
         <DropZone
-          onDrop={(d: Task) => moveTask(d, state, tasks.length)}
+          onDrop={(d: Task) => moveTask(d, tasks.length)}
           className="grow"
         />
       </ul>

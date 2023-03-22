@@ -16,6 +16,13 @@ async function getBoard(id: string) {
   return board;
 }
 
+function getStates(boardId: string) {
+  return db.taskState.findMany({
+    where: { boardId },
+    orderBy: { order: "asc" },
+  });
+}
+
 function getTasks(boardId: string) {
   return db.task.findMany({
     where: { boardId },
@@ -23,29 +30,29 @@ function getTasks(boardId: string) {
   });
 }
 
-async function generateTasks() {
-  const board = await db.board.findFirst({ where: { name: "stress test" } });
-  if (!board) {
-    return;
-  }
-  const tasks: {
-    boardId: string;
-    title: string;
-    description: string;
-    state: "TODO";
-    priority: number;
-  }[] = [];
-  for (let i = 0; i < 4000; i++) {
-    tasks.push({
-      boardId: board.id,
-      title: `task ${i}`,
-      description: `description ${i}`,
-      state: "TODO",
-      priority: i,
-    });
-  }
-  await db.task.createMany({ data: tasks });
-}
+// async function generateTasks() {
+//   const board = await db.board.findFirst({ where: { name: "stress test" } });
+//   if (!board) {
+//     return;
+//   }
+//   const tasks: {
+//     boardId: string;
+//     title: string;
+//     description: string;
+//     state: "TODO";
+//     priority: number;
+//   }[] = [];
+//   for (let i = 0; i < 4000; i++) {
+//     tasks.push({
+//       boardId: board.id,
+//       title: `task ${i}`,
+//       description: `description ${i}`,
+//       state: "TODO",
+//       priority: i,
+//     });
+//   }
+//   await db.task.createMany({ data: tasks });
+// }
 
 type BoardProps = {
   params: {
@@ -69,9 +76,10 @@ export default async function BoardLayout({
   params: { boardId },
   children,
 }: BoardProps) {
-  const [board, boards, tasks] = await Promise.all([
+  const [board, boards, states, tasks] = await Promise.all([
     getBoard(boardId),
     getBoards(),
+    getStates(boardId),
     getTasks(boardId),
   ]);
 
@@ -81,6 +89,7 @@ export default async function BoardLayout({
       <Columns
         className="flex-grow mt-4 px-4"
         boardId={boardId}
+        states={states}
         tasks={tasks}
       />
       {children}

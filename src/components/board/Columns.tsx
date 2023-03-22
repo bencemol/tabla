@@ -1,6 +1,6 @@
 "use client";
 
-import { Task } from "@prisma/client";
+import { Task, TaskState } from "@prisma/client";
 import { SWRConfig } from "swr";
 import Column from "./Column";
 import { useDeferredValue } from "react";
@@ -8,11 +8,16 @@ import { useDeferredValue } from "react";
 type ColumnsProps = {
   boardId: string;
   tasks: Task[];
+  states: TaskState[];
   className: string;
 };
 
-export default function Columns({ boardId, tasks, className }: ColumnsProps) {
-  const states = ["TODO", "IN PROGRESS", "DONE"];
+export default function Columns({
+  boardId,
+  tasks,
+  states,
+  className,
+}: ColumnsProps) {
   const tasksFallback = tasks.reduce(
     (fallback, task) => ({
       ...fallback,
@@ -33,7 +38,7 @@ export default function Columns({ boardId, tasks, className }: ColumnsProps) {
         className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-x-auto overscroll-x-contain ${className}`}
       >
         {states.map((state) => (
-          <Column key={state} boardId={boardId} state={state} />
+          <Column key={state.id} boardId={boardId} state={state} />
         ))}
       </section>
     </SWRConfig>

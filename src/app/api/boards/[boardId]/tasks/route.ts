@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Task } from "@prisma/client";
+import { Prisma, Task } from "@prisma/client";
 import { NextRequest } from "next/server";
 
 type Options = {
@@ -18,8 +18,15 @@ export async function POST(
   request: NextRequest,
   { params: { boardId } }: Options
 ) {
-  const data = await request.json();
-  const task = await db.task.create({ data: { ...data, boardId } });
+  const data: Omit<Prisma.TaskUncheckedCreateInput, "stateId"> =
+    await request.json();
+  const firstState = await db.taskState.findFirstOrThrow({
+    where: { boardId: data.boardId },
+    orderBy: { order: "asc" },
+  });
+  const task = await db.task.create({
+    data: { ...data, boardId, stateId: firstState?.id },
+  });
   return new Response(JSON.stringify(task), {
     status: 201,
     statusText: "Created",

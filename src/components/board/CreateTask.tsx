@@ -1,8 +1,8 @@
 "use client";
 
-import { useTasks } from "@/lib/swr";
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
+import { useTasks } from "@/lib/swr";
 import { Prisma } from "@prisma/client";
 import { IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
@@ -26,10 +26,9 @@ export default function CreateTask({
     description?: string;
   }) => {
     setIsLoading(true);
-    const task: Prisma.TaskUncheckedCreateInput = {
+    const task: Omit<Prisma.TaskUncheckedCreateInput, "stateId"> = {
       ...data,
       boardId,
-      state: "TODO",
     };
     try {
       await fetch(`/api/boards/${boardId}/tasks`, {

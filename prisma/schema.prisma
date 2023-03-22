@@ -54,17 +54,28 @@ model VerificationToken {
 }
 
 model Board {
-  id    String @id @default(cuid())
-  name  String
-  tasks Task[]
+  id     String      @id @default(cuid())
+  name   String
+  tasks  Task[]
+  states TaskState[]
 }
 
 model Task {
-  id          String  @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
   description String?
-  state       String
-  board       Board   @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  board       Board     @relation(fields: [boardId], references: [id], onDelete: Cascade)
   boardId     String
-  priority    Int     @default(autoincrement())
+  priority    Int       @default(autoincrement())
+  state       TaskState @relation(fields: [stateId], references: [id])
+  stateId     String
+}
+
+model TaskState {
+  id      String @id @default(cuid())
+  name    String
+  order   Int    @default(autoincrement())
+  board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  boardId String
+  tasks   Task[]
 }

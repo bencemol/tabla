@@ -9,7 +9,7 @@ type Options = {
 };
 
 export async function GET(_: NextRequest, { params: { taskId } }: Options) {
-  const task = await db.task.findUnique({ where: { id: taskId } });
+  const task = await db.task.findUniqueOrThrow({ where: { id: taskId } });
   return new Response(JSON.stringify(task), { status: 200, statusText: "Ok" });
 }
 
