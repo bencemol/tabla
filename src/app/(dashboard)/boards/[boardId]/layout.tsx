@@ -1,4 +1,4 @@
-import { db } from "@/app/db";
+import { db } from "@/app/lib/db";
 import Columns from "@/components/board/Columns";
 import Header from "@/components/board/Header";
 import { Metadata } from "next";

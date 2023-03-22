@@ -1,4 +1,4 @@
-import { db } from "@/app/db";
+import { db } from "@/app/lib/db";
 import { Task } from "@prisma/client";
 import { NextRequest } from "next/server";
 
