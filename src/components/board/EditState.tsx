@@ -8,13 +8,7 @@ import Button from "../button/Button";
 import Modal from "../modal/Modal";
 import { DeleteState } from "./DeleteState";
 
-export default function EditState({
-  taskState,
-  canDelete,
-}: {
-  taskState: TaskState;
-  canDelete: boolean;
-}) {
+export default function EditState({ taskState }: { taskState: TaskState }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -76,7 +70,7 @@ export default function EditState({
           <Button onClick={handleUpdate}>Cancel</Button>
           <Button
             variant="danger"
-            className={`-order-1 mr-auto ${!canDelete && "hidden"}`}
+            className={`-order-1 mr-auto`}
             onClick={() => setIsDeleteModalOpen(true)}
           >
             <IconTrash />

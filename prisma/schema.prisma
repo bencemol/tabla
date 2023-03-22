@@ -67,7 +67,7 @@ model Task {
   board       Board     @relation(fields: [boardId], references: [id], onDelete: Cascade)
   boardId     String
   priority    Int       @default(autoincrement())
-  state       TaskState @relation(fields: [stateId], references: [id])
+  state       TaskState @relation(fields: [stateId], references: [id], onDelete: Cascade)
   stateId     String
 }
 

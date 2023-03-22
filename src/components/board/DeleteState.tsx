@@ -1,11 +1,11 @@
-import { TaskState } from "@prisma/client";
+import { Task, TaskState } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
 
 type DeleteTaskProps = {
-  taskState: TaskState;
+  taskState: TaskState & { tasks?: Task[] };
   isOpen: boolean;
   onConfirm?: () => void;
   onClose?: () => void;
@@ -20,6 +20,7 @@ export function DeleteState({
 }: DeleteTaskProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const hasTasks = taskState.tasks?.length ?? 0 > 0;
 
   const handleConfirm = async () => {
     setIsLoading(true);
@@ -38,7 +39,7 @@ export function DeleteState({
 
   return (
     <Modal
-      title={`Delete ${taskState.name}`}
+      title={`Delete ${taskState.name} column`}
       isOpen={isOpen}
       isLoading={isLoading}
       onConfirm={handleConfirm}
@@ -46,7 +47,15 @@ export function DeleteState({
     >
       <section className="h-full grid gap-8" {...props}>
         <p>
-          Are you sure you want to delete <strong>{taskState.name}</strong>?
+          Are you sure you want to delete the <strong>{taskState.name}</strong>{" "}
+          column?
+          {hasTasks && (
+            <p>
+              <strong>{taskState.tasks!.length}</strong> task
+              {taskState.tasks!.length > 1 && "s"} in this column will be
+              deleted with it.
+            </p>
+          )}
         </p>
       </section>
       <footer>

@@ -6,10 +6,6 @@ function getTaskState(id: string) {
   return db.taskState.findUnique({ where: { id }, include: { tasks: true } });
 }
 
-function getBoardStateCount(boardId: string) {
-  return db.taskState.count({ where: { boardId } });
-}
-
 type StatesProps = {
   params: {
     boardId: string;
@@ -20,16 +16,10 @@ type StatesProps = {
 export default async function States({
   params: { stateId, boardId },
 }: StatesProps) {
-  const [taskState, stateCount] = await Promise.all([
-    getTaskState(stateId),
-    getBoardStateCount(boardId),
-  ]);
+  const [taskState] = await Promise.all([getTaskState(stateId)]);
   if (!taskState) {
     notFound();
   }
 
-  const stateHasTasks = taskState.tasks.length < 1;
-
-  const canDelete = stateHasTasks && stateCount > 1;
-  return <EditState taskState={taskState} canDelete={canDelete} />;
+  return <EditState taskState={taskState} />;
 }
