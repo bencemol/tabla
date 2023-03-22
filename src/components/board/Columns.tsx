@@ -4,6 +4,7 @@ import { Task, TaskState } from "@prisma/client";
 import { SWRConfig } from "swr";
 import Column from "./Column";
 import { useDeferredValue } from "react";
+import CreateState from "./CreateState";
 
 type ColumnsProps = {
   boardId: string;
@@ -40,6 +41,7 @@ export default function Columns({
         {states.map((state) => (
           <Column key={state.id} boardId={boardId} state={state} />
         ))}
+        <CreateState boardId={boardId} />
       </section>
     </SWRConfig>
   );
