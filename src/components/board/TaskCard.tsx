@@ -11,7 +11,7 @@ export default function TaskCard({
   ...props
 }: TaskProps) {
   const router = useRouter();
-  const charWidth = 60;
+  const charLength = 60;
   const taskUrl = `/boards/${task.boardId}/tasks/${task.id}`;
 
   const editTask = () => router.push(taskUrl);
@@ -19,17 +19,21 @@ export default function TaskCard({
 
   return (
     <button
-      className={`p-2 rounded-md bg-neutral-100 dark:bg-neutral-800 text-left ${className}`}
+      className={`p-2 rounded-md bg-neutral-100 hover:bg-emerald-100 dark:bg-neutral-800 text-left shadow ${className}`}
       onClick={editTask}
       onMouseOver={prefetchTask}
+      style={{
+        transitionProperty:
+          "transform, color, background-color, border-color, text-decoration-color, fill, stroke",
+      }}
       {...props}
     >
       <article>
         <h3>{task.title}</h3>
         {task.description && (
           <p>
-            {task.description.slice(0, charWidth) +
-              ((task.description.length ?? 0) > charWidth ? "..." : "")}
+            {task.description.slice(0, charLength) +
+              ((task.description.length ?? 0) > charLength ? "..." : "")}
           </p>
         )}
       </article>

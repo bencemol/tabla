@@ -1,42 +1,43 @@
 "use client";
 
-import Button from "@/components/button/Button";
-import Modal from "@/components/modal/Modal";
-import { Board, Prisma } from "@prisma/client";
+import { Prisma, TaskState } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import DeleteBoard from "./DeleteBoard";
+import Button from "../button/Button";
+import Modal from "../modal/Modal";
+import { DeleteState } from "./DeleteState";
 
-type EditBoardProps = {
-  board: Board;
-};
-
-export default function EditBoard({ board }: EditBoardProps) {
+export default function EditState({
+  taskState,
+  canDelete,
+}: {
+  taskState: TaskState;
+  canDelete: boolean;
+}) {
   const router = useRouter();
-
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUpdate = () => {
     setIsModalOpen(false);
-    router.push(`/boards/${board.id}`);
+    router.push(`/boards/${taskState.boardId}`);
     router.refresh();
   };
 
   const handleDelete = () => {
     setIsModalOpen(false);
-    router.push("/");
+    router.push(`/boards/${taskState.boardId}`);
     router.refresh();
   };
 
   const handleConfirm = async (data: { name: string }) => {
     setIsLoading(true);
-    const payload: Prisma.BoardUpdateInput = {
+    const payload: Prisma.TaskStateUpdateInput = {
       ...data,
     };
     try {
-      await fetch(`/api/boards/${board.id}`, {
+      await fetch(`/api/boards/${taskState.boardId}/states/${taskState.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -47,11 +48,10 @@ export default function EditBoard({ board }: EditBoardProps) {
     }
     setIsLoading(false);
   };
-
   return (
     <>
       <Modal
-        title={`Edit ${board.name}`}
+        title={`Edit ${taskState.name}`}
         isOpen={isModalOpen}
         isLoading={isLoading}
         onClose={handleUpdate}
@@ -63,9 +63,9 @@ export default function EditBoard({ board }: EditBoardProps) {
             id="name"
             name="name"
             type="text"
-            placeholder="e.g. Roadmap"
+            placeholder="e.g. Ready to Deploy"
             required
-            defaultValue={board.name}
+            defaultValue={taskState.name}
           />
         </section>
         <footer>
@@ -77,13 +77,14 @@ export default function EditBoard({ board }: EditBoardProps) {
             variant="delete"
             className="-order-1 mr-auto"
             onClick={() => setIsDeleteModalOpen(true)}
+            disabled={!canDelete}
           >
             Delete
           </Button>
         </footer>
       </Modal>
-      <DeleteBoard
-        board={board}
+      <DeleteState
+        taskState={taskState}
         isOpen={isDeleteModalOpen}
         onConfirm={handleDelete}
         onClose={() => setIsDeleteModalOpen(false)}

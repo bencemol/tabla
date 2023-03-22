@@ -2,18 +2,15 @@
 
 import { useTasks } from "@/lib/swr";
 import { Task, TaskState } from "@prisma/client";
+import { IconPencil } from "@tabler/icons-react";
+import Link from "next/link";
 import { useDeferredValue } from "react";
 import Draggable, { DropZone } from "./Draggable";
 import TaskCard from "./TaskCard";
 
-export default function Column({
-  boardId,
-  state,
-}: {
-  boardId: string;
-  state: TaskState;
-}) {
-  const { data, mutate } = useTasks(boardId);
+export default function Column({ state }: { state: TaskState }) {
+  const charLength = 38;
+  const { data, mutate } = useTasks(state.boardId);
   const tasks = data?.filter((task) => task.stateId === state.id) ?? [];
   const deferredTasks = useDeferredValue(tasks);
   const moveTask = async (task: Task, toIndex: number) => {
@@ -50,7 +47,7 @@ export default function Column({
         revalidate: false,
       }
     );
-    await fetch(`/api/boards/${boardId}/tasks`, {
+    await fetch(`/api/boards/${state.boardId}/tasks`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(tasks),
@@ -59,10 +56,24 @@ export default function Column({
   };
 
   return (
-    <section className="flex flex-col" key={state.id}>
-      <h5 className="pb-3 uppercase sticky top-0 z-10 bg-white dark:bg-stone-900">
-        {state.name}
-      </h5>
+    <section
+      className="flex flex-col [&:hover_.edit]:opacity-100"
+      key={state.id}
+    >
+      <header className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-stone-900">
+        <h5 className="uppercase mr-1">
+          {state.name.slice(0, charLength) +
+            ((state.name.length ?? 0) > charLength ? "..." : "")}
+        </h5>
+        <span className="edit ml-auto sm:opacity-0 sm:focus-within:opacity-100 transition-opacity">
+          <Link
+            href={`/boards/${state.boardId}/states/${state.id}`}
+            className="block p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-700"
+          >
+            <IconPencil size={16} stroke={1.5} />
+          </Link>
+        </span>
+      </header>
       <ul className="grow flex flex-col">
         {deferredTasks?.map((task, index) => (
           <Draggable

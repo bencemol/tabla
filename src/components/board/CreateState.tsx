@@ -1,8 +1,8 @@
 import { Prisma } from "@prisma/client";
-import { IconPlus } from "@tabler/icons-react";
+import { IconDotsVertical, IconPlus } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
 import { FormEventHandler, useEffect, useRef, useState } from "react";
 import Button from "../button/Button";
-import { useRouter } from "next/navigation";
 
 export default function CreateState({ boardId }: { boardId: string }) {
   const router = useRouter();
@@ -43,9 +43,12 @@ export default function CreateState({ boardId }: { boardId: string }) {
 
   return (
     <Column>
-      <h5 className="pb-3 uppercase sticky top-0 z-10 bg-white dark:bg-stone-900 transition-colors">
-        Create Column
-      </h5>
+      <header className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-stone-900">
+        <h5 className="uppercase transition-colors">Create Column</h5>
+        <Button disabled className="invisible">
+          <IconDotsVertical size={16} />
+        </Button>
+      </header>
       {isFormOpen ? (
         <form
           ref={formRef}

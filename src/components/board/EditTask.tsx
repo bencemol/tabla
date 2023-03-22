@@ -50,7 +50,7 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
   return (
     <>
       <Modal
-        title={`${task.title}`}
+        title={`Edit ${task.title}`}
         isOpen={isModalOpen}
         isLoading={isLoading}
         onClose={handleClose}

@@ -1,9 +1,9 @@
 "use client";
 
 import { Task, TaskState } from "@prisma/client";
+import { useDeferredValue } from "react";
 import { SWRConfig } from "swr";
 import Column from "./Column";
-import { useDeferredValue } from "react";
 import CreateState from "./CreateState";
 
 type ColumnsProps = {
@@ -36,10 +36,10 @@ export default function Columns({
   return (
     <SWRConfig value={{ fallback: deferredFallback }}>
       <section
-        className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-3 overflow-x-auto overscroll-x-contain ${className}`}
+        className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-6 overflow-x-auto overscroll-x-contain ${className}`}
       >
         {states.map((state) => (
-          <Column key={state.id} boardId={boardId} state={state} />
+          <Column key={state.id} state={state} />
         ))}
         <CreateState boardId={boardId} />
       </section>
