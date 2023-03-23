@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { WithTimeStamps } from "./WithTimeStamps";
+import { WithTimestamps } from "./WithTimestamps";
 import { WithId } from "./WithId";
 
 export const BoardCreateInput = z.object({
@@ -8,7 +8,7 @@ export const BoardCreateInput = z.object({
 
 export const BoardUpdateInput = BoardCreateInput.partial();
 
-export const Board = BoardCreateInput.merge(WithId).merge(WithTimeStamps);
+export const Board = BoardCreateInput.merge(WithId).merge(WithTimestamps);
 
 export type BoardCreateInput = z.infer<typeof BoardCreateInput>;
 export type BoardUpdateInput = z.infer<typeof BoardUpdateInput>;

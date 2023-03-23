@@ -16,7 +16,7 @@ export async function PATCH(
   const data = BoardUpdateInput.parse(body);
   const board = await db.board.update({
     where: { id: boardId },
-    data: { ...data, id: boardId },
+    data,
   });
   return NextResponse.json(board);
 }

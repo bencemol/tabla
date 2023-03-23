@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { Task, TaskUpdateInput } from "@/models/Task";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
@@ -9,18 +10,20 @@ type Options = {
 };
 
 export async function GET(_: NextRequest, { params: { taskId } }: Options) {
-  const task = await db.task.findUniqueOrThrow({ where: { id: taskId } });
+  const data = await db.task.findUniqueOrThrow({ where: { id: taskId } });
+  const task = Task.parse(data);
   return NextResponse.json(task);
 }
 
 export async function PATCH(
   request: NextRequest,
-  { params: { boardId, taskId } }: Options
+  { params: { taskId } }: Options
 ) {
-  const data = await request.json();
+  const body = await request.json();
+  const data = TaskUpdateInput.parse(body);
   const task = await db.task.update({
     where: { id: taskId },
-    data: { ...data, boardId },
+    data,
   });
   return NextResponse.json(task);
 }

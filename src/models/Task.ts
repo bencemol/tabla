@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { WithTimeStamps } from "./WithTimeStamps";
+import { WithTimestamps } from "./WithTimestamps";
 import { WithId } from "./WithId";
 
 const WithPriority = z.object({
@@ -12,9 +12,8 @@ export const TaskCreateInput = z.object({
   stateId: z.string().optional(),
 });
 
-export const TaskUpdateInput = TaskCreateInput.merge(WithPriority)
-  .partial()
-  .merge(WithId);
+export const TaskUpdateInput = TaskCreateInput.merge(WithPriority).partial();
+export const TaskUpdateManyInput = TaskUpdateInput.merge(WithId).array();
 
 export const Task = TaskCreateInput.extend({
   boardId: z.string(),
@@ -22,8 +21,9 @@ export const Task = TaskCreateInput.extend({
 })
   .merge(WithId)
   .merge(WithPriority)
-  .merge(WithTimeStamps);
+  .merge(WithTimestamps);
 
 export type TaskCreateInput = z.infer<typeof TaskCreateInput>;
 export type TaskUpdateInput = z.infer<typeof TaskUpdateInput>;
+export type TaskUpdateManyInput = z.infer<typeof TaskUpdateManyInput>;
 export type Task = z.infer<typeof Task>;

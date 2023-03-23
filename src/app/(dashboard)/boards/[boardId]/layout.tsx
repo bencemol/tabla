@@ -1,9 +1,10 @@
-import { db } from "@/lib/db";
 import Columns from "@/components/board/Columns";
 import Header from "@/components/board/Header";
+import { db } from "@/lib/db";
+import { Board } from "@/models/Board";
+import { Task } from "@/models/Task";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Board } from "@/models/Board";
 
 async function getBoards() {
   const data = await db.board.findMany({ orderBy: { createdAt: "desc" } });
@@ -25,11 +26,12 @@ function getStates(boardId: string) {
   });
 }
 
-function getTasks(boardId: string) {
-  return db.task.findMany({
+async function getTasks(boardId: string) {
+  const data = await db.task.findMany({
     where: { boardId },
     orderBy: { priority: "asc" },
   });
+  return Task.array().parse(data);
 }
 
 // async function generateTasks() {
@@ -62,8 +64,6 @@ type BoardProps = {
   };
   children: React.ReactNode;
 };
-
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

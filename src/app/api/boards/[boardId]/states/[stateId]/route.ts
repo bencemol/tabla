@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { TaskStateUpdateInput } from "@/models/TaskState";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
@@ -9,10 +9,11 @@ export async function PATCH(
   request: NextRequest,
   { params: { stateId } }: Options
 ) {
-  const data: Prisma.TaskStateUpdateInput = await request.json();
+  const body = await request.json();
+  const data = TaskStateUpdateInput.parse(body);
   const state = await db.taskState.update({
     where: { id: stateId },
-    data: { ...data, id: stateId },
+    data,
   });
   return NextResponse.json(state);
 }

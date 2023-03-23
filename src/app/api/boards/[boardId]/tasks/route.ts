@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Task, TaskCreateInput, TaskUpdateInput } from "@/models/Task";
+import { Task, TaskCreateInput, TaskUpdateManyInput } from "@/models/Task";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
@@ -43,7 +43,7 @@ export async function PATCH(
   { params: { boardId } }: Options
 ) {
   const body = await request.json();
-  const data = TaskUpdateInput.array().parse(body);
+  const data = TaskUpdateManyInput.parse(body);
   const tasks = await db.$transaction(
     data.map((task) =>
       db.task.update({ where: { id: task.id }, data: { ...task, boardId } })
