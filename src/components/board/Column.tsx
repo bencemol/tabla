@@ -63,7 +63,10 @@ export default function Column({ state }: { state: TaskState }) {
       className="flex flex-col [&:hover_.edit]:opacity-100"
       key={state.id}
     >
-      <header className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-stone-900">
+      <header
+        className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-stone-900 shadow-white dark:shadow-bg-stone-900"
+        style={{ boxShadow: "0 -2px 0 3px var(--tw-shadow-color)" }}
+      >
         <h5 className="uppercase mr-1">
           {state.name.slice(0, charLength) +
             ((state.name.length ?? 0) > charLength ? "..." : "")}
@@ -77,7 +80,7 @@ export default function Column({ state }: { state: TaskState }) {
           </Link>
         </span>
       </header>
-      <ul className="grow flex flex-col">
+      <ul className="grow flex flex-col py-2 mb-10">
         {deferredTasks?.map((task, index) => (
           <Draggable
             key={task.id}
