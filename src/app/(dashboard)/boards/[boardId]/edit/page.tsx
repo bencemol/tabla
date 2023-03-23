@@ -1,4 +1,5 @@
 import EditBoard from "@/components/board/EditBoard";
+import { db } from "@/lib/db";
 import { BoardWithTasks } from "@/models/Board";
 import { notFound } from "next/navigation";
 

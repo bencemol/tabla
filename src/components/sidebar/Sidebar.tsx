@@ -1,9 +1,11 @@
 import { db } from "@/lib/db";
 import CreateBoard from "@/components/board/CreateBoard";
 import BoardsNav from "./BoardsNav";
+import { Board } from "@/models/Board";
 
-function getBoards() {
-  return db.board.findMany({ orderBy: { createdAt: "desc" } });
+async function getBoards() {
+  const data = await db.board.findMany({ orderBy: { createdAt: "desc" } });
+  return Board.array().parse(data);
 }
 
 export default async function Sidebar() {
