@@ -14,6 +14,7 @@ export default function Column({ state }: { state: TaskState }) {
   const { data, mutate } = useTasks(state.boardId);
   const tasks = data?.filter((task) => task.stateId === state.id) ?? [];
   const deferredTasks = useDeferredValue(tasks);
+
   const moveTask = async (task: Task, toIndex: number) => {
     if (task.stateId === state.id && task.priority === toIndex) {
       return;

@@ -22,8 +22,6 @@ export function DeleteState({
   const [isLoading, setIsLoading] = useState(false);
   const hasTasks = taskState.tasks?.length ?? 0 > 0;
 
-  console.log(taskState);
-
   const handleConfirm = async () => {
     setIsLoading(true);
     try {

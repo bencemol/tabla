@@ -3,7 +3,7 @@ import CreateBoard from "@/components/board/CreateBoard";
 import BoardsNav from "./BoardsNav";
 
 function getBoards() {
-  return db.board.findMany();
+  return db.board.findMany({ orderBy: { createdAt: "desc" } });
 }
 
 export default async function Sidebar() {

@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 function getBoards() {
-  return db.board.findMany();
+  return db.board.findMany({ orderBy: { createdAt: "desc" } });
 }
 
 async function getBoard(id: string) {
