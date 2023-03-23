@@ -2,7 +2,7 @@
 
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
-import { Board } from "@prisma/client";
+import { Board } from "@/models/Board";
 import { IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";

@@ -3,9 +3,11 @@ import Columns from "@/components/board/Columns";
 import Header from "@/components/board/Header";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Board } from "@/models/Board";
 
-function getBoards() {
-  return db.board.findMany({ orderBy: { createdAt: "desc" } });
+async function getBoards() {
+  const data = await db.board.findMany({ orderBy: { createdAt: "desc" } });
+  return Board.array().parse(data);
 }
 
 async function getBoard(id: string) {
@@ -13,7 +15,7 @@ async function getBoard(id: string) {
   if (!board) {
     notFound();
   }
-  return board;
+  return Board.parse(board);
 }
 
 function getStates(boardId: string) {

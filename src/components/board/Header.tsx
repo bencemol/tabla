@@ -3,7 +3,7 @@
 import Button from "@/components/button/Button";
 import Popover from "@/components/popover/Popover";
 import BoardsNav from "@/components/sidebar/BoardsNav";
-import { Board } from "@prisma/client";
+import { Board } from "@/models/Board";
 import { IconChevronDown, IconPencil } from "@tabler/icons-react";
 import Link from "next/link";
 import { useState } from "react";

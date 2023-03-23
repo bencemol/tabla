@@ -1,4 +1,4 @@
-import { Board } from "@prisma/client";
+import { Board } from "@/models/Board";
 import { IconLayoutBoard } from "@tabler/icons-react";
 import ActiveLink from "./ActiveLink";
 
