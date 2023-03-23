@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
   params: {
@@ -10,7 +10,7 @@ type Options = {
 
 export async function GET(_: NextRequest, { params: { taskId } }: Options) {
   const task = await db.task.findUniqueOrThrow({ where: { id: taskId } });
-  return new Response(JSON.stringify(task), { status: 200, statusText: "Ok" });
+  return NextResponse.json(task);
 }
 
 export async function PATCH(
@@ -22,10 +22,10 @@ export async function PATCH(
     where: { id: taskId },
     data: { ...data, boardId },
   });
-  return new Response(JSON.stringify(task), { status: 200, statusText: "Ok" });
+  return NextResponse.json(task);
 }
 
 export async function DELETE(_: NextRequest, { params: { taskId } }: Options) {
   await db.task.delete({ where: { id: taskId } });
-  return new Response(null, { status: 200, statusText: "Ok" });
+  return NextResponse.json(null);
 }

@@ -1,15 +1,12 @@
 import { db } from "@/lib/db";
 import { Prisma } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
-  const data = await request.json();
+export async function POST(req: NextRequest) {
+  const data = await req.json();
   const board = await db.board.create({ data });
   await addDefaultStates(board.id);
-  return new Response(JSON.stringify(board), {
-    status: 201,
-    statusText: "Created",
-  });
+  return NextResponse.json(board);
 }
 
 const defaultStates = ["todo", "in progress", "done"];

@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { Prisma } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
   params: {
@@ -17,10 +17,10 @@ export async function PATCH(
     where: { id: boardId },
     data: { ...data, id: boardId },
   });
-  return new Response(JSON.stringify(task), { status: 200, statusText: "Ok" });
+  return NextResponse.json(task);
 }
 
 export async function DELETE(_: NextRequest, { params: { boardId } }: Options) {
   await db.board.delete({ where: { id: boardId } });
-  return new Response(null, { status: 200, statusText: "Ok" });
+  return NextResponse.json(null);
 }

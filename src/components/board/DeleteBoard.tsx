@@ -19,7 +19,7 @@ export default function DeleteBoard({
 }: DeleteBoardProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const hasTasks = board.tasks?.length ?? 0 > 0;
+  const hasTasks = (board.tasks?.length ?? 0) > 0;
 
   const handleConfirm = async () => {
     setIsLoading(true);

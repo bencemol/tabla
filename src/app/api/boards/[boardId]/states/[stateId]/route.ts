@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
   params: { boardId: string; stateId: string };
@@ -14,10 +14,10 @@ export async function PATCH(
     where: { id: stateId },
     data: { ...data, id: stateId },
   });
-  return new Response(JSON.stringify(state), { status: 200, statusText: "Ok" });
+  return NextResponse.json(state);
 }
 
 export async function DELETE(_: NextRequest, { params: { stateId } }: Options) {
   await db.taskState.delete({ where: { id: stateId } });
-  return new Response(null, { status: 200, statusText: "Ok" });
+  return NextResponse.json(null);
 }

@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
-import { Prisma, Task } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { Task } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
   params: { boardId: string };
@@ -11,7 +11,7 @@ export async function GET(_: NextRequest, { params: { boardId } }: Options) {
     where: { boardId },
     orderBy: { priority: "asc" },
   });
-  return new Response(JSON.stringify(tasks), { status: 200, statusText: "Ok" });
+  return NextResponse.json(tasks);
 }
 
 export async function POST(
@@ -29,10 +29,7 @@ export async function POST(
   const task = await db.task.create({
     data: { ...data, boardId },
   });
-  return new Response(JSON.stringify(task), {
-    status: 201,
-    statusText: "Created",
-  });
+  return NextResponse.json(task);
 }
 
 export async function PATCH(
@@ -45,8 +42,5 @@ export async function PATCH(
       db.task.update({ where: { id: task.id }, data: { ...task, boardId } })
     )
   );
-  return new Response(JSON.stringify(tasks), {
-    status: 200,
-    statusText: "Ok",
-  });
+  return NextResponse.json(tasks);
 }

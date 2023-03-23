@@ -20,7 +20,7 @@ export function DeleteState({
 }: DeleteTaskProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const hasTasks = taskState.tasks?.length ?? 0 > 0;
+  const hasTasks = (taskState.tasks?.length ?? 0) > 0;
 
   const handleConfirm = async () => {
     setIsLoading(true);

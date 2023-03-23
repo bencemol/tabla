@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
   params: { boardId: string };
@@ -10,10 +10,7 @@ export async function GET(_: NextRequest, { params: { boardId } }: Options) {
     where: { boardId },
     orderBy: { order: "asc" },
   });
-  return new Response(JSON.stringify(states), {
-    status: 200,
-    statusText: "Ok",
-  });
+  return NextResponse.json(states);
 }
 
 export async function POST(
@@ -25,8 +22,5 @@ export async function POST(
   const state = await db.taskState.create({
     data: { ...data, boardId },
   });
-  return new Response(JSON.stringify(state), {
-    status: 201,
-    statusText: "Created",
-  });
+  return NextResponse.json(state);
 }
