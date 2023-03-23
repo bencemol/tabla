@@ -1,7 +1,8 @@
 "use client";
 
 import { useTasks } from "@/lib/swr";
-import { Task, TaskState } from "@prisma/client";
+import { Task } from "@/models/Task";
+import { TaskState } from "@prisma/client";
 import { IconPencil } from "@tabler/icons-react";
 import Link from "next/link";
 import { useDeferredValue } from "react";

@@ -1,13 +1,14 @@
 "use client";
 
-import { useTasks } from "@/lib/swr";
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
-import { Prisma, Task } from "@prisma/client";
+import { useTasks } from "@/lib/swr";
+import { Task } from "@/models/Task";
+import { Prisma } from "@prisma/client";
+import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteTask from "./DeleteTask";
-import { IconTrash } from "@tabler/icons-react";
 
 type EditTaskProps = {
   boardId: string;

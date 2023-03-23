@@ -1,8 +1,8 @@
-import { Task } from "@prisma/client";
+import { useTasks } from "@/lib/swr";
+import { Task } from "@/models/Task";
+import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
-import { useState } from "react";
-import { useTasks } from "@/lib/swr";
 
 type DeleteTaskProps = {
   task: Task;

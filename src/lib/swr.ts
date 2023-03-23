@@ -1,4 +1,4 @@
-import { Task } from "@prisma/client";
+import { Task } from "@/models/Task";
 import useSWR from "swr";
 
 const fetcher = (input: RequestInfo, init?: RequestInit) =>

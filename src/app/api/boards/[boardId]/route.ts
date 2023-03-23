@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Prisma } from "@prisma/client";
+import { BoardUpdateInput } from "@/models/Board";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
@@ -12,12 +12,13 @@ export async function PATCH(
   request: NextRequest,
   { params: { boardId } }: Options
 ) {
-  const data: Prisma.BoardUpdateInput = await request.json();
-  const task = await db.board.update({
+  const body = await request.json();
+  const data = BoardUpdateInput.parse(body);
+  const board = await db.board.update({
     where: { id: boardId },
     data: { ...data, id: boardId },
   });
-  return NextResponse.json(task);
+  return NextResponse.json(board);
 }
 
 export async function DELETE(_: NextRequest, { params: { boardId } }: Options) {

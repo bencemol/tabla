@@ -1,4 +1,5 @@
-import { Task, TaskState } from "@prisma/client";
+import { Task } from "@/models/Task";
+import { TaskState } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../button/Button";

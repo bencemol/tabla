@@ -1,4 +1,4 @@
-import { Task } from "@prisma/client";
+import { Task } from "@/models/Task";
 import { useRouter } from "next/navigation";
 
 type TaskProps = React.HtmlHTMLAttributes<HTMLButtonElement> & {

@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Task } from "@prisma/client";
+import { Task, TaskCreateInput, TaskUpdateInput } from "@/models/Task";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
@@ -7,10 +7,11 @@ type Options = {
 };
 
 export async function GET(_: NextRequest, { params: { boardId } }: Options) {
-  const tasks = await db.task.findMany({
+  const data = await db.task.findMany({
     where: { boardId },
     orderBy: { priority: "asc" },
   });
+  const tasks = Task.array().parse(data);
   return NextResponse.json(tasks);
 }
 
@@ -18,16 +19,21 @@ export async function POST(
   request: NextRequest,
   { params: { boardId } }: Options
 ) {
-  const data = await request.json();
+  const body = await request.json();
+  const data = TaskCreateInput.parse(body);
   if (!data.stateId) {
     const firstState = await db.taskState.findFirstOrThrow({
-      where: { boardId: data.boardId },
+      where: { boardId },
       orderBy: { order: "asc" },
     });
     data.stateId = firstState.id;
   }
   const task = await db.task.create({
-    data: { ...data, boardId },
+    data: {
+      ...data,
+      stateId: data.stateId!,
+      boardId,
+    },
   });
   return NextResponse.json(task);
 }
@@ -36,7 +42,8 @@ export async function PATCH(
   request: NextRequest,
   { params: { boardId } }: Options
 ) {
-  const data: Task[] = await request.json();
+  const body = await request.json();
+  const data = TaskUpdateInput.array().parse(body);
   const tasks = await db.$transaction(
     data.map((task) =>
       db.task.update({ where: { id: task.id }, data: { ...task, boardId } })
