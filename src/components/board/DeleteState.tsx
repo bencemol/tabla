@@ -1,12 +1,11 @@
-import { Task } from "@/models/Task";
-import { TaskState } from "@prisma/client";
+import { TaskStateWithTasks } from "@/models/TaskState";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
 
 type DeleteTaskProps = {
-  taskState: TaskState & { tasks?: Task[] };
+  taskState: TaskStateWithTasks;
   isOpen: boolean;
   onConfirm?: () => void;
   onClose?: () => void;

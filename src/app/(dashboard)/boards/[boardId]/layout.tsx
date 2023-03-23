@@ -3,6 +3,7 @@ import Header from "@/components/board/Header";
 import { db } from "@/lib/db";
 import { Board } from "@/models/Board";
 import { Task } from "@/models/Task";
+import { TaskState } from "@/models/TaskState";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -19,11 +20,12 @@ async function getBoard(id: string) {
   return Board.parse(board);
 }
 
-function getStates(boardId: string) {
-  return db.taskState.findMany({
+async function getStates(boardId: string) {
+  const data = await db.taskState.findMany({
     where: { boardId },
     orderBy: { order: "asc" },
   });
+  return TaskState.array().parse(data);
 }
 
 async function getTasks(boardId: string) {

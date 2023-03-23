@@ -2,7 +2,7 @@
 
 import { useTasks } from "@/lib/swr";
 import { Task } from "@/models/Task";
-import { TaskState } from "@prisma/client";
+import { TaskState } from "@/models/TaskState";
 import { IconPencil } from "@tabler/icons-react";
 import Link from "next/link";
 import { useDeferredValue } from "react";

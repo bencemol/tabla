@@ -1,7 +1,7 @@
 "use client";
 
 import { Task } from "@/models/Task";
-import { TaskState } from "@prisma/client";
+import { TaskState } from "@/models/TaskState";
 import { useDeferredValue } from "react";
 import { SWRConfig } from "swr";
 import Column from "./Column";

@@ -1,9 +1,14 @@
 import EditState from "@/components/board/EditState";
 import { db } from "@/lib/db";
+import { TaskStateWithTasks } from "@/models/TaskState";
 import { notFound } from "next/navigation";
 
-function getTaskState(id: string) {
-  return db.taskState.findUnique({ where: { id }, include: { tasks: true } });
+async function getTaskState(id: string) {
+  const data = await db.taskState.findUnique({
+    where: { id },
+    include: { tasks: true },
+  });
+  return TaskStateWithTasks.parse(data);
 }
 
 type StatesProps = {
@@ -13,10 +18,8 @@ type StatesProps = {
   };
 };
 
-export default async function States({
-  params: { stateId, boardId },
-}: StatesProps) {
-  const [taskState] = await Promise.all([getTaskState(stateId)]);
+export default async function States({ params: { stateId } }: StatesProps) {
+  const taskState = await getTaskState(stateId);
   if (!taskState) {
     notFound();
   }

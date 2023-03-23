@@ -1,6 +1,6 @@
 "use client";
 
-import { Prisma, TaskState } from "@prisma/client";
+import { TaskStateUpdateInput, TaskStateWithTasks } from "@/models/TaskState";
 import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -8,7 +8,11 @@ import Button from "../button/Button";
 import Modal from "../modal/Modal";
 import { DeleteState } from "./DeleteState";
 
-export default function EditState({ taskState }: { taskState: TaskState }) {
+export default function EditState({
+  taskState,
+}: {
+  taskState: TaskStateWithTasks;
+}) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -26,16 +30,13 @@ export default function EditState({ taskState }: { taskState: TaskState }) {
     router.refresh();
   };
 
-  const handleConfirm = async (data: { name: string }) => {
+  const handleConfirm = async (data: TaskStateUpdateInput) => {
     setIsLoading(true);
-    const payload: Prisma.TaskStateUpdateInput = {
-      ...data,
-    };
     try {
       await fetch(`/api/boards/${taskState.boardId}/states/${taskState.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(data),
       });
       router.refresh();
     } catch (e) {

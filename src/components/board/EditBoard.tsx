@@ -2,14 +2,14 @@
 
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
-import { Board, Prisma, Task } from "@prisma/client";
+import { BoardUpdateInput, BoardWithTasks } from "@/models/Board";
 import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteBoard from "./DeleteBoard";
 
 type EditBoardProps = {
-  board: Board & { tasks?: Task[] };
+  board: BoardWithTasks;
 };
 
 export default function EditBoard({ board }: EditBoardProps) {
@@ -31,16 +31,13 @@ export default function EditBoard({ board }: EditBoardProps) {
     router.refresh();
   };
 
-  const handleConfirm = async (data: { name: string }) => {
+  const handleConfirm = async (data: BoardUpdateInput) => {
     setIsLoading(true);
-    const payload: Prisma.BoardUpdateInput = {
-      ...data,
-    };
     try {
       await fetch(`/api/boards/${board.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(data),
       });
       router.refresh();
     } catch (e) {

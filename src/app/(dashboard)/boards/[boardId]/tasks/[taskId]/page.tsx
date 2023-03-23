@@ -1,9 +1,11 @@
-import { db } from "@/lib/db";
 import EditTask from "@/components/board/EditTask";
+import { db } from "@/lib/db";
+import { Task } from "@/models/Task";
 import { notFound } from "next/navigation";
 
-function getTask(id: string) {
-  return db.task.findUnique({ where: { id } });
+async function getTask(id: string) {
+  const data = await db.task.findUnique({ where: { id } });
+  return Task.parse(data);
 }
 
 type TaskProps = {
@@ -13,7 +15,9 @@ type TaskProps = {
   };
 };
 
-export default async function Task({ params: { boardId, taskId } }: TaskProps) {
+export default async function TaskPage({
+  params: { boardId, taskId },
+}: TaskProps) {
   const task = await getTask(taskId);
   if (!task) {
     notFound();

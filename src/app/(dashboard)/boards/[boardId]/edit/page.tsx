@@ -1,8 +1,13 @@
 import EditBoard from "@/components/board/EditBoard";
+import { BoardWithTasks } from "@/models/Board";
 import { notFound } from "next/navigation";
 
-function getBoard(id: string) {
-  return db.board.findUnique({ where: { id }, include: { tasks: true } });
+async function getBoard(id: string) {
+  const data = await db.board.findUnique({
+    where: { id },
+    include: { tasks: true },
+  });
+  return BoardWithTasks.parse(data);
 }
 
 type EditBoardProps = {

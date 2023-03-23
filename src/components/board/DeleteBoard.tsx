@@ -1,10 +1,10 @@
-import { Board, Task } from "@prisma/client";
+import { BoardWithTasks } from "@/models/Board";
 import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
 
 type DeleteBoardProps = {
-  board: Board & { tasks?: Task[] };
+  board: BoardWithTasks;
   isOpen: boolean;
   onConfirm?: () => void;
   onClose?: () => void;
