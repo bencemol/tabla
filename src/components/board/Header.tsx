@@ -25,25 +25,22 @@ export default function Header({ board, boards }: HeaderProps) {
       <section className="flex gap-3">
         <CreateTask className="" boardId={board.id} />
         <ContextMenu>
-          <nav>
-            <ul>
-              <Link
-                href={`/boards/${board.id}/edit`}
-                className={`flex items-center gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors`}
-              >
-                <IconPencil />
-                Edit board
-              </Link>
-              <Button
-                variant="flat"
-                className="w-full hover:!bg-neutral-100 dark:hover:!bg-neutral-700"
-                onClick={() => signOut()}
-              >
-                <IconLogout />
-                Sign out
-              </Button>
-            </ul>
-          </nav>
+          <Link
+            href={`/boards/${board.id}/edit`}
+            className={`flex items-center gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors`}
+          >
+            <IconPencil />
+            Edit Board
+          </Link>
+          <div className="my-1 border-b-2 border-inherit"></div>
+          <Button
+            variant="flat"
+            className="w-full hover:!bg-neutral-100 dark:hover:!bg-neutral-700"
+            onClick={() => signOut()}
+          >
+            <IconLogout />
+            Sign Out
+          </Button>
         </ContextMenu>
       </section>
     </header>
