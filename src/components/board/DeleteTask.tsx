@@ -38,7 +38,7 @@ export default function DeleteTask({
 
   return (
     <Modal
-      title={`Delete task ${task.title}`}
+      title={`Delete ${task.title}`}
       isOpen={isOpen}
       isLoading={isLoading}
       onConfirm={handleConfirm}

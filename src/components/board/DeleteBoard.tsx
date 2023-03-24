@@ -37,7 +37,7 @@ export default function DeleteBoard({
 
   return (
     <Modal
-      title={`Delete board ${board.name}`}
+      title={`Delete ${board.name}`}
       isOpen={isOpen}
       isLoading={isLoading}
       onConfirm={handleConfirm}

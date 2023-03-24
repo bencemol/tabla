@@ -39,7 +39,7 @@ export function DeleteState({
 
   return (
     <Modal
-      title={`Delete column ${taskState.name}`}
+      title={`Delete ${taskState.name}`}
       isOpen={isOpen}
       isLoading={isLoading}
       onConfirm={handleConfirm}
