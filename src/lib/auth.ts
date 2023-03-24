@@ -90,6 +90,5 @@ export async function isAuthorized(boardId: string) {
     notFound();
   }
   const isAuthorized = board.ownerId === user.id;
-  console.log({ isAuthorized });
   return isAuthorized;
 }
