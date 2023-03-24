@@ -21,10 +21,11 @@ export async function PATCH(
 ) {
   const body = await request.json();
   const data = TaskUpdateInput.parse(body);
-  const task = await db.task.update({
+  const updatedTask = await db.task.update({
     where: { id: taskId },
     data,
   });
+  const task = Task.parse(updatedTask);
   return NextResponse.json(task);
 }
 

@@ -20,8 +20,9 @@ export async function POST(
 ) {
   const body = await request.json();
   const data = TaskStateCreateInput.parse(body);
-  const state = await db.taskState.create({
+  const createdState = await db.taskState.create({
     data: { ...data, boardId },
   });
+  const state = TaskState.parse(createdState);
   return NextResponse.json(state);
 }

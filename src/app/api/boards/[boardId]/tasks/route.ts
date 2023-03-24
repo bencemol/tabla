@@ -28,13 +28,14 @@ export async function POST(
     });
     data.stateId = firstState.id;
   }
-  const task = await db.task.create({
+  const createdTask = await db.task.create({
     data: {
       ...data,
       stateId: data.stateId!,
       boardId,
     },
   });
+  const task = Task.parse(createdTask);
   return NextResponse.json(task);
 }
 
@@ -44,10 +45,11 @@ export async function PATCH(
 ) {
   const body = await request.json();
   const data = TaskUpdateManyInput.parse(body);
-  const tasks = await db.$transaction(
+  const updatedTasks = await db.$transaction(
     data.map((task) =>
       db.task.update({ where: { id: task.id }, data: { ...task, boardId } })
     )
   );
+  const tasks = Task.array().parse(updatedTasks);
   return NextResponse.json(tasks);
 }

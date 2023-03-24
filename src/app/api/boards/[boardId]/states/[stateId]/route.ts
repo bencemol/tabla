@@ -1,4 +1,4 @@
-import { TaskStateUpdateInput } from "@/models/TaskState";
+import { TaskState, TaskStateUpdateInput } from "@/models/TaskState";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
@@ -11,10 +11,11 @@ export async function PATCH(
 ) {
   const body = await request.json();
   const data = TaskStateUpdateInput.parse(body);
-  const state = await db.taskState.update({
+  const updatedState = await db.taskState.update({
     where: { id: stateId },
     data,
   });
+  const state = TaskState.parse(updatedState);
   return NextResponse.json(state);
 }
 

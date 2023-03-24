@@ -1,13 +1,20 @@
 import { db } from "@/lib/db";
-import { BoardCreateInput } from "@/models/Board";
+import { Board, BoardCreateInput } from "@/models/Board";
 import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+
+export async function GET() {
+  const data = await db.board.findMany({ orderBy: { createdAt: "desc" } });
+  const boards = Board.array().parse(data);
+  return NextResponse.json(boards);
+}
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const data = BoardCreateInput.parse(body);
-  const board = await db.board.create({ data });
-  await addDefaultStates(board.id);
+  const createdBoard = await db.board.create({ data });
+  await addDefaultStates(createdBoard.id);
+  const board = Board.parse(createdBoard);
   return NextResponse.json(board);
 }
 

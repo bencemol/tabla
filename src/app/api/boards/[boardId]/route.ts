@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { BoardUpdateInput } from "@/models/Board";
+import { Board, BoardUpdateInput } from "@/models/Board";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
@@ -14,10 +14,11 @@ export async function PATCH(
 ) {
   const body = await request.json();
   const data = BoardUpdateInput.parse(body);
-  const board = await db.board.update({
+  const updatedBoard = await db.board.update({
     where: { id: boardId },
     data,
   });
+  const board = Board.parse(updatedBoard);
   return NextResponse.json(board);
 }
 
