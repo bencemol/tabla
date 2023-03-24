@@ -13,7 +13,10 @@ export default function ProviderSignIn({
   callbackUrl?: string;
 }) {
   return (
-    <Button onClick={() => signIn(id, { callbackUrl })}>
+    <Button
+      onClick={() => signIn(id, { callbackUrl })}
+      className="block w-full"
+    >
       Sign in with {name}
     </Button>
   );

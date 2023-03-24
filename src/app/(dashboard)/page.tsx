@@ -13,7 +13,7 @@ export default async function Landing({
   const providers = authOptions.providers;
   return (
     <main className="min-h-screen grid place-items-center">
-      <section className="p-4 space-x-4">
+      <section className="p-4 space-y-4">
         {providers &&
           Object.values(providers).map((provider) => (
             <ProviderSignIn
