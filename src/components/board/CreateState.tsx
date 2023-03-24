@@ -49,45 +49,47 @@ export default function CreateState({ boardId }: { boardId: string }) {
           <IconDotsVertical size={16} />
         </Button>
       </header>
-      {isFormOpen ? (
-        <form
-          ref={formRef}
-          autoComplete="off"
-          className="grow flex flex-col mb-3 sticky top-0 animate-in slide-in-from-bottom-1"
-          onSubmit={handleSubmit}
-          onReset={() => setIsFormOpen(false)}
-        >
-          <section className="pb-3">
-            <label htmlFor="name" className="hidden">
-              Column Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Column Name"
-              aria-label="New Column Name"
-              required
-              autoFocus
-            />
-          </section>
-          <footer className="flex justify-end gap-3">
-            <Button type="submit" variant="primary" isLoading={isLoading}>
-              Save
-            </Button>
-            <Button type="reset">Cancel</Button>
-          </footer>
-        </form>
-      ) : (
-        <Button
-          variant="flat"
-          className="grow mb-3 border-2 border-dashed border-neutral-200 dark:border-neutral-800 hover:border-transparent hover:!bg-neutral-100 dark:hover:!bg-neutral-800"
-          aria-label="Create Column"
-          onClick={() => setIsFormOpen(true)}
-        >
-          <IconPlus className="m-auto" />
-        </Button>
-      )}
+      <section className="grow flex flex-col py-2">
+        {isFormOpen ? (
+          <form
+            ref={formRef}
+            autoComplete="off"
+            className="grow flex flex-col mb-3 sticky top-0 animate-in slide-in-from-bottom-1"
+            onSubmit={handleSubmit}
+            onReset={() => setIsFormOpen(false)}
+          >
+            <section className="pb-3">
+              <label htmlFor="name" className="hidden">
+                Column Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Column Name"
+                aria-label="New Column Name"
+                required
+                autoFocus
+              />
+            </section>
+            <footer className="flex justify-end gap-3">
+              <Button type="submit" variant="primary" isLoading={isLoading}>
+                Save
+              </Button>
+              <Button type="reset">Cancel</Button>
+            </footer>
+          </form>
+        ) : (
+          <Button
+            variant="flat"
+            className="grow mb-3 border-2 border-dashed border-neutral-200 dark:border-neutral-800 hover:border-transparent hover:!bg-neutral-100 dark:hover:!bg-neutral-800"
+            aria-label="Create Column"
+            onClick={() => setIsFormOpen(true)}
+          >
+            <IconPlus className="m-auto" />
+          </Button>
+        )}
+      </section>
     </Column>
   );
 }
