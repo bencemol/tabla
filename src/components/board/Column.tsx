@@ -64,7 +64,7 @@ export default function Column({ state }: { state: TaskState }) {
       key={state.id}
     >
       <header
-        className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-stone-900 shadow-white dark:shadow-bg-stone-900"
+        className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-stone-900 shadow-white dark:shadow-stone-900"
         style={{ boxShadow: "0 -2px 0 3px var(--tw-shadow-color)" }}
       >
         <h5 className="uppercase mr-1">
