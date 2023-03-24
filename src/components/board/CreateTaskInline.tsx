@@ -16,7 +16,7 @@ export default function CreateTaskInline({
     <section className="flex flex-col h-16 dark:border-neutral-800">
       <Button
         variant="flat"
-        className="grow border-2 border-dashed border-inherit hover:border-transparent text-neutral-200 hover:text-inherit focus-visible:focus-within:text-inherit dark:text-neutral-800 hover:!bg-neutral-100 dark:hover:!bg-neutral-800"
+        className="grow border-2 border-dashed border-neutral-200 dark:border-neutral-800 hover:border-transparent text-neutral-200 hover:text-inherit focus-visible:focus-within:text-inherit dark:text-neutral-800 hover:!bg-neutral-100 dark:hover:!bg-neutral-800"
         aria-label="Create New Task"
         onClick={() => setIsModalOpen(true)}
       >

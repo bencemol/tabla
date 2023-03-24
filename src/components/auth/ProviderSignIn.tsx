@@ -10,5 +10,9 @@ export default function ProviderSignIn({
   id: string;
   name: string;
 }) {
-  return <Button onClick={() => signIn(id)}>Sign in with {name}</Button>;
+  return (
+    <Button onClick={() => signIn(id, { callbackUrl: "/boards" })}>
+      Sign in with {name}
+    </Button>
+  );
 }
