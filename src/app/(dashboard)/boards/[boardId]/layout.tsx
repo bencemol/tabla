@@ -1,18 +1,26 @@
 import Columns from "@/components/board/Columns";
 import Header from "@/components/board/Header";
+import { getServerSessionUser, isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Board } from "@/models/Board";
 import { Task } from "@/models/Task";
 import { TaskState } from "@/models/TaskState";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 async function getBoards() {
-  const data = await db.board.findMany({ orderBy: { createdAt: "desc" } });
+  const user = await getServerSessionUser();
+  const data = await db.board.findMany({
+    where: { ownerId: user.id },
+    orderBy: { createdAt: "desc" },
+  });
   return Board.array().parse(data);
 }
 
 async function getBoard(id: string) {
+  if (!(await isAuthorized(id))) {
+    redirect("/403");
+  }
   const board = await db.board.findUnique({ where: { id } });
   if (!board) {
     notFound();
@@ -21,6 +29,9 @@ async function getBoard(id: string) {
 }
 
 async function getStates(boardId: string) {
+  if (!(await isAuthorized(boardId))) {
+    redirect("/403");
+  }
   const data = await db.taskState.findMany({
     where: { boardId },
     orderBy: { order: "asc" },
@@ -29,6 +40,9 @@ async function getStates(boardId: string) {
 }
 
 async function getTasks(boardId: string) {
+  if (!(await isAuthorized(boardId))) {
+    redirect("/403");
+  }
   const data = await db.task.findMany({
     where: { boardId },
     orderBy: { priority: "asc" },

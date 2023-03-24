@@ -3,7 +3,7 @@
 import { signIn } from "next-auth/react";
 import Button from "../button/Button";
 
-export default function ProviderSignIn({
+export default function ProviderButton({
   id,
   name,
   callbackUrl = "/boards",

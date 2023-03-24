@@ -1,3 +1,4 @@
+import { isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Task, TaskUpdateInput } from "@/models/Task";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,7 +10,13 @@ type Options = {
   };
 };
 
-export async function GET(_: NextRequest, { params: { taskId } }: Options) {
+export async function GET(
+  _: NextRequest,
+  { params: { boardId, taskId } }: Options
+) {
+  if (!(await isAuthorized(boardId))) {
+    return NextResponse.json(null, { status: 403, statusText: "Forbidden" });
+  }
   const data = await db.task.findUniqueOrThrow({ where: { id: taskId } });
   const task = Task.parse(data);
   return NextResponse.json(task);
@@ -17,8 +24,11 @@ export async function GET(_: NextRequest, { params: { taskId } }: Options) {
 
 export async function PATCH(
   request: NextRequest,
-  { params: { taskId } }: Options
+  { params: { boardId, taskId } }: Options
 ) {
+  if (!(await isAuthorized(boardId))) {
+    return NextResponse.json(null, { status: 403, statusText: "Forbidden" });
+  }
   const body = await request.json();
   const data = TaskUpdateInput.parse(body);
   const updatedTask = await db.task.update({
@@ -29,7 +39,13 @@ export async function PATCH(
   return NextResponse.json(task);
 }
 
-export async function DELETE(_: NextRequest, { params: { taskId } }: Options) {
+export async function DELETE(
+  _: NextRequest,
+  { params: { boardId, taskId } }: Options
+) {
+  if (!(await isAuthorized(boardId))) {
+    return NextResponse.json(null, { status: 403, statusText: "Forbidden" });
+  }
   await db.task.delete({ where: { id: taskId } });
   return NextResponse.json(null);
 }

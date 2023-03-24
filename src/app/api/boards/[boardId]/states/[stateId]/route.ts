@@ -1,3 +1,4 @@
+import { isAuthorized } from "@/lib/auth";
 import { TaskState, TaskStateUpdateInput } from "@/models/TaskState";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,8 +8,11 @@ type Options = {
 
 export async function PATCH(
   request: NextRequest,
-  { params: { stateId } }: Options
+  { params: { boardId, stateId } }: Options
 ) {
+  if (!(await isAuthorized(boardId))) {
+    return NextResponse.json(null, { status: 403, statusText: "Forbidden" });
+  }
   const body = await request.json();
   const data = TaskStateUpdateInput.parse(body);
   const updatedState = await db.taskState.update({
@@ -19,7 +23,13 @@ export async function PATCH(
   return NextResponse.json(state);
 }
 
-export async function DELETE(_: NextRequest, { params: { stateId } }: Options) {
+export async function DELETE(
+  _: NextRequest,
+  { params: { boardId, stateId } }: Options
+) {
+  if (!(await isAuthorized(boardId))) {
+    return NextResponse.json(null, { status: 403, statusText: "Forbidden" });
+  }
   await db.taskState.delete({ where: { id: stateId } });
   return NextResponse.json(null);
 }

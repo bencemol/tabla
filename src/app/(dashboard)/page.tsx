@@ -1,4 +1,4 @@
-import ProviderSignIn from "@/components/auth/ProviderSignIn";
+import ProviderButton from "@/components/auth/ProviderButton";
 import { authOptions } from "@/lib/auth";
 
 type LandingParams = {
@@ -16,7 +16,7 @@ export default async function Landing({
       <section className="p-4 space-y-4">
         {providers &&
           Object.values(providers).map((provider) => (
-            <ProviderSignIn
+            <ProviderButton
               key={provider.name}
               id={provider.id}
               name={provider.name}

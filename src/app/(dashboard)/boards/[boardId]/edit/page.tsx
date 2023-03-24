@@ -1,9 +1,13 @@
 import EditBoard from "@/components/board/EditBoard";
+import { isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { BoardWithTasks } from "@/models/Board";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 async function getBoard(id: string) {
+  if (!(await isAuthorized(id))) {
+    redirect("/403");
+  }
   const data = await db.board.findUnique({
     where: { id },
     include: { tasks: true },

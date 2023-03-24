@@ -1,3 +1,4 @@
+import { getServerSessionUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Board, BoardCreateInput } from "@/models/Board";
 import { Prisma } from "@prisma/client";
@@ -10,9 +11,12 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const user = await getServerSessionUser();
   const body = await req.json();
   const data = BoardCreateInput.parse(body);
-  const createdBoard = await db.board.create({ data });
+  const createdBoard = await db.board.create({
+    data: { ...data, ownerId: user.id },
+  });
   await addDefaultStates(createdBoard.id);
   const board = Board.parse(createdBoard);
   return NextResponse.json(board);

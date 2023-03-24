@@ -1,10 +1,20 @@
-import { db } from "@/lib/db";
 import CreateBoard from "@/components/board/CreateBoard";
-import BoardsNav from "./BoardsNav";
+import { authOptions } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { Board } from "@/models/Board";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import BoardsNav from "./BoardsNav";
 
 async function getBoards() {
-  const data = await db.board.findMany({ orderBy: { createdAt: "desc" } });
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    redirect("/");
+  }
+  const data = await db.board.findMany({
+    where: { ownerId: session.user.id },
+    orderBy: { createdAt: "desc" },
+  });
   return Board.array().parse(data);
 }
 

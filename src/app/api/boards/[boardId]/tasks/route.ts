@@ -1,3 +1,4 @@
+import { isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Task, TaskCreateInput, TaskUpdateManyInput } from "@/models/Task";
 import { NextRequest, NextResponse } from "next/server";
@@ -7,6 +8,9 @@ type Options = {
 };
 
 export async function GET(_: NextRequest, { params: { boardId } }: Options) {
+  if (!(await isAuthorized(boardId))) {
+    return NextResponse.json(null, { status: 403, statusText: "Forbidden" });
+  }
   const data = await db.task.findMany({
     where: { boardId },
     orderBy: { priority: "asc" },
@@ -19,6 +23,9 @@ export async function POST(
   request: NextRequest,
   { params: { boardId } }: Options
 ) {
+  if (!(await isAuthorized(boardId))) {
+    return NextResponse.json(null, { status: 403, statusText: "Forbidden" });
+  }
   const body = await request.json();
   const data = TaskCreateInput.parse(body);
   if (!data.stateId) {
@@ -43,6 +50,9 @@ export async function PATCH(
   request: NextRequest,
   { params: { boardId } }: Options
 ) {
+  if (!(await isAuthorized(boardId))) {
+    return NextResponse.json(null, { status: 403, statusText: "Forbidden" });
+  }
   const body = await request.json();
   const data = TaskUpdateManyInput.parse(body);
   const updatedTasks = await db.$transaction(

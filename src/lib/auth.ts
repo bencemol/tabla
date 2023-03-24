@@ -1,9 +1,25 @@
 import { db } from "@/lib/db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { AuthOptions, User } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-import CredentialsProvider from "next-auth/providers/credentials";
+import { AuthOptions, DefaultSession, User, getServerSession } from "next-auth";
+import { DefaultJWT } from "next-auth/jwt";
 import { Provider } from "next-auth/providers";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
+import { notFound } from "next/navigation";
+
+declare module "next-auth" {
+  interface Session {
+    user?: {
+      id: string;
+    } & DefaultSession["user"];
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT extends DefaultJWT {
+    id?: string;
+  }
+}
 
 const mockUser: User = {
   id: "clfmwi6xd000108ma5l6sffuu",
@@ -36,9 +52,44 @@ if (process.env.NEXTAUTH_MOCK) {
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db),
+  providers,
   session: { strategy: "jwt" },
   pages: {
     signIn: "/",
   },
-  providers,
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (session.user && token.id) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
+  },
 };
+
+export async function getServerSessionUser() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized");
+  }
+  return session.user;
+}
+
+export async function isAuthorized(boardId: string) {
+  const [user, board] = await Promise.all([
+    getServerSessionUser(),
+    db.board.findUnique({ where: { id: boardId }, select: { ownerId: true } }),
+  ]);
+  if (!board) {
+    notFound();
+  }
+  const isAuthorized = board.ownerId === user.id;
+  console.log({ isAuthorized });
+  return isAuthorized;
+}
