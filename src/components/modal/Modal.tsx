@@ -27,6 +27,10 @@ export default function Modal({
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
+    dialogRef.current?.removeAttribute("open");
+  }, []);
+
+  useEffect(() => {
     if (isOpen) {
       formRef.current?.reset();
       dialogRef.current?.showModal();
