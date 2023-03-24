@@ -1,7 +1,15 @@
 import ProviderSignIn from "@/components/auth/ProviderSignIn";
 import { authOptions } from "@/lib/auth";
 
-export default async function Home() {
+type LandingParams = {
+  searchParams: {
+    callbackUrl?: string;
+  };
+};
+
+export default async function Landing({
+  searchParams: { callbackUrl },
+}: LandingParams) {
   const providers = authOptions.providers;
   return (
     <main className="min-h-screen grid place-items-center">
@@ -12,6 +20,7 @@ export default async function Home() {
               key={provider.name}
               id={provider.id}
               name={provider.name}
+              callbackUrl={callbackUrl}
             />
           ))}
       </section>

@@ -10,6 +10,7 @@ import { useState } from "react";
 import ContextMenu from "../popover/ContextMenu";
 import CreateBoard from "./CreateBoard";
 import { CreateTask } from "./CreateTask";
+import { signOut } from "next-auth/react";
 
 type HeaderProps = {
   board: Board;
@@ -33,13 +34,14 @@ export default function Header({ board, boards }: HeaderProps) {
                 <IconPencil />
                 Edit board
               </Link>
-              <Link
-                href={`/api/auth/signout`}
-                className={`flex items-center gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors`}
+              <Button
+                variant="flat"
+                className="w-full hover:!bg-neutral-100 dark:hover:!bg-neutral-700"
+                onClick={() => signOut()}
               >
                 <IconLogout />
                 Sign out
-              </Link>
+              </Button>
             </ul>
           </nav>
         </ContextMenu>

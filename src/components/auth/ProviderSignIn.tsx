@@ -6,12 +6,14 @@ import Button from "../button/Button";
 export default function ProviderSignIn({
   id,
   name,
+  callbackUrl = "/boards",
 }: {
   id: string;
   name: string;
+  callbackUrl?: string;
 }) {
   return (
-    <Button onClick={() => signIn(id, { callbackUrl: "/boards" })}>
+    <Button onClick={() => signIn(id, { callbackUrl })}>
       Sign in with {name}
     </Button>
   );
