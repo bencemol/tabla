@@ -1,5 +1,0 @@
-.main {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  min-height: 100vh;
-}

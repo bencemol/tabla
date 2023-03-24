@@ -1,15 +1,4 @@
-import { db } from "@/lib/db";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth from "next-auth";
-import GithubProvider from "next-auth/providers/github";
+import { authOptions } from "@/lib/auth";
+import NextAuth from "next-auth/next";
 
-export default NextAuth({
-  adapter: PrismaAdapter(db),
-  session: { strategy: "jwt" },
-  providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-    }),
-  ],
-});
+export default NextAuth(authOptions);
