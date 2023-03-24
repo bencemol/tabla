@@ -4,7 +4,7 @@ import Button from "@/components/button/Button";
 import Popover from "@/components/popover/Popover";
 import BoardsNav from "@/components/sidebar/BoardsNav";
 import { Board } from "@/models/Board";
-import { IconChevronDown, IconLogin, IconPencil } from "@tabler/icons-react";
+import { IconChevronDown, IconLogout, IconPencil } from "@tabler/icons-react";
 import Link from "next/link";
 import { useState } from "react";
 import ContextMenu from "../popover/ContextMenu";
@@ -34,11 +34,11 @@ export default function Header({ board, boards }: HeaderProps) {
                 Edit board
               </Link>
               <Link
-                href={`/api/auth/signin`}
+                href={`/api/auth/signout`}
                 className={`flex items-center gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors`}
               >
-                <IconLogin />
-                Login
+                <IconLogout />
+                Sign out
               </Link>
             </ul>
           </nav>

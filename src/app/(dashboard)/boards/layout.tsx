@@ -1,6 +1,6 @@
-import Sidebar from "../../components/sidebar/Sidebar";
+import Sidebar from "@/components/sidebar/Sidebar";
 
-export default async function DashboardLayout({
+export default function BoardsLayout({
   children,
 }: {
   children: React.ReactNode;

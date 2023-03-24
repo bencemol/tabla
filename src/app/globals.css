@@ -12,6 +12,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  @apply border-black dark:border-white;
 }
 
 *:focus-visible:focus {
