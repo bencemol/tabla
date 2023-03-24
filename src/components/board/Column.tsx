@@ -11,7 +11,6 @@ import Draggable, { DropZone } from "./Draggable";
 import TaskCard from "./TaskCard";
 
 export default function Column({ state }: { state: TaskState }) {
-  const charLength = 38;
   const { data, mutate } = useTasks(state.boardId);
   const tasks = data?.filter((task) => task.stateId === state.id) ?? [];
   const deferredTasks = useDeferredValue(tasks);
@@ -67,10 +66,7 @@ export default function Column({ state }: { state: TaskState }) {
         className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-stone-900 shadow-white dark:shadow-stone-900"
         style={{ boxShadow: "0 -2px 0 3px var(--tw-shadow-color)" }}
       >
-        <h5 className="uppercase mr-1">
-          {state.name.slice(0, charLength) +
-            ((state.name.length ?? 0) > charLength ? "..." : "")}
-        </h5>
+        <h5 className="uppercase mr-1 line-clamp-2">{state.name}</h5>
         <span className="edit ml-auto sm:opacity-0 sm:focus-within:opacity-100 transition-opacity">
           <Link
             href={`/boards/${state.boardId}/states/${state.id}`}

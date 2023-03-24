@@ -11,7 +11,6 @@ export default function TaskCard({
   ...props
 }: TaskProps) {
   const router = useRouter();
-  const charLength = 60;
   const taskUrl = `/boards/${task.boardId}/tasks/${task.id}`;
 
   const editTask = () => router.push(taskUrl);
@@ -28,12 +27,11 @@ export default function TaskCard({
       }}
       {...props}
     >
-      <article>
+      <article className="space-y-2">
         <h3>{task.title}</h3>
         {task.description && (
-          <p>
-            {task.description.slice(0, charLength) +
-              ((task.description.length ?? 0) > charLength ? "..." : "")}
+          <p className="line-clamp-2" style={{ wordBreak: "break-word" }}>
+            {task.description}
           </p>
         )}
       </article>
