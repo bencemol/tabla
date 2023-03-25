@@ -1,5 +1,10 @@
 import { Prisma } from "@prisma/client";
-import { IconDotsVertical, IconPlus } from "@tabler/icons-react";
+import {
+  IconCheck,
+  IconDotsVertical,
+  IconPlus,
+  IconX,
+} from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { FormEventHandler, useEffect, useRef, useState } from "react";
 import Button from "../button/Button";
@@ -74,9 +79,11 @@ export default function CreateState({ boardId }: { boardId: string }) {
             </section>
             <footer className="flex justify-end gap-3">
               <Button type="submit" variant="primary" isLoading={isLoading}>
-                Save
+                <IconCheck />
               </Button>
-              <Button type="reset">Cancel</Button>
+              <Button type="reset">
+                <IconX />
+              </Button>
             </footer>
           </form>
         ) : (
