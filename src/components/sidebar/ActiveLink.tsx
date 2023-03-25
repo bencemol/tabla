@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 import { PropsWithChildren, useEffect, useState } from "react";
 
 type ActiveLinkProps = LinkProps & {
+  pathMatch?: "full" | "prefix";
   className?: string;
 };
 
 const ActiveLink = ({
   children,
+  pathMatch = "prefix",
   className,
   ...props
 }: PropsWithChildren<ActiveLinkProps>) => {
@@ -22,8 +24,13 @@ const ActiveLink = ({
       location.href
     ).pathname;
 
-    setIsActive(activePathname.startsWith(linkPathname));
-  }, [activePathname, props.as, props.href]);
+    const isActive =
+      pathMatch === "full"
+        ? activePathname === linkPathname
+        : activePathname?.startsWith(linkPathname) === true;
+
+    setIsActive(isActive);
+  }, [pathMatch, activePathname, props.as, props.href]);
 
   return (
     <Link className={className} data-active={isActive} {...props}>

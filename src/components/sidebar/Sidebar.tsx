@@ -27,7 +27,6 @@ export default async function Sidebar() {
       <div className="mb-6">
         <CreateBoard className="w-full" />
       </div>
-      <h5 className="mb-2">All boards ({boards.length})</h5>
       <BoardsNav boards={boards} />
     </aside>
   );

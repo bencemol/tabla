@@ -19,9 +19,13 @@ type HeaderProps = {
 
 export default function Header({ board, boards }: HeaderProps) {
   return (
-    <header className="grid grid-flow-col justify-between items-center auto-cols-max align-top p-4 border-b-2 border-neutral-100 dark:border-neutral-800">
-      <Title board={board} className="hidden sm:flex items-center" />
-      <MobileNav board={board} boards={boards} className="block sm:hidden" />
+    <header className="grid grid-flow-col gap-2 justify-between items-center auto-cols-auto align-top p-4 border-b-2 border-neutral-100 dark:border-neutral-800">
+      <Title board={board} className="hidden sm:block items-center" />
+      <MobileNav
+        board={board}
+        boards={boards}
+        className="block sm:hidden min-w-0"
+      />
       <section className="flex gap-3">
         <CreateTask className="" boardId={board.id} />
         <ContextMenu>
@@ -54,7 +58,10 @@ const Title = ({
 }: React.HTMLAttributes<HTMLHeadingElement> & {
   board: Board;
 }) => (
-  <h1 className={className} {...props}>
+  <h1
+    className={`whitespace-nowrap overflow-hidden text-ellipsis min-w-0 ${className}`}
+    {...props}
+  >
     {board.name}
   </h1>
 );
@@ -69,7 +76,7 @@ const MobileNav = ({
   return (
     <Button variant="flat" onClick={toggle} className={className}>
       <Title board={board} />
-      <IconChevronDown />
+      <IconChevronDown className="shrink-0" />
       <Popover isOpen={isOpen} onClick={toggle}>
         <CreateBoard
           className="w-full !bg-transparent hover:!bg-neutral-100 dark:hover:!bg-neutral-700"
