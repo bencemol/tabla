@@ -5,7 +5,11 @@ import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
-  const data = await db.board.findMany({ orderBy: { createdAt: "desc" } });
+  const user = await getServerSessionUser();
+  const data = await db.board.findMany({
+    where: { ownerId: user.id },
+    orderBy: { createdAt: "desc" },
+  });
   const boards = Board.array().parse(data);
   return NextResponse.json(boards);
 }
