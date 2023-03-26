@@ -12,11 +12,11 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  @apply border-black dark:border-white;
+  @apply border-black dark:border-zinc-700;
 }
 
 *:focus-visible:focus {
-  @apply outline-1 outline-neutral-700 dark:outline-neutral-300;
+  @apply outline-none;
 }
 
 html,
@@ -81,7 +81,7 @@ form textarea,
 form select {
   @apply w-full max-w-[50ch];
   @apply p-2;
-  @apply bg-white dark:bg-black;
+  @apply bg-white dark:bg-zinc-900;
   @apply border-2 rounded-md;
   @apply invalid:border-rose-900/70 dark:invalid:border-red-300/70;
   @apply transition-colors;

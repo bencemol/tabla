@@ -7,14 +7,14 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variants = {
   primary:
-    "bg-black text-white disabled:bg-neutral-700 dark:bg-white dark:border-white dark:text-black dark:disabled:bg-neutral-400",
+    "bg-black text-white disabled:bg-zinc-700 dark:bg-zinc-700 dark:border-zinc-700 dark:text-white dark:disabled:bg-zinc-400",
   default:
-    "bg-white disabled:border-neutral-700 dark:bg-black dark:border-white dark:disabled:border-neutral-400",
+    "bg-white disabled:border-zinc-700 dark:bg-zinc-900 dark:border-zinc-700 dark:disabled:border-zinc-400",
   danger:
-    "bg-white text-red-800 border-red-800 disabled:border-red-700 dark:bg-black dark:text-red-200 dark:border-red-200 dark:disabled:border-red-400",
-  flat: "border-transparent bg-transparent hover:!-translate-y-0 active:!translate-y-0 hover:bg-neutral-300 active:bg-neutral-400 disabled:bg-transparent disabled:text-neutral-200 dark:bg-transparent dark:hover:bg-neutral-700 dark:active:bg-neutral-600 dark:disabled:bg-transparent",
+    "bg-white text-red-800 border-red-800 disabled:border-red-700 dark:bg-zinc-900 dark:text-red-300 dark:border-red-300 dark:disabled:border-red-400",
+  flat: "border-transparent bg-transparent hover:!-translate-y-0 active:!translate-y-0 hover:bg-zinc-300 active:bg-zinc-400 disabled:bg-transparent disabled:text-zinc-200 dark:bg-transparent dark:hover:bg-zinc-700 dark:active:bg-zinc-600 dark:disabled:bg-transparent",
   ghost:
-    "bg-transparent border-dashed border-neutral-200 dark:border-neutral-800 hover:border-transparent text-neutral-200 hover:text-inherit focus-visible:focus-within:text-inherit dark:text-neutral-800 hover:!bg-neutral-100 dark:hover:!bg-neutral-800 hover:!-translate-y-0 active:!translate-y-0",
+    "bg-transparent border-dashed border-zinc-200 dark:border-zinc-800 hover:border-transparent text-zinc-200 hover:text-inherit focus-visible:focus-within:text-inherit dark:text-zinc-800 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 hover:!-translate-y-0 active:!translate-y-0",
 };
 
 export default function Button({

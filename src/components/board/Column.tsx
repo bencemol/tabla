@@ -63,7 +63,7 @@ export default function Column({ state }: { state: TaskState }) {
       key={state.id}
     >
       <header
-        className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-black shadow-white dark:shadow-black"
+        className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-zinc-900 shadow-white dark:shadow-zinc-900"
         style={{ boxShadow: "0 -2px 0 3px var(--tw-shadow-color)" }}
       >
         <h5
@@ -75,7 +75,7 @@ export default function Column({ state }: { state: TaskState }) {
         <span className="edit ml-auto sm:opacity-0 sm:focus-within:opacity-100 transition-opacity">
           <Link
             href={`/boards/${state.boardId}/states/${state.id}`}
-            className="block p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-700"
+            className="block p-2 rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700"
           >
             <IconPencil size={16} stroke={1.5} />
           </Link>

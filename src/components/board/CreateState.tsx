@@ -48,7 +48,7 @@ export default function CreateState({ boardId }: { boardId: string }) {
 
   return (
     <Column>
-      <header className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-black">
+      <header className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-zinc-900">
         <h5 className="uppercase transition-colors">Create Column</h5>
         <Button disabled className="invisible">
           <IconDotsVertical size={16} />
@@ -102,7 +102,7 @@ export default function CreateState({ boardId }: { boardId: string }) {
 }
 
 const Column = ({ children }: { children: React.ReactNode }) => (
-  <section className="flex flex-col text-neutral-200 hover:text-inherit focus-within:text-inherit [&:has(form)]:text-inherit dark:text-neutral-800 dark:border-neutral-800">
+  <section className="flex flex-col text-zinc-200 hover:text-inherit focus-within:text-inherit [&:has(form)]:text-inherit dark:text-zinc-800 dark:border-zinc-800">
     {children}
   </section>
 );

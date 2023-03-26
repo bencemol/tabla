@@ -13,7 +13,7 @@ export default function CreateTaskInline({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="flex flex-col h-16 dark:border-neutral-800">
+    <section className="flex flex-col h-16 dark:border-zinc-800">
       <Button
         variant="ghost"
         className="grow"

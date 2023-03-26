@@ -82,14 +82,14 @@ export default function Modal({
       onCancel={handleCancel}
       className="fixed w-full max-w-[50ch] m-auto my-0 sm:my-auto p-6 bg-transparent backdrop:backdrop-blur-sm backdrop:overflow-hidden will-change-contents animate-in slide-in-from-bottom-3"
     >
-      <main className="rounded-md border-2 shadow-lg bg-white dark:bg-black">
+      <main className="rounded-md border-2 shadow-lg bg-white dark:bg-zinc-900">
         <form
           ref={formRef}
           onSubmit={confirm}
           autoComplete="off"
           className="relative grid gap-8 p-4 [&>footer]:flex [&>footer]:justify-end [&>footer]:flex-wrap [&>footer]:gap-3"
         >
-          <header className="min-w-0 -m-4 p-4 pb-4 border-t-8 bg-white dark:bg-black">
+          <header className="min-w-0 -m-4 p-4 pb-4 border-t-8 bg-white dark:bg-zinc-900">
             <h2 className="text-ellipsis overflow-hidden">{title}</h2>
           </header>
           {children}

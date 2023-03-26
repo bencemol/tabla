@@ -19,7 +19,7 @@ type HeaderProps = {
 
 export default function Header({ board, boards }: HeaderProps) {
   return (
-    <header className="grid grid-flow-col gap-2 justify-between items-center auto-cols-auto align-top p-4 border-b-2 border-neutral-100 dark:border-neutral-800">
+    <header className="grid grid-flow-col gap-2 justify-between items-center auto-cols-auto align-top p-4 border-b-2 border-zinc-100 dark:border-zinc-800">
       <Title board={board} className="hidden sm:block items-center" />
       <MobileNav
         board={board}
@@ -31,7 +31,7 @@ export default function Header({ board, boards }: HeaderProps) {
         <ContextMenu>
           <Link
             href={`/boards/${board.id}/edit`}
-            className={`flex items-center gap-2 p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors`}
+            className={`flex items-center gap-2 p-2 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors`}
           >
             <IconPencil />
             Edit Board
@@ -39,7 +39,7 @@ export default function Header({ board, boards }: HeaderProps) {
           <div className="my-1 border-b-2 border-inherit"></div>
           <Button
             variant="flat"
-            className="w-full hover:!bg-neutral-100 dark:hover:!bg-neutral-700"
+            className="w-full hover:!bg-zinc-100 dark:hover:!bg-zinc-700"
             onClick={() => signOut()}
           >
             <IconLogout />
@@ -79,13 +79,13 @@ const MobileNav = ({
       <IconChevronDown className="shrink-0" />
       <Popover isOpen={isOpen} onClick={toggle}>
         <CreateBoard
-          className="w-full !border-none !text-inherit !translate-y-0 !bg-transparent hover:!bg-neutral-100 dark:hover:!bg-neutral-700"
+          className="w-full !border-none !text-inherit !translate-y-0 !bg-transparent hover:!bg-zinc-100 dark:hover:!bg-zinc-700"
           onClose={() => setIsOpen(false)}
         />
         <div className="my-1 border-b-2 border-inherit"></div>
         <BoardsNav
           boards={boards}
-          linkClassName="data-[active=true]:!bg-transparent data-[active=true]:hover:!bg-neutral-100 data-[active=true]:dark:hover:!bg-neutral-700"
+          linkClassName="data-[active=true]:!bg-transparent data-[active=true]:hover:!bg-zinc-100 data-[active=true]:dark:hover:!bg-zinc-700"
         />
       </Popover>
     </Button>
