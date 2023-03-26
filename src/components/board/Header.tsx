@@ -24,7 +24,7 @@ export default function Header({ board, boards }: HeaderProps) {
       <MobileNav
         board={board}
         boards={boards}
-        className="block sm:hidden min-w-0"
+        className="block sm:hidden min-w-0 -ml-3"
       />
       <section className="flex gap-3">
         <CreateTask className="" boardId={board.id} />

@@ -20,7 +20,7 @@ const variants = {
 export default function Button({
   type = "button",
   children,
-  className,
+  className = "",
   isLoading,
   variant = "default",
   style,
@@ -39,6 +39,7 @@ export default function Button({
     >
       <span
         className={`flex p-2 items-center gap-2 ${isLoading && `invisible`}`}
+        style={{ justifyContent: "inherit" }}
       >
         {children}
       </span>

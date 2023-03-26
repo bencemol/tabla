@@ -89,8 +89,8 @@ export default function Modal({
           autoComplete="off"
           className="relative grid gap-8 p-4 [&>footer]:flex [&>footer]:justify-end [&>footer]:flex-wrap [&>footer]:gap-3"
         >
-          <header className="-m-4 p-4 pb-4 border-t-8 bg-white dark:bg-black">
-            <h2>{title}</h2>
+          <header className="min-w-0 -m-4 p-4 pb-4 border-t-8 bg-white dark:bg-black">
+            <h2 className="text-ellipsis overflow-hidden">{title}</h2>
           </header>
           {children}
         </form>
