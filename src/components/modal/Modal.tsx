@@ -87,7 +87,7 @@ export default function Modal({
           ref={formRef}
           onSubmit={confirm}
           autoComplete="off"
-          className="relative grid gap-8 p-4 [&>footer]:flex [&>footer]:justify-end [&>footer]:flex-wrap [&>footer]:gap-3"
+          className="relative grid gap-8 p-4 [&>footer]:grid [&>footer]:grid-flow-col [&>footer]:auto-cols-fr [&>footer]:justify-end [&>footer]:flex-wrap [&>footer]:gap-3 [&>footer>button]:justify-center"
         >
           <header className="min-w-0 -m-4 p-4 pb-4 border-t-8 bg-white dark:bg-zinc-900">
             <h2 className="text-ellipsis overflow-hidden">{title}</h2>
