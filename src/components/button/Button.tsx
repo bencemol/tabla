@@ -7,7 +7,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variants = {
   primary:
-    "bg-black text-white disabled:bg-zinc-700 dark:bg-zinc-700 dark:border-zinc-700 dark:text-white dark:disabled:bg-zinc-400",
+    "bg-black text-white disabled:bg-zinc-700 dark:bg-white dark:border-white dark:text-black dark:disabled:bg-zinc-400",
   default:
     "bg-white disabled:border-zinc-700 dark:bg-zinc-900 dark:border-zinc-700 dark:disabled:border-zinc-400",
   danger:

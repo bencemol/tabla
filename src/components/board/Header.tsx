@@ -11,6 +11,7 @@ import ContextMenu from "../popover/ContextMenu";
 import CreateBoard from "./CreateBoard";
 import { CreateTask } from "./CreateTask";
 import { signOut } from "next-auth/react";
+import { Separator } from "../separator/Separator";
 
 type HeaderProps = {
   board: Board;
@@ -36,7 +37,7 @@ export default function Header({ board, boards }: HeaderProps) {
             <IconPencil />
             Edit Board
           </Link>
-          <div className="my-1 border-b-2 border-inherit"></div>
+          <Separator />
           <Button
             variant="flat"
             className="w-full hover:!bg-zinc-100 dark:hover:!bg-zinc-700"
@@ -82,7 +83,7 @@ const MobileNav = ({
           className="w-full !border-none !text-inherit !translate-y-0 !bg-transparent hover:!bg-zinc-100 dark:hover:!bg-zinc-700"
           onClose={() => setIsOpen(false)}
         />
-        <div className="my-1 border-b-2 border-inherit"></div>
+        <Separator />
         <BoardsNav
           boards={boards}
           linkClassName="data-[active=true]:!bg-transparent data-[active=true]:hover:!bg-zinc-100 data-[active=true]:dark:hover:!bg-zinc-700"

@@ -1,4 +1,5 @@
 import CreateBoard from "@/components/board/CreateBoard";
+import { Separator } from "@/components/separator/Separator";
 import { getServerSessionUser, isAuthorized } from "@/lib/auth";
 import { Board } from "@/models/Board";
 import { TaskStateWithTasks } from "@/models/TaskState";
@@ -31,7 +32,7 @@ export default async function Boards() {
   const boards = await getBoards();
 
   return (
-    <section className="p-4 py-36 grid justify-center">
+    <section className="p-4 py-12 grid justify-center">
       <div className="max-w-xl space-y-4">
         <h1>G&apos;day {user.name} 👋</h1>
         <div className="space-y-12">
@@ -53,17 +54,17 @@ async function Card({ board }: { board: Board }) {
   return (
     <Link
       href={`/boards/${board.id}`}
-      className="block border-2 border-t-4 space-y-4 rounded-md p-4 shadow-md overflow-hidden text-ellipsis break-words"
+      className="block border-2 border-t-8 space-y-4 rounded-md p-4 shadow-md overflow-hidden text-ellipsis break-words"
     >
       <h2 className="text-center">{board.name}</h2>
-      <div className="my-1 border-b-2 border-inherit"></div>
+      <Separator />
       <div className="flex gap-2 justify-evenly flex-wrap">
         {states.map((state) => (
           <div
             key={state.id}
             className="uppercase last:text-right max-w-[20ch] shrink"
           >
-            <small className="whitespace-nowrap text-ellipsis overflow-hidden">
+            <small className="block whitespace-nowrap text-ellipsis overflow-hidden">
               <strong>{state.tasks.length}</strong> {state.name}
             </small>
           </div>
