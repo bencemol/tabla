@@ -82,8 +82,7 @@ form select {
   @apply w-full max-w-[50ch];
   @apply p-2;
   @apply bg-white dark:bg-black;
-  @apply border-2 rounded-md border-neutral-300 dark:border-neutral-700;
+  @apply border-2 rounded-md;
   @apply invalid:border-rose-900/70 dark:invalid:border-red-300/70;
-  @apply hover:border-neutral-400 dark:hover:border-neutral-600;
   @apply transition-colors;
 }

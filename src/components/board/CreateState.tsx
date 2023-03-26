@@ -88,8 +88,8 @@ export default function CreateState({ boardId }: { boardId: string }) {
           </form>
         ) : (
           <Button
-            variant="flat"
-            className="grow mb-3 border-2 border-dashed border-neutral-200 dark:border-neutral-800 hover:border-transparent hover:!bg-neutral-100 dark:hover:!bg-neutral-800"
+            variant="ghost"
+            className="grow mb-3"
             aria-label="Create Column"
             onClick={() => setIsFormOpen(true)}
           >

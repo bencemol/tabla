@@ -7,12 +7,14 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variants = {
   primary:
-    "bg-emerald-200 hover:bg-emerald-300 active:bg-emerald-400 disabled:bg-emerald-200 dark:bg-emerald-900 dark:hover:bg-emerald-800 dark:active:bg-emerald-700 dark:disabled:bg-emerald-900",
+    "bg-black text-white disabled:bg-neutral-700 dark:bg-white dark:border-white dark:text-black dark:disabled:bg-neutral-400",
   default:
-    "bg-neutral-200 hover:bg-neutral-300 active:bg-neutral-400 disabled:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:active:bg-neutral-600 dark:disabled:bg-neutral-800",
+    "bg-white disabled:border-neutral-700 dark:bg-black dark:border-white dark:disabled:border-neutral-400",
   danger:
-    "bg-red-200 hover:bg-red-300 active:bg-red-400 disabled:bg-red-200 dark:bg-red-900 dark:hover:bg-red-800 dark:active:bg-red-700 dark:disabled:bg-red-900",
-  flat: "bg-transparent hover:bg-neutral-300 active:bg-neutral-400 disabled:bg-transparent disabled:text-neutral-200 dark:bg-transparent dark:hover:bg-neutral-700 dark:active:bg-neutral-600 dark:disabled:bg-transparent",
+    "bg-white text-red-800 border-red-800 disabled:border-red-700 dark:bg-black dark:text-red-200 dark:border-red-200 dark:disabled:border-red-400",
+  flat: "border-transparent bg-transparent hover:!-translate-y-0 active:!translate-y-0 hover:bg-neutral-300 active:bg-neutral-400 disabled:bg-transparent disabled:text-neutral-200 dark:bg-transparent dark:hover:bg-neutral-700 dark:active:bg-neutral-600 dark:disabled:bg-transparent",
+  ghost:
+    "bg-transparent border-dashed border-neutral-200 dark:border-neutral-800 hover:border-transparent text-neutral-200 hover:text-inherit focus-visible:focus-within:text-inherit dark:text-neutral-800 hover:!bg-neutral-100 dark:hover:!bg-neutral-800 hover:!-translate-y-0 active:!translate-y-0",
 };
 
 export default function Button({
@@ -21,12 +23,18 @@ export default function Button({
   className,
   isLoading,
   variant = "default",
+  style,
   ...props
 }: ButtonProps) {
   return (
     <button
       type={type}
-      className={`relative rounded-md transition-colors disabled:cursor-not-allowed ${variants[variant]} ${className}`}
+      className={`relative border-2 rounded-md transition-colors disabled:cursor-not-allowed hover:-translate-y-0.5 active:translate-y-0.5 ${variants[variant]} ${className}`}
+      style={{
+        transitionProperty:
+          "transform, color, background-color, border-color, text-decoration-color, fill, stroke",
+        ...style,
+      }}
       {...props}
     >
       <span

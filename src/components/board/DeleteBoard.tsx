@@ -59,7 +59,7 @@ export default function DeleteBoard({
         <Button onClick={onClose}>No</Button>
         <Button
           type="submit"
-          variant="danger"
+          variant="primary"
           isLoading={isLoading}
           className="-order-1"
         >

@@ -54,7 +54,7 @@ export default function DeleteTask({
         <Button onClick={onClose}>No</Button>
         <Button
           type="submit"
-          variant="danger"
+          variant="primary"
           isLoading={isLoading}
           className="-order-1"
         >
