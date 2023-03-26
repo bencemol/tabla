@@ -37,7 +37,7 @@ export default function Columns({
   return (
     <SWRConfig value={{ fallback: deferredFallback }}>
       <section
-        className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-6 overflow-x-auto overscroll-x-contain ${className}`}
+        className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-6 overflow-x-auto ${className}`}
       >
         {states.map((state) => (
           <Column key={state.id} state={state} />

@@ -81,7 +81,7 @@ export default async function BoardLayout({
     <section className="grow flex flex-col max-h-screen">
       <Header board={board} boards={boards} />
       <Columns
-        className="flex-grow mt-4 px-4"
+        className="flex-grow px-4"
         boardId={boardId}
         states={states}
         tasks={tasks}
