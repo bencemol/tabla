@@ -1,7 +1,7 @@
 "use client";
 
-import { Task } from "@/models/Task";
-import { TaskState } from "@/models/TaskState";
+import { Task } from "@/models/task";
+import { TaskState } from "@/models/task-state";
 import { useDeferredValue } from "react";
 import { SWRConfig } from "swr";
 import Column from "./Column";

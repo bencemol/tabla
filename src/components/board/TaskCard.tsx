@@ -1,4 +1,4 @@
-import { Task } from "@/models/Task";
+import { Task } from "@/models/task";
 import { useRouter } from "next/navigation";
 
 type TaskProps = React.HtmlHTMLAttributes<HTMLButtonElement> & {

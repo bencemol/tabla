@@ -3,7 +3,7 @@
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
 import { useTasks } from "@/lib/swr";
-import { Task } from "@/models/Task";
+import { Task } from "@/models/task";
 import { Prisma } from "@prisma/client";
 import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";

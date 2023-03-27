@@ -1,5 +1,5 @@
 import { useTasks } from "@/lib/swr";
-import { Task } from "@/models/Task";
+import { Task } from "@/models/task";
 import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";

@@ -1,8 +1,8 @@
 import CreateBoard from "@/components/board/CreateBoard";
 import { Separator } from "@/components/separator/Separator";
 import { getServerSessionUser, isAuthorized } from "@/lib/auth";
-import { Board } from "@/models/Board";
-import { TaskStateWithTasks } from "@/models/TaskState";
+import { Board } from "@/models/board";
+import { TaskStateWithTasks } from "@/models/task-state";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 

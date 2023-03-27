@@ -1,4 +1,4 @@
-import { BoardWithTasks } from "@/models/Board";
+import { BoardWithTasks } from "@/models/board";
 import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";

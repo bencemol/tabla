@@ -1,8 +1,8 @@
 "use client";
 
 import { useTasks } from "@/lib/swr";
-import { Task } from "@/models/Task";
-import { TaskState } from "@/models/TaskState";
+import { Task } from "@/models/task";
+import { TaskState } from "@/models/task-state";
 import { IconPencil } from "@tabler/icons-react";
 import Link from "next/link";
 import { useDeferredValue } from "react";

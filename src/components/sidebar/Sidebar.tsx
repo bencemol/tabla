@@ -1,7 +1,7 @@
 import CreateBoard from "@/components/board/CreateBoard";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Board } from "@/models/Board";
+import { Board } from "@/models/board";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import BoardsNav from "./BoardsNav";

@@ -1,6 +1,6 @@
 import EditTask from "@/components/board/EditTask";
 import { db } from "@/lib/db";
-import { Task } from "@/models/Task";
+import { Task } from "@/models/task";
 import { notFound } from "next/navigation";
 
 async function getTask(id: string) {

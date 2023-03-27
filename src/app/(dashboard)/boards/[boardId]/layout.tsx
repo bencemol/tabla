@@ -2,9 +2,9 @@ import Columns from "@/components/board/Columns";
 import Header from "@/components/board/Header";
 import { getServerSessionUser, isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Board } from "@/models/Board";
-import { Task } from "@/models/Task";
-import { TaskState } from "@/models/TaskState";
+import { Board } from "@/models/board";
+import { Task } from "@/models/task";
+import { TaskState } from "@/models/task-state";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 

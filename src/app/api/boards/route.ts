@@ -1,6 +1,6 @@
 import { getServerSessionUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Board, BoardCreateInput } from "@/models/Board";
+import { Board, BoardCreateInput } from "@/models/board";
 import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 

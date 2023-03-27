@@ -3,7 +3,7 @@
 import Button from "@/components/button/Button";
 import Popover from "@/components/popover/Popover";
 import BoardsNav from "@/components/sidebar/BoardsNav";
-import { Board } from "@/models/Board";
+import { Board } from "@/models/board";
 import { IconChevronDown, IconLogout, IconPencil } from "@tabler/icons-react";
 import Link from "next/link";
 import { useState } from "react";

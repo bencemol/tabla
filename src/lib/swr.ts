@@ -1,4 +1,4 @@
-import { Task } from "@/models/Task";
+import { Task } from "@/models/task";
 import useSWR from "swr";
 
 const fetcher = (input: RequestInfo, init?: RequestInit) =>

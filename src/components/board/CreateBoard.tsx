@@ -2,7 +2,7 @@
 
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
-import { Board } from "@/models/Board";
+import { Board } from "@/models/board";
 import { IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";

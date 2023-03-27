@@ -1,6 +1,6 @@
 import EditState from "@/components/board/EditState";
 import { db } from "@/lib/db";
-import { TaskStateWithTasks } from "@/models/TaskState";
+import { TaskStateWithTasks } from "@/models/task-state";
 import { notFound } from "next/navigation";
 
 async function getTaskState(id: string) {

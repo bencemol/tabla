@@ -1,6 +1,6 @@
 "use client";
 
-import { TaskStateUpdateInput, TaskStateWithTasks } from "@/models/TaskState";
+import { TaskStateUpdateInput, TaskStateWithTasks } from "@/models/task-state";
 import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

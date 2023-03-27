@@ -1,6 +1,6 @@
 import { isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Board, BoardUpdateInput } from "@/models/Board";
+import { Board, BoardUpdateInput } from "@/models/board";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {

@@ -1,4 +1,4 @@
-import { Board } from "@/models/Board";
+import { Board } from "@/models/board";
 import { IconLayoutBoard, IconLayoutList } from "@tabler/icons-react";
 import { Separator } from "../separator/Separator";
 import ActiveLink from "./ActiveLink";

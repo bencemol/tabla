@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { WithTimestamps } from "./WithTimestamps";
-import { WithId } from "./WithId";
-import { Task } from "./Task";
+import { WithTimestamps } from "./with-timestamps";
+import { WithId } from "./with-id";
+import { Task } from "./task";
 
 export const BoardCreateInput = z.object({
   name: z.string().trim().min(1),

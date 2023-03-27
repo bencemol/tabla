@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { WithTimestamps } from "./WithTimestamps";
-import { WithId } from "./WithId";
+import { WithTimestamps } from "./with-timestamps";
+import { WithId } from "./with-id";
 
 const WithPriority = z.object({
   priority: z.number(),

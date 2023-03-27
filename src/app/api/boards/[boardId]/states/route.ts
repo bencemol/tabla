@@ -1,5 +1,5 @@
 import { isAuthorized } from "@/lib/auth";
-import { TaskState, TaskStateCreateInput } from "@/models/TaskState";
+import { TaskState, TaskStateCreateInput } from "@/models/task-state";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {

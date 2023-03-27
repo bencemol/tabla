@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { WithId } from "./WithId";
-import { WithTimestamps } from "./WithTimestamps";
-import { Task } from "./Task";
+import { WithId } from "./with-id";
+import { WithTimestamps } from "./with-timestamps";
+import { Task } from "./task";
 
 const WithOrder = z.object({
   order: z.number(),

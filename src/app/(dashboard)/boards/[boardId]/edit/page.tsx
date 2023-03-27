@@ -1,7 +1,7 @@
 import EditBoard from "@/components/board/EditBoard";
 import { isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { BoardWithTasks } from "@/models/Board";
+import { BoardWithTasks } from "@/models/board";
 import { notFound, redirect } from "next/navigation";
 
 async function getBoard(id: string) {

@@ -2,7 +2,7 @@
 
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
-import { BoardUpdateInput, BoardWithTasks } from "@/models/Board";
+import { BoardUpdateInput, BoardWithTasks } from "@/models/board";
 import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

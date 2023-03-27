@@ -1,6 +1,6 @@
 import { isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Task, TaskUpdateInput } from "@/models/Task";
+import { Task, TaskUpdateInput } from "@/models/task";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
