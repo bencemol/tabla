@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
@@ -41,6 +42,7 @@ model Account {
   updatedAt         DateTime @default(now()) @updatedAt
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -51,6 +53,8 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now()) @updatedAt
+
+  @@index([userId])
 }
 
 model VerificationToken {
@@ -72,6 +76,8 @@ model Board {
   ownerId   String
   createdAt DateTime    @default(now())
   updatedAt DateTime    @default(now()) @updatedAt
+
+  @@index([ownerId])
 }
 
 model Task {
@@ -85,6 +91,10 @@ model Task {
   stateId     String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now()) @updatedAt
+
+  @@index([boardId])
+  @@index([priority])
+  @@index([stateId])
 }
 
 model TaskState {
@@ -96,4 +106,7 @@ model TaskState {
   tasks     Task[]
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([order])
+  @@index([boardId])
 }
