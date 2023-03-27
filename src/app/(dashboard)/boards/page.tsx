@@ -32,8 +32,8 @@ export default async function Boards() {
   const boards = await getBoards();
 
   return (
-    <section className="p-4 py-12 flex justify-center">
-      <div className="w-full max-w-xl space-y-4">
+    <section className="p-4 grid justify-center max-h-screen overflow-auto">
+      <div className="my-12 mb-48 w-full max-w-xl space-y-4">
         <h1>G&apos;day {user.name} 👋</h1>
         <div className="space-y-12">
           <p>Here are all your Boards ({boards.length}):</p>

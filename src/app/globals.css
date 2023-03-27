@@ -84,5 +84,6 @@ form select {
   @apply bg-white dark:bg-zinc-900;
   @apply border-2 rounded-md;
   @apply invalid:border-rose-900/70 dark:invalid:border-red-300/70;
+  @apply focus:border-inherit;
   @apply transition-colors;
 }

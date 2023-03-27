@@ -139,16 +139,21 @@ function animateBoard() {
 export function GhostBoard() {
   useEffect(() => {
     const animation = animateBoard();
-    return () => animation.cancel();
+    return () => {
+      animation.cancel();
+    };
   }, []);
 
   return (
-    <section className="max-h-screen grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-20">
-      {Array(5)
+    <section
+      id="board"
+      className="max-h-screen grid justify-center grid-flow-col auto-cols-[20ch] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-20"
+    >
+      {Array(7)
         .fill(0)
         .map((_, colIndex) => (
           <GhostColumn key={colIndex} index={colIndex}>
-            {Array(16)
+            {Array(12)
               .fill(0)
               .map((_, rowIndex) => (
                 <li
@@ -173,9 +178,9 @@ export function GhostColumn({
   children?: React.ReactNode;
 }) {
   return (
-    <section id={`col_${index}`} className="flex flex-col -translate-y-10">
-      <ul>{children}</ul>
-    </section>
+    <ul id={`col_${index}`} className="flex flex-col -translate-y-10">
+      {children}
+    </ul>
   );
 }
 
@@ -192,13 +197,15 @@ export function GhostTask({ index }: { index: number }) {
       >
         &nbsp;
       </h3>
-      {Array(descriptionLines.current)
-        .fill(0)
-        .map((_, i) => (
-          <p key={i} className="rounded-md bg-zinc-800 w-full">
-            &nbsp;
-          </p>
-        ))}
+      <div className="space-y-1">
+        {Array(descriptionLines.current)
+          .fill(0)
+          .map((_, i) => (
+            <p key={i} className="rounded-md bg-zinc-800 w-full">
+              &nbsp;
+            </p>
+          ))}
+      </div>
     </div>
   );
 }

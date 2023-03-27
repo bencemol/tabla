@@ -23,8 +23,11 @@ export default async function Landing({
     <main className="min-h-[100svh] relative">
       <GhostBoard />
       <section className="p-4 absolute inset-0 grid place-items-center">
-        <div className="w-full max-w-md space-y-4 border-2 border-t-8 rounded-md p-4 shadow-xl bg-white dark:bg-zinc-900">
-          <h1 className="mb-24">Tábla</h1>
+        <div className="w-full max-w-md space-y-4 border-2 border-t-8 rounded-md p-4 text-center shadow-xl bg-white dark:bg-zinc-900">
+          <header className="mb-12 space-y-3">
+            <h1>Tábla</h1>
+            <h2>Personal Kanban Boards</h2>
+          </header>
           {providers &&
             Object.values(providers).map((provider) => (
               <ProviderButton
