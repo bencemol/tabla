@@ -18,7 +18,7 @@ export default function TaskCard({
 
   return (
     <button
-      className={`p-2 rounded-md border-2 border-t-8 bg-white dark:bg-zinc-900 text-left shadow-md ${className}`}
+      className={`px-3 py-2 rounded-md border-2 border-t-8 bg-white dark:bg-zinc-900 text-left shadow-md ${className}`}
       onClick={editTask}
       onMouseOver={prefetchTask}
       style={{

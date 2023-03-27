@@ -190,7 +190,7 @@ export function GhostTask({ index }: { index: number }) {
   const descriptionLines = useRef(Math.floor(rand.current() * 2 + 1));
 
   return (
-    <div className="p-2 rounded-md border-2 border-t-8 space-y-2 bg-white dark:bg-zinc-900">
+    <div className="px-3 py-2 rounded-md border-2 border-t-8 space-y-2 bg-white dark:bg-zinc-900">
       <h3
         className="rounded-md bg-zinc-800"
         style={{ width: titleWidth.current + "%" }}
