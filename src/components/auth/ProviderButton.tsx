@@ -15,7 +15,8 @@ export default function ProviderButton({
   return (
     <Button
       onClick={() => signIn(id, { callbackUrl })}
-      className="block w-full"
+      className="block w-full justify-center"
+      variant="primary"
     >
       Sign in with {name}
     </Button>

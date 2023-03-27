@@ -17,7 +17,7 @@ async function getBoards() {
 
 async function getStates(boardId: string) {
   if (!(await isAuthorized(boardId))) {
-    redirect("/403");
+    redirect("/");
   }
   const data = await db.taskState.findMany({
     where: { boardId },

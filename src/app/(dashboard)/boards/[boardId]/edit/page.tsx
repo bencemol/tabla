@@ -6,7 +6,7 @@ import { notFound, redirect } from "next/navigation";
 
 async function getBoard(id: string) {
   if (!(await isAuthorized(id))) {
-    redirect("/403");
+    redirect("/");
   }
   const data = await db.board.findUnique({
     where: { id },

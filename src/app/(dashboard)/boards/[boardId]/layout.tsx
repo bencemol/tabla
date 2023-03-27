@@ -19,7 +19,7 @@ async function getBoards() {
 
 async function getBoard(id: string) {
   if (!(await isAuthorized(id))) {
-    redirect("/403");
+    redirect("/");
   }
   const board = await db.board.findUnique({ where: { id } });
   if (!board) {
@@ -30,7 +30,7 @@ async function getBoard(id: string) {
 
 async function getStates(boardId: string) {
   if (!(await isAuthorized(boardId))) {
-    redirect("/403");
+    redirect("/");
   }
   const data = await db.taskState.findMany({
     where: { boardId },
@@ -41,7 +41,7 @@ async function getStates(boardId: string) {
 
 async function getTasks(boardId: string) {
   if (!(await isAuthorized(boardId))) {
-    redirect("/403");
+    redirect("/");
   }
   const data = await db.task.findMany({
     where: { boardId },

@@ -1,6 +1,8 @@
 import ProviderButton from "@/components/auth/ProviderButton";
 import { GhostColumn } from "@/components/ghost/GhostBoard";
 import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 type LandingParams = {
   searchParams: {
@@ -11,7 +13,12 @@ type LandingParams = {
 export default async function Landing({
   searchParams: { callbackUrl },
 }: LandingParams) {
+  const session = await getServerSession();
+  if (session) {
+    redirect("/boards");
+  }
   const providers = authOptions.providers;
+
   return (
     <main className="min-h-[100svh] relative">
       <section className="max-h-screen grid grid-flow-col p-4 gap-6 overflow-hidden opacity-5 dark:opacity-20">
