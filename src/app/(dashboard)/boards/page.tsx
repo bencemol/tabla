@@ -1,6 +1,7 @@
 import CreateBoard from "@/components/board/CreateBoard";
 import { Separator } from "@/components/separator/Separator";
 import { getServerSessionUser, isAuthorized } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { Board } from "@/models/board";
 import { TaskStateWithTasks } from "@/models/task-state";
 import Link from "next/link";
