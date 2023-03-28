@@ -1,9 +1,11 @@
 import CreateBoard from "@/components/board/CreateBoard";
+import Header from "@/components/board/Header";
 import { Separator } from "@/components/separator/Separator";
 import { getServerSessionUser, isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Board } from "@/models/board";
 import { TaskStateWithTasks } from "@/models/task-state";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -29,23 +31,29 @@ async function getStates(boardId: string) {
 }
 
 export default async function Boards() {
-  const user = await getServerSessionUser();
+  const session = await getServerSession();
+  if (!session) {
+    redirect("/");
+  }
   const boards = await getBoards();
 
   return (
-    <section className="p-4 pt-36 pb-48 flex justify-center max-h-screen overflow-auto">
-      <div className="w-full h-max max-w-xl space-y-4">
-        <h1>G&apos;day {user.name} 👋</h1>
-        <div className="space-y-12">
-          <p>Here are all your Boards ({boards.length}):</p>
-          <CreateBoard className="w-full justify-center" />
-          {boards.map((board) => (
-            /* @ts-expect-error Async Server Component */
-            <Card key={board.id} board={board} />
-          ))}
+    <>
+      <Header session={session} />
+      <section className="p-4 pt-12 pb-48 flex justify-center">
+        <div className="w-full h-max max-w-xl space-y-4">
+          <h1>G&apos;day {session.user?.name} 👋</h1>
+          <div className="space-y-12">
+            <p>Here are all your Boards ({boards.length}):</p>
+            <CreateBoard className="w-full justify-center" />
+            {boards.map((board) => (
+              /* @ts-expect-error Async Server Component */
+              <Card key={board.id} board={board} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 

@@ -24,16 +24,16 @@ export default async function Sidebar() {
 
   return (
     <aside className="hidden sm:block w-60 h-full p-4 border-r-2 border-zinc-100 dark:border-zinc-800">
-      <h1 className="mb-8 flex gap-4 items-center">
+      <h1 className="mb-8 flex gap-2 items-center">
         <img
           src="/tabla_logo_light.svg"
           alt="Tábla logo"
-          className="hidden w-12 aspect-square dark:block"
+          className="hidden w-9 aspect-square dark:block"
         />
         <img
           src="/tabla_logo_dark.svg"
           alt="Tábla logo"
-          className="w-12 aspect-square dark:hidden"
+          className="w-9 aspect-square dark:hidden"
         />
         <span>Tábla</span>
       </h1>
