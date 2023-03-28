@@ -3,6 +3,7 @@
 import {
   IconBrandDiscord,
   IconBrandGithub,
+  IconBrandGoogle,
   IconBrandReddit,
   IconKey,
 } from "@tabler/icons-react";
@@ -39,6 +40,8 @@ function ProviderIcon({ providerId }: { providerId: string }) {
       return <IconBrandDiscord />;
     case "reddit":
       return <IconBrandReddit />;
+    case "google":
+      return <IconBrandGoogle />;
     default:
       return <IconKey />;
   }

@@ -22,7 +22,7 @@ function dragBefore(fromSelector: string, toSelector: string) {
     delay: 4000,
     duration: 300,
     fill: "forwards",
-    easing: easeOut,
+    easing: easeIn,
   } as KeyframeAnimationOptions;
   const liftFrames = [
     { transform: "translate(0, 0)" },
@@ -50,7 +50,7 @@ function dragBefore(fromSelector: string, toSelector: string) {
   const dropOptions = {
     duration: 300,
     fill: "forwards",
-    easing: easeIn,
+    easing: easeOut,
   } as KeyframeAnimationOptions;
   const dropFrames = [
     { transform: `translate(0, ${-deltaY}px)` },
