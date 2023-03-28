@@ -5,6 +5,7 @@ import { DefaultJWT } from "next-auth/jwt";
 import { Provider } from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
+import DiscordProvider from "next-auth/providers/discord";
 import { notFound } from "next/navigation";
 
 declare module "next-auth" {
@@ -38,6 +39,10 @@ const providers: Provider[] = [
   GithubProvider({
     clientId: process.env.GITHUB_CLIENT_ID!,
     clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+  }),
+  DiscordProvider({
+    clientId: process.env.DISCORD_CLIENT_ID!,
+    clientSecret: process.env.DISCORD_CLIENT_SECRET!,
   }),
 ];
 
