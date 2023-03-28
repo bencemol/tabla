@@ -7,6 +7,10 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: { default: "Tábla", template: "%s | Tábla" },
   description: "An experimental Kanban board",
+  icons: {
+    icon: "favicon.svg",
+    shortcut: "tabla_logo_dark.svg",
+  },
 };
 
 export default function RootLayout({

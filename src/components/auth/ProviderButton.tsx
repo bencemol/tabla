@@ -32,7 +32,6 @@ export default function ProviderButton({
 }
 
 function ProviderIcon({ providerId }: { providerId: string }) {
-  console.log(providerId);
   switch (providerId) {
     case "github":
       return <IconBrandGithub />;
