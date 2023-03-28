@@ -147,7 +147,7 @@ export function GhostBoard() {
   return (
     <section
       id="board"
-      className="h-screen grid justify-center items-center grid-flow-col auto-cols-[20ch] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-10"
+      className="h-screen grid justify-center items-center grid-flow-col auto-cols-[20ch] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-5"
     >
       {Array(7)
         .fill(0)
