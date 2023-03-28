@@ -62,7 +62,7 @@ function dragBefore(fromSelector: string, toSelector: string) {
   const staggerAnimation = tasksAbove.map((task, i) => {
     const animation = task.animate(staggerFrames, {
       ...staggerOptions,
-      delay: 300 + i * 150,
+      delay: 300 + (i * deltaY) / 5.3,
     });
     animation.pause();
     return animation;
@@ -106,9 +106,9 @@ function dragBefore(fromSelector: string, toSelector: string) {
 function animateBoard() {
   const frames: [string, string][] = [
     ["#col_2 li:nth-child(10)", "#col_2 li:nth-child(4)"],
-    ["#col_0 li:nth-child(9)", "#col_0 li:nth-child(2)"],
-    ["#col_1 li:nth-child(10)", "#col_1 li:nth-child(5)"],
-    ["#col_3 li:nth-child(12)", "#col_3 li:nth-child(9)"],
+    ["#col_0 li:nth-child(7)", "#col_0 li:nth-child(2)"],
+    ["#col_1 li:nth-child(9)", "#col_1 li:nth-child(5)"],
+    ["#col_3 li:nth-child(5)", "#col_3 li:nth-child(3)"],
     ["#col_4 li:nth-child(6)", "#col_4 li:nth-child(1)"],
   ];
   let timeline: ReturnType<typeof dragBefore>[] = [];
@@ -147,13 +147,13 @@ export function GhostBoard() {
   return (
     <section
       id="board"
-      className="max-h-screen grid justify-center grid-flow-col auto-cols-[20ch] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-10"
+      className="h-screen grid justify-center items-center grid-flow-col auto-cols-[20ch] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-10"
     >
       {Array(7)
         .fill(0)
         .map((_, colIndex) => (
           <GhostColumn key={colIndex} index={colIndex}>
-            {Array(12)
+            {Array(12 - Math.abs(colIndex - 3))
               .fill(0)
               .map((_, rowIndex) => (
                 <li
@@ -178,7 +178,7 @@ export function GhostColumn({
   children?: React.ReactNode;
 }) {
   return (
-    <ul id={`col_${index}`} className="flex flex-col -translate-y-10">
+    <ul id={`col_${index}`} className="-translate-y-10">
       {children}
     </ul>
   );
