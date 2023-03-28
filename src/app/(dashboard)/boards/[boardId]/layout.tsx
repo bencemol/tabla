@@ -18,9 +18,6 @@ async function getBoards() {
 }
 
 async function getBoard(id: string) {
-  if (!(await isAuthorized(id))) {
-    redirect("/");
-  }
   const board = await db.board.findUnique({ where: { id } });
   if (!board) {
     notFound();
@@ -29,9 +26,6 @@ async function getBoard(id: string) {
 }
 
 async function getStates(boardId: string) {
-  if (!(await isAuthorized(boardId))) {
-    redirect("/");
-  }
   const data = await db.taskState.findMany({
     where: { boardId },
     orderBy: { order: "asc" },
@@ -40,9 +34,6 @@ async function getStates(boardId: string) {
 }
 
 async function getTasks(boardId: string) {
-  if (!(await isAuthorized(boardId))) {
-    redirect("/");
-  }
   const data = await db.task.findMany({
     where: { boardId },
     orderBy: { priority: "asc" },
@@ -70,6 +61,9 @@ export default async function BoardLayout({
   params: { boardId },
   children,
 }: BoardProps) {
+  if (!(await isAuthorized(boardId))) {
+    redirect("/boards");
+  }
   const [board, boards, states, tasks] = await Promise.all([
     getBoard(boardId),
     getBoards(),
