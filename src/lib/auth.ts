@@ -4,8 +4,9 @@ import { AuthOptions, DefaultSession, User, getServerSession } from "next-auth";
 import { DefaultJWT } from "next-auth/jwt";
 import { Provider } from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GithubProvider from "next-auth/providers/github";
 import DiscordProvider from "next-auth/providers/discord";
+import GithubProvider from "next-auth/providers/github";
+import RedditProvider from "next-auth/providers/reddit";
 import { notFound } from "next/navigation";
 
 declare module "next-auth" {
@@ -33,7 +34,7 @@ const MockProvider = CredentialsProvider({
   credentials: {},
   authorize: () => mockUser,
 });
-MockProvider.name = "Mock 🔑";
+MockProvider.name = "Mock Provider";
 
 const providers: Provider[] = [
   GithubProvider({
@@ -41,6 +42,10 @@ const providers: Provider[] = [
     clientSecret: process.env.GITHUB_CLIENT_SECRET!,
   }),
   DiscordProvider({
+    clientId: process.env.DISCORD_CLIENT_ID!,
+    clientSecret: process.env.DISCORD_CLIENT_SECRET!,
+  }),
+  RedditProvider({
     clientId: process.env.DISCORD_CLIENT_ID!,
     clientSecret: process.env.DISCORD_CLIENT_SECRET!,
   }),
