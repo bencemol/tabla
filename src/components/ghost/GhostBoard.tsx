@@ -147,7 +147,7 @@ export function GhostBoard() {
   return (
     <section
       id="board"
-      className="max-h-screen grid justify-center grid-flow-col auto-cols-[20ch] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-20"
+      className="max-h-screen grid justify-center grid-flow-col auto-cols-[20ch] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-10"
     >
       {Array(7)
         .fill(0)
@@ -184,15 +184,27 @@ export function GhostColumn({
   );
 }
 
+const taskVariants = [
+  "text-green-800",
+  "text-amber-800",
+  "text-purple-800",
+  "text-sky-800",
+];
+
 export function GhostTask({ index }: { index: number }) {
   const rand = useRef(mulberry32(index));
   const titleWidth = useRef(Math.floor(30 + rand.current() * 70));
   const descriptionLines = useRef(Math.floor(rand.current() * 2 + 1));
+  const variant = useRef(Math.floor(rand.current() * taskVariants.length));
 
   return (
-    <div className="px-3 py-2 rounded-md border-2 border-t-8 space-y-2 bg-white dark:bg-zinc-900">
+    <div
+      className={`px-3 py-2 rounded-md border-2 border-t-8 border-current space-y-2 bg-white dark:bg-zinc-900 ${
+        taskVariants[variant.current]
+      }`}
+    >
       <h3
-        className="rounded-md bg-zinc-800"
+        className="rounded-md bg-current"
         style={{ width: titleWidth.current + "%" }}
       >
         &nbsp;
@@ -201,7 +213,7 @@ export function GhostTask({ index }: { index: number }) {
         {Array(descriptionLines.current)
           .fill(0)
           .map((_, i) => (
-            <p key={i} className="rounded-md bg-zinc-800 w-full">
+            <p key={i} className="rounded-md bg-current w-full">
               &nbsp;
             </p>
           ))}
