@@ -9,6 +9,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import RedditProvider from "next-auth/providers/reddit";
 import { notFound } from "next/navigation";
+import { createSampleBoard } from "./onboarding";
 
 declare module "next-auth" {
   interface Session {
@@ -84,6 +85,11 @@ export const authOptions: AuthOptions = {
         session.user.id = token.id;
       }
       return session;
+    },
+  },
+  events: {
+    async createUser({ user }) {
+      await createSampleBoard(user.id);
     },
   },
 };
