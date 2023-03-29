@@ -147,7 +147,7 @@ export function GhostBoard() {
   return (
     <section
       id="board"
-      className="h-screen grid justify-center items-center grid-flow-col auto-cols-[20ch] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-5"
+      className="h-screen grid justify-center items-center grid-flow-col auto-cols-[20ch] p-4 gap-6 overflow-hidden opacity-5 dark:opacity-10"
     >
       {Array(7)
         .fill(0)
@@ -185,10 +185,10 @@ export function GhostColumn({
 }
 
 const taskVariants = [
-  "text-green-800",
-  "text-amber-800",
-  "text-purple-800",
-  "text-sky-800",
+  "text-black dark:text-zinc-600",
+  "text-violet-800",
+  "text-orange-800",
+  "text-blue-800",
 ];
 
 export function GhostTask({ index }: { index: number }) {

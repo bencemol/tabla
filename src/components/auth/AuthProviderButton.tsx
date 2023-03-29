@@ -17,7 +17,7 @@ const buttonVariant: { [key: string]: string } = {
   google: "!bg-[#4285F4] !text-white !border-transparent",
 };
 
-export default function ProviderButton({
+export default function AuthProviderButton({
   id,
   name,
   callbackUrl = "/boards",

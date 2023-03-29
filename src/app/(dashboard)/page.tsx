@@ -1,4 +1,4 @@
-import ProviderButton from "@/components/auth/ProviderButton";
+import AuthProviderButton from "@/components/auth/AuthProviderButton";
 import { GhostBoard } from "@/components/ghost/GhostBoard";
 import Logo from "@/components/logo/Logo";
 import { authOptions } from "@/lib/auth";
@@ -26,12 +26,12 @@ export default async function Landing({
       <section className="p-4 absolute inset-0 grid place-items-center">
         <div className="w-full max-w-md space-y-4 border-2 border-t-8 rounded-md p-4  shadow-xl bg-white dark:bg-zinc-900">
           <header className="mb-12 flex flex-col justify-between items-center">
-            <Logo className="mb-4" />
+            <Logo className="mb-4 mt-8" />
             <h3>Personal Kanban Boards</h3>
           </header>
           {providers &&
             Object.values(providers).map((provider) => (
-              <ProviderButton
+              <AuthProviderButton
                 key={provider.name}
                 id={provider.id}
                 name={provider.name}
