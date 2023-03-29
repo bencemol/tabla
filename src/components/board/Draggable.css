@@ -20,6 +20,6 @@
 .over-top:first-child ~ *,
 :not(.dragging) + .over-top,
 :not(.dragging) + .over-top ~ *,
-.over-bottom:not(:has(+ .dragging)) ~ * {
+.over-bottom:not(:has(+ .dragging)):not(:last-of-type) ~ * {
   transform: translateY(var(--drag-over-offset));
 }

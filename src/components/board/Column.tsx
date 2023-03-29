@@ -97,7 +97,7 @@ export default function Column({ state }: { state: TaskState }) {
         ))}
         <DropZone
           onDrop={(d: Task) => moveTask(d, tasks.length)}
-          className="grow"
+          className="grow transition-transform"
         >
           <CreateTaskInline boardId={state.boardId} stateId={state.id} />
         </DropZone>
