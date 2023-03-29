@@ -54,7 +54,7 @@ export default function CreateState({ boardId }: { boardId: string }) {
           <IconDotsVertical size={16} />
         </Button>
       </header>
-      <section className="grow flex flex-col py-2">
+      <section className="sticky top-14 bottom-0 h-[calc(100vh-152px)] py-2 flex">
         {isFormOpen ? (
           <form
             ref={formRef}
@@ -89,7 +89,7 @@ export default function CreateState({ boardId }: { boardId: string }) {
         ) : (
           <Button
             variant="ghost"
-            className="grow mb-3"
+            className="mb-3 w-full"
             aria-label="Create Column"
             onClick={() => setIsFormOpen(true)}
           >
