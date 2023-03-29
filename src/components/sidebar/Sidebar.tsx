@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { Board } from "@/models/board";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import Logo from "../logo/Logo";
 import BoardsNav from "./BoardsNav";
 
 async function getBoards() {
@@ -24,19 +25,7 @@ export default async function Sidebar() {
 
   return (
     <aside className="hidden sm:block w-60 h-full p-4 border-r-2 border-zinc-100 dark:border-zinc-800">
-      <h1 className="mb-8 flex gap-2 items-center">
-        <img
-          src="/tabla_logo_light.svg"
-          alt="Tábla logo"
-          className="hidden w-9 aspect-square dark:block"
-        />
-        <img
-          src="/tabla_logo_dark.svg"
-          alt="Tábla logo"
-          className="w-9 aspect-square dark:hidden"
-        />
-        <span>Tábla</span>
-      </h1>
+      <Logo />
       <div className="mb-6">
         <CreateBoard className="w-full" />
       </div>

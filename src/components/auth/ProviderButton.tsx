@@ -10,6 +10,13 @@ import {
 import { signIn } from "next-auth/react";
 import Button from "../button/Button";
 
+const buttonVariant: { [key: string]: string } = {
+  github: "bg-black text-white border-transparent",
+  discord: "!bg-[#7289DA] !text-white !border-transparent",
+  reddit: "!bg-[#FF4500] !text-white !border-transparent",
+  google: "!bg-[#4285F4] !text-white !border-transparent",
+};
+
 export default function ProviderButton({
   id,
   name,
@@ -22,7 +29,7 @@ export default function ProviderButton({
   return (
     <Button
       onClick={() => signIn(id, { callbackUrl })}
-      className="block w-full justify-center"
+      className={`block w-full justify-center border-current ${buttonVariant[id]}`}
       variant="primary"
     >
       <ProviderIcon providerId={id} />

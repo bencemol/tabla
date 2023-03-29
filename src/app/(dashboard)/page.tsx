@@ -1,5 +1,6 @@
 import ProviderButton from "@/components/auth/ProviderButton";
 import { GhostBoard } from "@/components/ghost/GhostBoard";
+import Logo from "@/components/logo/Logo";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -20,13 +21,13 @@ export default async function Landing({
   const providers = authOptions.providers;
 
   return (
-    <main className="min-h-[100svh] relative">
+    <main className="min-h-screen relative">
       <GhostBoard />
       <section className="p-4 absolute inset-0 grid place-items-center">
-        <div className="w-full max-w-md space-y-4 border-2 border-t-8 rounded-md p-4 text-center shadow-xl bg-white dark:bg-zinc-900">
-          <header className="mb-12 space-y-3">
-            <h1>Tábla</h1>
-            <h2>Personal Kanban Boards</h2>
+        <div className="w-full max-w-md space-y-4 border-2 border-t-8 rounded-md p-4  shadow-xl bg-white dark:bg-zinc-900">
+          <header className="mb-12 flex flex-col justify-between items-center">
+            <Logo className="mb-4" />
+            <h3>Personal Kanban Boards</h3>
           </header>
           {providers &&
             Object.values(providers).map((provider) => (

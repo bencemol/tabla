@@ -18,6 +18,7 @@ import { useState } from "react";
 import { Separator } from "../separator/Separator";
 import CreateBoard from "./CreateBoard";
 import { CreateTask } from "./CreateTask";
+import Logo from "../logo/Logo";
 
 type HeaderProps = {
   session?: Session;
@@ -48,21 +49,7 @@ export default function Header({ session, board, boards }: HeaderProps) {
             </section>
           </>
         )}
-        {!board && !boards && (
-          <h1 className="sm:hidden flex gap-2 items-center">
-            <img
-              src="/tabla_logo_light.svg"
-              alt="Tábla logo"
-              className="hidden w-9 aspect-square dark:block"
-            />
-            <img
-              src="/tabla_logo_dark.svg"
-              alt="Tábla logo"
-              className="w-9 aspect-square dark:hidden"
-            />
-            <span>Tábla</span>
-          </h1>
-        )}
+        {!board && !boards && <Logo />}
         <ProfileMenu className="ml-1 col-start-3 self-end" />
       </header>
     </SessionProvider>
