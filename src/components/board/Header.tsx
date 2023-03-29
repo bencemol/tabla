@@ -44,6 +44,7 @@ export default function Header({ session, board, boards }: HeaderProps) {
                 className={`flex items-center gap-2 p-2 border-2 border-black dark:border-white rounded-md`}
               >
                 <IconPencil />
+                <span className="hidden lg:inline">Edit Board</span>
               </Link>
               <CreateTask className="" boardId={board.id} />
             </section>
