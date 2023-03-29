@@ -6,6 +6,7 @@ import { Board } from "@/models/board";
 import { Task } from "@/models/task";
 import { TaskState } from "@/models/task-state";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import { notFound, redirect } from "next/navigation";
 
 async function getBoards() {
@@ -64,6 +65,7 @@ export default async function BoardLayout({
   if (!(await isAuthorized(boardId))) {
     redirect("/boards");
   }
+  const session = (await getServerSession())!;
   const [board, boards, states, tasks] = await Promise.all([
     getBoard(boardId),
     getBoards(),
@@ -73,7 +75,7 @@ export default async function BoardLayout({
 
   return (
     <>
-      <Header board={board} boards={boards} />
+      <Header session={session} board={board} boards={boards} />
       <Columns
         className="flex-grow mt-4 pb-4 px-4"
         boardId={boardId}

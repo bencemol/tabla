@@ -38,13 +38,13 @@ export default function Header({ session, board, boards }: HeaderProps) {
               className="block sm:hidden min-w-0 -ml-3"
             />
             <section className="ml-auto flex gap-3">
-              <CreateTask className="" boardId={board.id} />
               <Link
                 href={`/boards/${board.id}/edit`}
                 className={`flex items-center gap-2 p-2 border-2 border-black dark:border-white rounded-md`}
               >
                 <IconPencil />
               </Link>
+              <CreateTask className="" boardId={board.id} />
             </section>
           </>
         )}
