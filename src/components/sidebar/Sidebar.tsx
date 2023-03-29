@@ -29,7 +29,7 @@ export default async function Sidebar() {
       <div className="mb-6">
         <CreateBoard className="w-full" />
       </div>
-      <BoardsNav boards={boards} />
+      <BoardsNav boards={boards} linkClassName="mb-1" />
     </aside>
   );
 }

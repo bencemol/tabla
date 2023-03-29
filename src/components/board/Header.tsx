@@ -41,7 +41,7 @@ export default function Header({ session, board, boards }: HeaderProps) {
             <section className="ml-auto flex gap-3">
               <Link
                 href={`/boards/${board.id}/edit`}
-                className={`flex items-center gap-2 p-2 border-2 border-black dark:border-white rounded-md`}
+                className={`flex items-center gap-2 p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
               >
                 <IconPencil />
                 <span className="hidden lg:inline">Edit Board</span>
@@ -106,7 +106,7 @@ const ProfileMenu = ({ className = "" }: { className?: string }) => {
   return (
     <button
       type="button"
-      className={`relative m-auto h-12 aspect-square rounded-full border-2 border-black dark:border-white overflow-hidden ${className}`}
+      className={`relative m-auto h-12 aspect-square rounded-full border-2 border-black dark:border-white overflow-hidden active:translate-y-0.5 transition-transform ${className}`}
       onClick={toggle}
     >
       <h2 className="absolute m-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">

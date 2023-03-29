@@ -8,6 +8,25 @@
   }
 }
 
+@layer utilities {
+  .shadow-solid {
+    animation: 100ms ease-out forwards lift;
+  }
+
+  .invalid {
+    animation: 100ms ease-out forwards lift;
+  }
+
+  @keyframes lift {
+    from {
+      box-shadow: 0 0 0 var(--tw-shadow-color);
+    }
+    to {
+      box-shadow: 4px 4px 0 var(--tw-shadow-color);
+    }
+  }
+}
+
 * {
   box-sizing: border-box;
   @apply border-black dark:border-zinc-700;
@@ -15,6 +34,7 @@
 
 *:focus-visible:focus {
   @apply outline-none;
+  @apply shadow-solid shadow-[#ffc700];
 }
 
 html,
@@ -69,11 +89,11 @@ h5 {
 }
 
 form label {
-  @apply block mb-1;
+  @apply block mb-1 transition-colors;
 }
 
 form label:has(+ input:invalid:not(:focus)) {
-  @apply text-rose-900 dark:text-red-300;
+  @apply text-red-800 dark:text-red-400;
 }
 
 form input,
@@ -83,9 +103,14 @@ form select {
   @apply p-2;
   @apply bg-white dark:bg-zinc-900;
   @apply border-2 rounded-md;
-  @apply invalid:border-rose-900/70 dark:invalid:border-red-300/70;
-  @apply focus:border-inherit;
   @apply transition-colors;
+}
+
+form input:invalid,
+form textarea:invalid,
+form select:invalid {
+  @apply shadow-solid invalid;
+  @apply shadow-red-700 dark:shadow-red-500;
 }
 
 .stop-panning:has(.dragging) {

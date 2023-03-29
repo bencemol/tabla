@@ -75,7 +75,7 @@ export default function Column({ state }: { state: TaskState }) {
         <span className="edit ml-auto sm:opacity-0 sm:focus-within:opacity-100 transition-opacity">
           <Link
             href={`/boards/${state.boardId}/states/${state.id}`}
-            className="block p-2 rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700"
+            className="block p-2 rounded-md hover:bg-zinc-200 focus:bg-zinc-200 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700"
           >
             <IconPencil size={16} stroke={1.5} />
           </Link>
