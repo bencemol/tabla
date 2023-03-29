@@ -21,8 +21,7 @@ export function useTasks(boardId: string) {
 export function useTask(boardId: string, taskId: string) {
   const { data, error, isLoading, mutate } = useSWR<Task>(
     `/api/boards/${boardId}/tasks/${taskId}`,
-    fetcher,
-    { suspense: true }
+    fetcher
   );
 
   return {
