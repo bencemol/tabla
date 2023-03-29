@@ -2,7 +2,7 @@
 
 export default function Logo({ className = "" }) {
   return (
-    <h1 className={`mb-8 flex gap-2 items-center ${className}`}>
+    <h1 className={`flex gap-2 items-center ${className}`}>
       <img
         src="/tabla_logo_light.svg"
         alt="Tábla logo"

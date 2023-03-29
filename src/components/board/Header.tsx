@@ -29,14 +29,14 @@ type HeaderProps = {
 export default function Header({ session, board, boards }: HeaderProps) {
   return (
     <SessionProvider session={session}>
-      <header className="grid grid-flow-col gap-2 items-center grid-cols-[auto_auto_min-content] p-4 border-b-2 border-zinc-100 dark:border-zinc-800">
+      <header className="grid grid-flow-col gap-2 items-center grid-cols-[minmax(0,1fr)_auto_min-content] p-4 border-b-2 border-zinc-100 dark:border-zinc-800">
         {board && boards && (
           <>
             <Title board={board} className="hidden sm:block items-center" />
             <MobileNav
               board={board}
               boards={boards}
-              className="block sm:hidden min-w-0 -ml-3"
+              className="block sm:hidden min-w-0 -ml-3 max-w-min"
             />
             <section className="ml-auto flex gap-3">
               <Link
@@ -49,7 +49,7 @@ export default function Header({ session, board, boards }: HeaderProps) {
             </section>
           </>
         )}
-        {!board && !boards && <Logo />}
+        {!board && !boards && <Logo className="sm:hidden" />}
         <ProfileMenu className="ml-1 col-start-3 self-end" />
       </header>
     </SessionProvider>
