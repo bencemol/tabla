@@ -21,7 +21,8 @@ export default function Draggable<
   children,
   ...props
 }: Props<Item, Tag>) {
-  const { isDragging, handleDragStart, handleDragEnd } = useDrag<Item>();
+  const { isDragging, handleDragStart, handleDrag, handleDragEnd } =
+    useDrag<Item>();
   const {
     overlapping,
     handleDragOver,
@@ -37,6 +38,7 @@ export default function Draggable<
     <Wrapper
       draggable
       onDragStart={handleDragStart(item)}
+      onDrag={handleDrag}
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}

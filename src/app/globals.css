@@ -87,3 +87,7 @@ form select {
   @apply focus:border-inherit;
   @apply transition-colors;
 }
+
+.stop-panning:has(.dragging) {
+  overflow: hidden !important;
+}
