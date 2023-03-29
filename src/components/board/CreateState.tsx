@@ -78,11 +78,11 @@ export default function CreateState({ boardId }: { boardId: string }) {
               />
             </section>
             <footer className="flex justify-end gap-3">
-              <Button type="submit" variant="primary" isLoading={isLoading}>
-                <IconCheck />
-              </Button>
               <Button type="reset">
                 <IconX />
+              </Button>
+              <Button type="submit" variant="primary" isLoading={isLoading}>
+                <IconCheck />
               </Button>
             </footer>
           </form>

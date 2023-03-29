@@ -105,10 +105,10 @@ export function CreateTaskModal({
           />
         </section>
         <footer>
+          <Button onClick={onClose}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
-          <Button onClick={onClose}>Cancel</Button>
         </footer>
       </Modal>
     </>

@@ -67,10 +67,10 @@ export default function EditBoard({ board }: EditBoardProps) {
           />
         </section>
         <footer>
+          <Button onClick={handleUpdate}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
-          <Button onClick={handleUpdate}>Cancel</Button>
           <Button
             variant="danger"
             className="-order-1 mr-auto"

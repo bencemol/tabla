@@ -82,10 +82,10 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
           />
         </section>
         <footer>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
-          <Button onClick={handleClose}>Cancel</Button>
           <Button
             variant="danger"
             className="-order-1 mr-auto"

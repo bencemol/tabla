@@ -69,10 +69,10 @@ export default function CreateBoard({ className = "", onClose = () => {} }) {
           />
         </section>
         <footer>
+          <Button onClick={() => setIsModalOpen(false)}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
-          <Button onClick={() => setIsModalOpen(false)}>Cancel</Button>
         </footer>
       </Modal>
     </>

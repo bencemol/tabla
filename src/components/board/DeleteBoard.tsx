@@ -56,13 +56,10 @@ export default function DeleteBoard({
         )}
       </section>
       <footer>
-        <Button onClick={onClose}>No</Button>
-        <Button
-          type="submit"
-          variant="primary"
-          isLoading={isLoading}
-          className="-order-1"
-        >
+        <Button onClick={onClose} autoFocus>
+          No
+        </Button>
+        <Button type="submit" variant="primary" isLoading={isLoading}>
           Yes
         </Button>
       </footer>

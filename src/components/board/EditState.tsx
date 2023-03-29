@@ -65,10 +65,10 @@ export default function EditState({
           />
         </section>
         <footer>
+          <Button onClick={handleUpdate}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>
             Save
           </Button>
-          <Button onClick={handleUpdate}>Cancel</Button>
           <Button
             variant="danger"
             className={`-order-1 mr-auto`}
