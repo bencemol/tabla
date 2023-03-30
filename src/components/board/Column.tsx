@@ -15,12 +15,7 @@ export default function Column({ state }: { state: TaskState }) {
   const tasks = data?.filter((task) => task.stateId === state.id) ?? [];
   const deferredTasks = useDeferredValue(tasks);
 
-  const moveTask = async (task: Task, toIndex: number) => {
-    if (task.stateId === state.id && task.priority === toIndex) {
-      return;
-    }
-    task.stateId = state.id;
-    task.priority = toIndex;
+  const moveTask = (task: Task, toIndex: number) => {
     const fromIndex = tasks.findIndex(({ id }) => id === task.id);
     if (fromIndex >= 0) {
       tasks?.splice(fromIndex, 1);
@@ -28,6 +23,11 @@ export default function Column({ state }: { state: TaskState }) {
     if (fromIndex >= 0 && toIndex > fromIndex) {
       toIndex--;
     }
+    if (task.stateId === state.id && task.priority === toIndex) {
+      return;
+    }
+    task.stateId = state.id;
+    task.priority = toIndex;
     tasks?.splice(toIndex, 0, task);
     const sortedTasks =
       tasks
@@ -62,7 +62,10 @@ export default function Column({ state }: { state: TaskState }) {
       className="flex flex-col [&:hover_.edit]:opacity-100"
       key={state.id}
     >
-      <header className="h-14 grid grid-flow-col items-center -m-1 p-1 pb-3 sticky -top-1 z-10 bg-white dark:bg-zinc-900">
+      <header
+        id="dragHandle"
+        className="h-14 grid grid-flow-col items-center -m-1 p-1 pb-3 sticky -top-1 z-10 bg-white dark:bg-zinc-900"
+      >
         <h5
           className="uppercase mr-1 line-clamp-2"
           style={{ wordBreak: "break-word" }}
@@ -83,6 +86,7 @@ export default function Column({ state }: { state: TaskState }) {
           <Draggable
             key={task.id}
             item={task}
+            dragContext="task"
             onDrop={(d, o) => {
               const i =
                 o === "bottom" ? Math.min(index + 1, tasks.length) : index;
@@ -93,6 +97,7 @@ export default function Column({ state }: { state: TaskState }) {
           </Draggable>
         ))}
         <DropZone
+          dragContext="task"
           onDrop={(d: Task) => moveTask(d, tasks.length)}
           className="grow transition-transform"
         >

@@ -1,4 +1,5 @@
 import { Task } from "@/models/task";
+import { TaskState } from "@/models/task-state";
 import useSWR from "swr";
 
 const fetcher = (input: RequestInfo, init?: RequestInit) =>
@@ -18,10 +19,11 @@ export function useTasks(boardId: string) {
   };
 }
 
-export function useTask(boardId: string, taskId: string) {
-  const { data, error, isLoading, mutate } = useSWR<Task>(
-    `/api/boards/${boardId}/tasks/${taskId}`,
-    fetcher
+export function useTaskStates(boardId: string, fallbackData?: TaskState[]) {
+  const { data, error, isLoading, mutate } = useSWR<TaskState[]>(
+    `/api/boards/${boardId}/states`,
+    fetcher,
+    { fallbackData }
   );
 
   return {

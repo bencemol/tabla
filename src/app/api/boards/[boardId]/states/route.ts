@@ -1,5 +1,9 @@
 import { isAuthorized } from "@/lib/auth";
-import { TaskState, TaskStateCreateInput } from "@/models/task-state";
+import {
+  TaskState,
+  TaskStateCreateInput,
+  TaskStateUpdateManyInput,
+} from "@/models/task-state";
 import { NextRequest, NextResponse } from "next/server";
 
 type Options = {
@@ -32,4 +36,25 @@ export async function POST(
   });
   const state = TaskState.parse(createdState);
   return NextResponse.json(state);
+}
+
+export async function PATCH(
+  request: NextRequest,
+  { params: { boardId } }: Options
+) {
+  if (!(await isAuthorized(boardId))) {
+    return NextResponse.json(null, { status: 403, statusText: "Forbidden" });
+  }
+  const body = await request.json();
+  const data = TaskStateUpdateManyInput.parse(body);
+  const updatedStates = await db.$transaction(
+    data.map((state) =>
+      db.taskState.update({
+        where: { id: state.id },
+        data: { ...state, boardId },
+      })
+    )
+  );
+  const taskStates = TaskState.array().parse(updatedStates);
+  return NextResponse.json(taskStates);
 }

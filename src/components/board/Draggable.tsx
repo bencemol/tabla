@@ -1,42 +1,64 @@
-import { useDrag, useDrop } from "@/lib/drag-n-drop";
-import { ComponentType, ReactNode, SVGProps } from "react";
+import {
+  ListDragDirection,
+  ListDragOffsetDirection,
+  useDrag,
+  useDrop,
+} from "@/lib/drag-n-drop";
+import { ReactNode, SVGProps } from "react";
 import "./Draggable.css";
 
-type Props<Item extends unknown, Tag extends keyof JSX.IntrinsicElements> = {
+type Props<
+  Item extends unknown,
+  Tag extends keyof JSX.IntrinsicElements,
+  Dir extends ListDragDirection
+> = {
   item: Item;
-  onDrop: (data: Item, over?: "top" | "bottom") => void;
-  tag?: ComponentType | keyof JSX.IntrinsicElements;
+  onDrop: (data: Item, over?: ListDragOffsetDirection<Dir>) => void;
+  dragContext?: string;
+  direction?: Dir;
   className?: string;
   children?: ReactNode;
 } & Omit<JSX.IntrinsicElements[Tag], keyof SVGProps<Tag>>;
 
 export default function Draggable<
   Item extends unknown,
+  Dir extends ListDragDirection,
   Tag extends keyof JSX.IntrinsicElements = "li"
 >({
   item,
   onDrop,
-  tag: Wrapper = "li",
+  dragContext = "",
+  direction = "vertical" as Dir,
   className = "",
   children,
   ...props
-}: Props<Item, Tag>) {
-  const { isDragging, handleDragStart, handleDrag, handleDragEnd } =
-    useDrag<Item>();
+}: Props<Item, Tag, Dir>) {
+  const {
+    isDragging,
+    handleDragStart,
+    handleDrag,
+    handleDragEnd,
+    handleMouseDown,
+    handleTouchStart,
+    dragTargetRef,
+  } = useDrag<Item>(dragContext);
   const {
     overlapping,
     handleDragOver,
     handleDragEnter,
     handleDragLeave,
     handleDrop,
-  } = useDrop<Item>();
+  } = useDrop(dragContext, direction);
 
   const isOverlapping = overlapping && !isDragging;
   const overlappingClass = `over-${overlapping}`;
 
   return (
-    <Wrapper
+    <li
       draggable
+      ref={dragTargetRef}
+      onMouseDown={handleMouseDown}
+      onTouchStart={handleTouchStart}
       onDragStart={handleDragStart(item)}
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
@@ -50,23 +72,28 @@ export default function Draggable<
       {...props}
     >
       {children}
-    </Wrapper>
+    </li>
   );
 }
 
-export function DropZone<Item extends unknown>({
+export function DropZone<Item extends any, Dir extends ListDragDirection>({
   onDrop,
+  dragContext = "",
+  direction = "vertical" as Dir,
   children,
   className = "",
 }: {
-  onDrop: (data: Item, over?: "top" | "bottom") => void;
+  onDrop: (data: Item, over?: ListDragOffsetDirection<Dir>) => void;
+  dragContext?: string;
+  direction?: Dir;
   children?: React.ReactNode;
   className?: string;
 }) {
   const { handleDragOver, handleDragEnter, handleDragLeave, handleDrop } =
-    useDrop<Item>();
+    useDrop(dragContext, direction);
   return (
     <div
+      draggable={false}
       className={className}
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}

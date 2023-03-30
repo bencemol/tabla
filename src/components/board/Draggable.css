@@ -3,17 +3,17 @@
   content: "";
   position: absolute;
   width: 100%;
-  height: var(--drag-over-offset);
+  height: var(--drag-over-offset-y);
   left: 0;
 }
 
 :not(.dragging) + .over-top > *::before,
 .over-top:first-child > *::before {
-  top: calc(-1 * var(--drag-over-offset));
+  top: calc(-1 * var(--drag-over-offset-y));
 }
 
 .over-bottom:not(:has(+ .dragging)) > *::after {
-  bottom: calc(-1 * var(--drag-over-offset));
+  bottom: calc(-1 * var(--drag-over-offset-y));
 }
 
 .over-top:first-child,
@@ -21,5 +21,5 @@
 :not(.dragging) + .over-top,
 :not(.dragging) + .over-top ~ *,
 .over-bottom:not(:has(+ .dragging)):not(:last-of-type) ~ * {
-  transform: translateY(var(--drag-over-offset));
+  transform: translateY(var(--drag-over-offset-y));
 }

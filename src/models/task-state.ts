@@ -13,6 +13,8 @@ export const TaskStateCreateInput = z.object({
 
 export const TaskStateUpdateInput =
   TaskStateCreateInput.merge(WithOrder).partial();
+export const TaskStateUpdateManyInput =
+  TaskStateUpdateInput.merge(WithId).array();
 
 export const TaskState = TaskStateCreateInput.extend({
   boardId: z.string(),
@@ -27,5 +29,6 @@ export const TaskStateWithTasks = TaskState.extend({
 
 export type TaskStateCreateInput = z.infer<typeof TaskStateCreateInput>;
 export type TaskStateUpdateInput = z.infer<typeof TaskStateUpdateInput>;
+export type TaskStateUpdateManyInput = z.infer<typeof TaskStateUpdateManyInput>;
 export type TaskState = z.infer<typeof TaskState>;
 export type TaskStateWithTasks = z.infer<typeof TaskStateWithTasks>;

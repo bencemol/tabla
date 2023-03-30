@@ -1,15 +1,49 @@
-import { DragEventHandler, useEffect, useRef, useState } from "react";
+import {
+  DragEventHandler,
+  MouseEventHandler,
+  TouchEventHandler,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-export function useDrag<T>() {
+export const DragContext = createContext<ReturnType<
+  typeof useState<string>
+> | null>(null);
+
+export function useDrag<T>(dragContextId: string) {
   const [isDragging, setIsDragging] = useState(false);
   const scrollBox = useRef<HTMLElement>();
   const scrollBoxRect = useRef<DOMRect>();
   const scrollInterval = useRef<ReturnType<typeof setInterval>>();
   let scrollByY = 0;
   let scrollByX = 0;
+  const mouseDownTargetRef = useRef<HTMLElement>();
+  const dragTargetRef = useRef<HTMLLIElement>(null);
+  const [_, setDragContext] = useContext(DragContext)!;
+
+  const handleMouseDown: MouseEventHandler = (e) =>
+    (mouseDownTargetRef.current = e.target as HTMLElement);
+
+  const handleTouchStart: TouchEventHandler = (e) =>
+    (mouseDownTargetRef.current = e.target as HTMLElement);
 
   const handleDragStart: (payload: T) => DragEventHandler =
     (payload) => (e) => {
+      const dragHandle = dragTargetRef?.current?.querySelector("#dragHandle");
+      const mouseDownTarget = mouseDownTargetRef.current;
+      if (
+        dragHandle &&
+        mouseDownTarget &&
+        !dragHandle.contains(mouseDownTarget)
+      ) {
+        e.preventDefault();
+        return false;
+      }
+      e.stopPropagation();
+      setDragContext(dragContextId);
       setIsDragging(true);
       const data = JSON.stringify(payload);
       e.dataTransfer.dropEffect = "move";
@@ -68,6 +102,7 @@ export function useDrag<T>() {
     stopScrolling();
     setIsDragging(false);
     e.dataTransfer.clearData();
+    removeOffset();
   };
 
   const stopScrolling = () => {
@@ -101,29 +136,63 @@ export function useDrag<T>() {
     handleDragStart,
     handleDrag,
     handleDragEnd,
+    handleMouseDown,
+    handleTouchStart,
+    dragTargetRef,
   } as const;
 }
 
-export function useDrop<T>() {
-  const [overlapping, setOverlapping] = useState<"top" | "bottom">();
+type Vertical = "vertical";
+
+type Horizontal = "horizontal";
+
+export type ListDragDirection = Vertical | Horizontal;
+
+export type ListDragOffsetDirection<Option extends ListDragDirection> =
+  Option extends Vertical
+    ? "top" | "bottom"
+    : Option extends Horizontal
+    ? "left" | "right"
+    : never;
+
+function isVertical(direction: ListDragDirection): direction is Vertical {
+  return direction === "vertical";
+}
+
+function isHorizontal(direction: ListDragDirection): direction is Horizontal {
+  return direction === "horizontal";
+}
+
+export function useDrop<D extends ListDragDirection>(
+  dragContextId: string,
+  direction: D
+) {
+  const [overlapping, setOverlapping] = useState<ListDragOffsetDirection<D>>();
   const dragEnterLeave = useRef(0);
+  const [dragContext] = useContext(DragContext)!;
   let currentFrame: number;
 
   const handleDragOver: DragEventHandler = (e) => {
-    if (e.dataTransfer.types[0] !== "text/plain") {
-      return;
+    if (
+      e.dataTransfer.types[0] !== "text/plain" ||
+      dragContext !== dragContextId
+    ) {
+      return false;
     }
     const dropTarget = e.currentTarget.firstElementChild!;
     currentFrame = requestAnimationFrame(() =>
-      calcOverlapping(dropTarget, e.clientY)
+      calcOverlapping(dropTarget, e.clientX, e.clientY)
     );
     e.preventDefault();
   };
 
   const handleDrop: (
-    callback: (data: T, over: typeof overlapping) => void
+    callback: (data: any, over?: ListDragOffsetDirection<D>) => void
   ) => DragEventHandler = (callback) => (e) => {
-    let data: T;
+    if (dragContext !== dragContextId) {
+      return false;
+    }
+    let data: any;
     try {
       data = JSON.parse(e.dataTransfer.getData("text/plain"));
       if (data) {
@@ -146,14 +215,27 @@ export function useDrop<T>() {
     }
   };
 
-  const calcOverlapping = (dropTarget: Element, clientY: number) => {
+  const calcOverlapping = (
+    dropTarget: Element,
+    clientX: number,
+    clientY: number
+  ) => {
     const dropTargetRect = dropTarget?.getBoundingClientRect();
     if (!dropTargetRect) {
       return;
     }
-    let y = clientY - dropTargetRect.top;
-    const newOverlapping = y <= dropTargetRect.height / 2 ? "top" : "bottom";
-    setOverlapping(newOverlapping);
+    if (isVertical(direction)) {
+      const y = clientY - dropTargetRect.top;
+      const newOverlapping: ListDragOffsetDirection<Vertical> =
+        y <= dropTargetRect.height / 2 ? "top" : "bottom";
+      setOverlapping(newOverlapping as ListDragOffsetDirection<D>);
+    }
+    if (isHorizontal(direction)) {
+      const x = clientX - dropTargetRect.left;
+      const newOverlapping: ListDragOffsetDirection<Horizontal> =
+        x <= dropTargetRect.width / 2 ? "left" : "right";
+      setOverlapping(newOverlapping as ListDragOffsetDirection<D>);
+    }
   };
 
   return {
@@ -170,11 +252,19 @@ const setOffset = (dragTarget?: HTMLElement) => {
     return;
   }
   const rect = dragTarget.firstElementChild!.getBoundingClientRect();
+  const offsetX = rect.width;
+  const offsetY = rect.height;
   document.documentElement.style.setProperty(
-    "--drag-over-offset",
-    `${rect.height}px`
+    "--drag-over-offset-x",
+    `${offsetX}px`
+  );
+  document.documentElement.style.setProperty(
+    "--drag-over-offset-y",
+    `${offsetY}px`
   );
 };
 
-const removeOffset = () =>
-  document.documentElement.style.removeProperty("--drag-over-offset");
+const removeOffset = () => {
+  document.documentElement.style.removeProperty("--drag-over-offset-x");
+  document.documentElement.style.removeProperty("--drag-over-offset-y");
+};
