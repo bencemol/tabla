@@ -110,7 +110,7 @@ form input:invalid,
 form textarea:invalid,
 form select:invalid {
   @apply shadow-solid invalid;
-  @apply shadow-red-700 dark:shadow-red-500;
+  @apply shadow-red-500 dark:shadow-red-500;
 }
 
 .stop-panning:has(.dragging) {
