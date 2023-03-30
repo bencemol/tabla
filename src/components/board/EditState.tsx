@@ -1,5 +1,6 @@
 "use client";
 
+import { useTaskStates } from "@/lib/swr";
 import { TaskStateUpdateInput, TaskStateWithTasks } from "@/models/task-state";
 import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
@@ -17,17 +18,18 @@ export default function EditState({
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { mutate } = useTaskStates(taskState.boardId);
 
   const handleUpdate = () => {
     setIsModalOpen(false);
     router.push(`/boards/${taskState.boardId}`);
-    router.refresh();
+    mutate();
   };
 
   const handleDelete = () => {
     setIsModalOpen(false);
     router.push(`/boards/${taskState.boardId}`);
-    router.refresh();
+    mutate();
   };
 
   const handleConfirm = async (data: TaskStateUpdateInput) => {
@@ -38,7 +40,7 @@ export default function EditState({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      router.refresh();
+      await mutate();
     } catch (e) {
       console.error(e);
     }

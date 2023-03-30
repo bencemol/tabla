@@ -10,7 +10,13 @@ import CreateTaskInline from "./CreateTaskInline";
 import Draggable, { DropZone } from "./Draggable";
 import TaskCard from "./TaskCard";
 
-export default function Column({ state }: { state: TaskState }) {
+export default function Column({
+  state,
+  className = "",
+}: {
+  state: TaskState;
+  className?: string;
+}) {
   const { data, mutate } = useTasks(state.boardId);
   const tasks = data?.filter((task) => task.stateId === state.id) ?? [];
   const deferredTasks = useDeferredValue(tasks);
@@ -59,12 +65,12 @@ export default function Column({ state }: { state: TaskState }) {
 
   return (
     <section
-      className="flex flex-col [&:hover_.edit]:opacity-100"
+      className={`relative flex flex-col [&:hover_.edit]:opacity-100 ${className}`}
       key={state.id}
     >
       <header
         id="dragHandle"
-        className="h-14 grid grid-flow-col items-center -m-1 p-1 pb-3 sticky -top-1 z-10 bg-white dark:bg-zinc-900"
+        className="h-14 grid grid-flow-col items-center -m-1 p-1 pb-3 sticky -top-1 z-10 cursor-grab bg-white dark:bg-zinc-900"
       >
         <h5
           className="uppercase mr-1 line-clamp-2"

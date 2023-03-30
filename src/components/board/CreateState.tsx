@@ -1,3 +1,4 @@
+import { useTaskStates } from "@/lib/swr";
 import { Prisma } from "@prisma/client";
 import {
   IconCheck,
@@ -5,15 +6,14 @@ import {
   IconPlus,
   IconX,
 } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
 import { FormEventHandler, useEffect, useRef, useState } from "react";
 import Button from "../button/Button";
 
 export default function CreateState({ boardId }: { boardId: string }) {
-  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { mutate } = useTaskStates(boardId);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ export default function CreateState({ boardId }: { boardId: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(state),
       }).then((res) => res.json());
-      router.refresh();
+      await mutate();
       setIsFormOpen(false);
     } catch (e) {
       console.error(e);

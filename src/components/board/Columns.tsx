@@ -8,7 +8,7 @@ import { useDeferredValue, useState } from "react";
 import { SWRConfig } from "swr";
 import Column from "./Column";
 import CreateState from "./CreateState";
-import Draggable from "./Draggable";
+import Draggable, { DropZone } from "./Draggable";
 
 type ColumnsProps = {
   boardId: string;
@@ -72,7 +72,7 @@ export default function Columns({
     <SWRConfig value={{ fallback: deferredFallback }}>
       <ul
         id="scrollBox"
-        className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] gap-6 overflow-auto stop-panning ${className}`}
+        className={`grid grid-flow-col auto-cols-[minmax(20ch,_30ch)] overflow-auto stop-panning ${className}`}
       >
         <DragContext.Provider value={dragState}>
           {taskStates?.map((state, index) => (
@@ -89,10 +89,16 @@ export default function Columns({
                 moveTaskState(d, i);
               }}
             >
-              <Column state={state} />
+              <Column state={state} className="mr-6" />
             </Draggable>
           ))}
-          <CreateState boardId={boardId} />
+          <DropZone
+            dragContext="state"
+            onDrop={(d: TaskState) => moveTaskState(d, tasks.length)}
+            className="transition-transform"
+          >
+            <CreateState boardId={boardId} />
+          </DropZone>
         </DragContext.Provider>
       </ul>
     </SWRConfig>

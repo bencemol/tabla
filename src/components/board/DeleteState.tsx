@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
+import { useTaskStates } from "@/lib/swr";
 
 type DeleteTaskProps = {
   taskState: TaskStateWithTasks;
@@ -18,9 +19,9 @@ export function DeleteState({
   onClose,
   ...props
 }: DeleteTaskProps) {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const hasTasks = (taskState.tasks?.length ?? 0) > 0;
+  const { mutate } = useTaskStates(taskState.boardId);
 
   const handleConfirm = async () => {
     setIsLoading(true);
@@ -29,7 +30,7 @@ export function DeleteState({
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
-      router.refresh();
+      await mutate();
       onConfirm?.();
     } catch (e) {
       console.error(e);
