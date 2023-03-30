@@ -62,10 +62,7 @@ export default function Column({ state }: { state: TaskState }) {
       className="flex flex-col [&:hover_.edit]:opacity-100"
       key={state.id}
     >
-      <header
-        className="h-14 grid grid-flow-col items-center pb-3 sticky top-0 z-10 bg-white dark:bg-zinc-900 shadow-white dark:shadow-zinc-900"
-        style={{ boxShadow: "0 -2px 0 3px var(--tw-shadow-color)" }}
-      >
+      <header className="h-14 grid grid-flow-col items-center -m-1 p-1 pb-3 sticky -top-1 z-10 bg-white dark:bg-zinc-900">
         <h5
           className="uppercase mr-1 line-clamp-2"
           style={{ wordBreak: "break-word" }}
