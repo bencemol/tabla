@@ -95,7 +95,7 @@ export default function Columns({
           <DropZone
             dragContext="state"
             onDrop={(d: TaskState) => moveTaskState(d, tasks.length)}
-            className="transition-transform"
+            className="sticky top-0 h-min transition-transform"
           >
             <CreateState boardId={boardId} />
           </DropZone>
