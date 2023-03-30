@@ -38,14 +38,14 @@ export async function createSampleBoard(ownerId: string) {
         boardId,
         stateId: states[1].id,
         title: "some other 💩 that's in progress",
-        description: "columns can be renamed with the little pencil icon",
+        description: "columns can be renamed with the little pencil icon above",
       },
       {
         boardId,
         stateId: states[2].id,
         title: "💩 is done",
         description:
-          "rename or delete the board with the big pencil icon in the header",
+          "rename or delete the board with the big pencil button in the header",
       },
     ],
   });
