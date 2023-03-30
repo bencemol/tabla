@@ -48,8 +48,8 @@ const providers: Provider[] = [
     clientSecret: process.env.DISCORD_CLIENT_SECRET!,
   }),
   RedditProvider({
-    clientId: process.env.DISCORD_CLIENT_ID!,
-    clientSecret: process.env.DISCORD_CLIENT_SECRET!,
+    clientId: process.env.REDDIT_CLIENT_ID!,
+    clientSecret: process.env.REDDIT_CLIENT_SECRET!,
   }),
   GoogleProvider({
     clientId: process.env.GOOGLE_CLIENT_ID!,
