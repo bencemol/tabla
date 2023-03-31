@@ -11,10 +11,10 @@ import { signIn } from "next-auth/react";
 import Button from "../button/Button";
 
 const buttonVariant: { [key: string]: string } = {
-  github: "bg-black text-white border-transparent",
-  discord: "!bg-[#7289DA] !text-white !border-transparent",
-  reddit: "!bg-[#FF4500] !text-white !border-transparent",
-  google: "!bg-[#4285F4] !text-white !border-transparent",
+  github: "!bg-black",
+  discord: "!bg-[#7289DA]",
+  reddit: "!bg-[#FF4500]",
+  google: "!bg-[#4285F4]",
 };
 
 export default function AuthProviderButton({
@@ -29,7 +29,7 @@ export default function AuthProviderButton({
   return (
     <Button
       onClick={() => signIn(id, { callbackUrl })}
-      className={`block w-full justify-center border-current ${buttonVariant[id]}`}
+      className={`block w-full justify-center !text-white !border-transparent ${buttonVariant[id]}`}
       variant="primary"
     >
       <ProviderIcon providerId={id} />
