@@ -27,7 +27,7 @@ export default function EditBoard({ board }: EditBoardProps) {
 
   const handleDelete = () => {
     setIsModalOpen(false);
-    router.push("/");
+    router.push("/boards");
     router.refresh();
   };
 
