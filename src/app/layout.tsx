@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
     shortcut: "/tabla_logo_dark.svg",
   },
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
