@@ -30,6 +30,12 @@ export async function createSampleBoard(ownerId: string) {
       },
       {
         boardId,
+        stateId: states[0].id,
+        title: "this 💩 is less important",
+        description: "columns can also be reordered by dragging the title",
+      },
+      {
+        boardId,
         stateId: states[1].id,
         title: "💩 is in progress",
         description: "click on a task to edit or delete one",
