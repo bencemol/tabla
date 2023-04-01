@@ -63,7 +63,7 @@ export default function CreateState({ boardId }: { boardId: string }) {
             onSubmit={handleSubmit}
             onReset={() => setIsFormOpen(false)}
           >
-            <section className="pb-3">
+            <fieldset className="pb-3">
               <label htmlFor="name" className="hidden">
                 Column Name
               </label>
@@ -76,7 +76,7 @@ export default function CreateState({ boardId }: { boardId: string }) {
                 required
                 autoFocus
               />
-            </section>
+            </fieldset>
             <footer className="flex justify-end gap-3">
               <Button type="reset">
                 <IconX />

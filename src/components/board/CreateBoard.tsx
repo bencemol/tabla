@@ -58,7 +58,7 @@ export default function CreateBoard({ className = "", onClose = () => {} }) {
         onClose={handleClose}
         onConfirm={handleConfirm}
       >
-        <section>
+        <fieldset>
           <label htmlFor="name">Name</label>
           <input
             id="name"
@@ -67,7 +67,7 @@ export default function CreateBoard({ className = "", onClose = () => {} }) {
             placeholder="e.g. Roadmap"
             required
           />
-        </section>
+        </fieldset>
         <footer>
           <Button onClick={() => setIsModalOpen(false)}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>

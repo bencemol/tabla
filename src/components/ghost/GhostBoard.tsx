@@ -11,7 +11,7 @@ function dragBefore(fromSelector: string, toSelector: string) {
   const from = document.querySelector(fromSelector) as HTMLElement;
   const to = document.querySelector(toSelector) as HTMLElement;
   let taskElementsAbove = document.querySelectorAll(
-    `${toSelector}, ${toSelector} ~ li:has(~ #${from.id})`
+    `${toSelector}, ${toSelector} ~ li:not(${fromSelector}):not(${fromSelector} ~ *)`
   );
   const tasksAbove = Array.from(taskElementsAbove);
   tasksAbove.reverse();

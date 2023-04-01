@@ -83,7 +83,7 @@ export function CreateTaskModal({
         onClose={onClose}
         onConfirm={handleConfirm}
       >
-        <section>
+        <fieldset>
           <label htmlFor="title">Title</label>
           <input
             id="title"
@@ -92,8 +92,8 @@ export function CreateTaskModal({
             placeholder="e.g. Take coffee break"
             required
           />
-        </section>
-        <section>
+        </fieldset>
+        <fieldset>
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
@@ -103,7 +103,7 @@ export function CreateTaskModal({
             cols={30}
             className="resize-none"
           />
-        </section>
+        </fieldset>
         <footer>
           <Button onClick={onClose}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>

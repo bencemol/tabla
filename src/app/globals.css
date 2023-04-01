@@ -48,11 +48,6 @@ html {
   @apply text-sm;
 }
 
-html:has(dialog[open]),
-html:has([data-popover]) {
-  overflow: hidden;
-}
-
 body {
   @apply text-base;
 }
@@ -92,7 +87,7 @@ form label {
   @apply block mb-1 transition-colors;
 }
 
-form label:has(+ input:invalid:not(:focus)) {
+form fieldset:invalid:not(:focus-within) label {
   @apply text-red-800 dark:text-red-400;
 }
 
