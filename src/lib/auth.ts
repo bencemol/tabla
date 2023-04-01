@@ -92,7 +92,6 @@ export const authOptions: AuthOptions = {
       await createSampleBoard(user.id);
     },
   },
-  debug: true,
 };
 
 export async function getServerSessionUser() {

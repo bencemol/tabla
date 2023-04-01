@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -31,12 +32,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?
-  access_token      String?
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?
+  id_token          String?  @db.Text
   session_state     String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @default(now()) @updatedAt
@@ -78,6 +79,7 @@ model Board {
   updatedAt DateTime    @default(now()) @updatedAt
 
   @@index([ownerId])
+  @@fulltext([name])
 }
 
 model Task {
@@ -95,6 +97,7 @@ model Task {
   @@index([boardId])
   @@index([priority])
   @@index([stateId])
+  @@fulltext([title, description])
 }
 
 model TaskState {
