@@ -13,11 +13,12 @@ export const DragContext = createContext<ReturnType<
   typeof useState<string>
 > | null>(null);
 
+let scrollInterval: ReturnType<typeof setInterval> | undefined;
+
 export function useDrag<T>(dragContextId: string) {
   const [isDragging, setIsDragging] = useState(false);
   const scrollBox = useRef<HTMLElement>();
   const scrollBoxRect = useRef<DOMRect>();
-  const scrollInterval = useRef<ReturnType<typeof setInterval>>();
   let scrollByY = 0;
   let scrollByX = 0;
   const mouseDownTargetRef = useRef<HTMLElement>();
@@ -109,20 +110,20 @@ export function useDrag<T>(dragContextId: string) {
   };
 
   const stopScrolling = () => {
-    if (scrollInterval.current === undefined) {
+    if (scrollInterval === undefined) {
       return;
     }
-    clearInterval(scrollInterval.current);
-    scrollInterval.current = undefined;
+    clearInterval(scrollInterval);
+    scrollInterval = undefined;
     scrollByX = 0;
     scrollByY = 0;
   };
 
   const startScrolling = () => {
-    if (scrollInterval.current !== undefined) {
+    if (scrollInterval !== undefined) {
       return;
     }
-    scrollInterval.current = setInterval(() => {
+    scrollInterval = setInterval(() => {
       requestAnimationFrame(() =>
         scrollBox.current?.scrollBy({ top: scrollByY, left: scrollByX })
       );
@@ -130,7 +131,7 @@ export function useDrag<T>(dragContextId: string) {
   };
 
   useEffect(() => {
-    const interval = scrollInterval.current;
+    const interval = scrollInterval;
     return () => clearInterval(interval);
   }, []);
 
@@ -204,6 +205,7 @@ export function useDrop<D extends ListDragDirection>(
     cancelAnimationFrame(currentFrame);
     currentFrame = requestAnimationFrame(() => setOverlapping(undefined));
     setDragContext(undefined);
+    clearInterval(scrollInterval);
     window.ondrag = null;
     e.preventDefault();
   };
