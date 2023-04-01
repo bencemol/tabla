@@ -23,6 +23,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className + " bg-white dark:bg-zinc-900"}>
         {children}
+        <div
+          id="debug"
+          className="border-2 border-red-700 fixed z-50 pointer-events-none"
+        ></div>
       </body>
     </html>
   );

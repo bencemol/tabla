@@ -5,7 +5,7 @@ import { Task } from "@/models/task";
 import { TaskState } from "@/models/task-state";
 import { IconPencil } from "@tabler/icons-react";
 import Link from "next/link";
-import { useDeferredValue } from "react";
+import { useMemo } from "react";
 import CreateTaskInline from "./CreateTaskInline";
 import Draggable, { DropZone } from "./Draggable";
 import TaskCard from "./TaskCard";
@@ -18,19 +18,21 @@ export default function Column({
   className?: string;
 }) {
   const { data, mutate } = useTasks(state.boardId);
-  const tasks = data?.filter((task) => task.stateId === state.id) ?? [];
-  const deferredTasks = useDeferredValue(tasks);
+  const tasks = useMemo(
+    () => data?.filter((task) => task.stateId === state.id) ?? [],
+    [data, state.id]
+  );
 
   const moveTask = (task: Task, toIndex: number) => {
     const fromIndex = tasks.findIndex(({ id }) => id === task.id);
-    if (fromIndex >= 0) {
-      tasks?.splice(fromIndex, 1);
-    }
     if (fromIndex >= 0 && toIndex > fromIndex) {
       toIndex--;
     }
     if (task.stateId === state.id && task.priority === toIndex) {
       return;
+    }
+    if (fromIndex >= 0) {
+      tasks?.splice(fromIndex, 1);
     }
     task.stateId = state.id;
     task.priority = toIndex;
@@ -88,7 +90,7 @@ export default function Column({
         </span>
       </header>
       <ul className="grow flex flex-col py-2 mb-10">
-        {deferredTasks?.map((task, index) => (
+        {tasks?.map((task, index) => (
           <Draggable
             key={task.id}
             item={task}

@@ -46,7 +46,8 @@ export function useDrag<T>(dragContextId: string) {
       setDragContext(dragContextId);
       setIsDragging(true);
       const data = JSON.stringify(payload);
-      e.dataTransfer.dropEffect = "move";
+      e.dataTransfer.clearData();
+      e.dataTransfer.dropEffect = "none";
       e.dataTransfer.setData("text/plain", data);
       const target = e.target as HTMLElement;
       setOffset(target);
@@ -58,6 +59,7 @@ export function useDrag<T>(dragContextId: string) {
     };
 
   const handleDrag: DragEventHandler = (e) => {
+    return;
     if (!scrollBoxRect.current) {
       return;
     }
@@ -101,7 +103,7 @@ export function useDrag<T>(dragContextId: string) {
   const handleDragEnd: DragEventHandler = (e) => {
     stopScrolling();
     setIsDragging(false);
-    e.dataTransfer.clearData();
+    setDragContext(undefined);
     removeOffset();
   };
 
@@ -168,14 +170,18 @@ export function useDrop<D extends ListDragDirection>(
   direction: D
 ) {
   const [overlapping, setOverlapping] = useState<ListDragOffsetDirection<D>>();
-  const dragEnterLeave = useRef(0);
-  const [dragContext] = useContext(DragContext)!;
+  // const dragEnterLeave = useRef(0);
+  const dragEnteredElements = useRef(new Set());
+  const [dragContext, setDragContext] = useContext(DragContext)!;
   let currentFrame: number;
 
   const handleDragOver: DragEventHandler = (e) => {
+    e.preventDefault();
     if (
       e.dataTransfer.types[0] !== "text/plain" ||
-      dragContext !== dragContextId
+      dragContext !== dragContextId ||
+      // dragEnterLeave.current === 0 // firefox fires dragover after drop 😤
+      dragEnteredElements.current.size === 0
     ) {
       return false;
     }
@@ -183,7 +189,6 @@ export function useDrop<D extends ListDragDirection>(
     currentFrame = requestAnimationFrame(() =>
       calcOverlapping(dropTarget, e.clientX, e.clientY)
     );
-    e.preventDefault();
   };
 
   const handleDrop: (
@@ -200,16 +205,27 @@ export function useDrop<D extends ListDragDirection>(
       }
     } catch {}
     removeOffset();
-    setOverlapping(undefined);
-    dragEnterLeave.current = 0;
     cancelAnimationFrame(currentFrame);
+    currentFrame = requestAnimationFrame(() => setOverlapping(undefined));
+    // dragEnterLeave.current = 0;
+    dragEnteredElements.current.clear();
+    setDragContext(undefined);
     e.preventDefault();
   };
 
-  const handleDragEnter: DragEventHandler = () => dragEnterLeave.current++;
-  const handleDragLeave: DragEventHandler = () => {
-    dragEnterLeave.current--;
-    if (dragEnterLeave.current === 0) {
+  const handleDragEnter: DragEventHandler = (e) => {
+    e.preventDefault();
+    // firefox shenanigans again...
+    if ((e.relatedTarget as HTMLElement)?.nodeType == 3) return;
+    if (e.target === e.relatedTarget) return;
+    dragEnteredElements.current.add(e.target);
+    // dragEnterLeave.current++;
+  };
+  const handleDragLeave: DragEventHandler = (e) => {
+    // dragEnterLeave.current--;
+    dragEnteredElements.current.delete(e.target);
+    // if (dragEnterLeave.current === 0) {
+    if (dragEnteredElements.current.size === 0) {
       cancelAnimationFrame(currentFrame);
       currentFrame = requestAnimationFrame(() => setOverlapping(undefined));
     }
@@ -237,6 +253,12 @@ export function useDrop<D extends ListDragDirection>(
       setOverlapping(newOverlapping as ListDragOffsetDirection<D>);
     }
   };
+
+  useEffect(() => {
+    if (!dragContext) {
+      setOverlapping(undefined);
+    }
+  }, [dragContext]);
 
   return {
     overlapping,

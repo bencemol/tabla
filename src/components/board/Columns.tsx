@@ -42,14 +42,14 @@ export default function Columns({
 
   const moveTaskState = async (taskState: TaskState, toIndex: number) => {
     const fromIndex = taskStates!.findIndex(({ id }) => id === taskState.id);
-    if (fromIndex >= 0) {
-      taskStates?.splice(fromIndex, 1);
-    }
     if (fromIndex >= 0 && toIndex > fromIndex) {
       toIndex--;
     }
     if (taskState.order === toIndex) {
       return;
+    }
+    if (fromIndex >= 0) {
+      taskStates?.splice(fromIndex, 1);
     }
     taskState.order = toIndex;
     taskStates?.splice(toIndex, 0, taskState);

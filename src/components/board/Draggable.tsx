@@ -5,7 +5,6 @@ import {
   useDrop,
 } from "@/lib/drag-n-drop";
 import { ReactNode, SVGProps } from "react";
-import "./Draggable.css";
 
 type Props<
   Item extends unknown,
