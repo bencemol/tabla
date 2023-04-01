@@ -11,6 +11,7 @@ import { signIn } from "next-auth/react";
 import Button from "../button/Button";
 
 const buttonVariant: { [key: string]: string } = {
+  mockProvider: "!bg-black",
   github: "!bg-black",
   discord: "!bg-[#7289DA]",
   reddit: "!bg-[#FF4500]",

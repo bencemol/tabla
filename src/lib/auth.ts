@@ -37,6 +37,7 @@ const MockProvider = CredentialsProvider({
   authorize: () => mockUser,
 });
 MockProvider.name = "Mock Provider";
+MockProvider.id = "mockProvider";
 
 const providers: Provider[] = [
   GithubProvider({
