@@ -30,40 +30,11 @@ export function useDrag<T>(dragContextId: string) {
   const handleTouchStart: TouchEventHandler = (e) =>
     (mouseDownTargetRef.current = e.target as HTMLElement);
 
-  const handleDragStart: (payload: T) => DragEventHandler =
-    (payload) => (e) => {
-      const dragHandle = dragTargetRef?.current?.querySelector("#dragHandle");
-      const mouseDownTarget = mouseDownTargetRef.current;
-      if (
-        dragHandle &&
-        mouseDownTarget &&
-        !dragHandle.contains(mouseDownTarget)
-      ) {
-        e.preventDefault();
-        return false;
-      }
-      e.stopPropagation();
-      setDragContext(dragContextId);
-      setIsDragging(true);
-      const data = JSON.stringify(payload);
-      e.dataTransfer.clearData();
-      e.dataTransfer.dropEffect = "none";
-      e.dataTransfer.setData("text/plain", data);
-      const target = e.target as HTMLElement;
-      setOffset(target);
-      const scrollBoxElement = document.querySelector(
-        "#scrollBox"
-      ) as HTMLElement;
-      scrollBox.current = scrollBoxElement;
-      scrollBoxRect.current = scrollBoxElement?.getBoundingClientRect();
-    };
-
-  const handleDrag: DragEventHandler = (e) => {
-    return;
-    if (!scrollBoxRect.current) {
+  const autoScroll = (e: DragEvent) => {
+    const { clientX, clientY } = e;
+    if (!scrollBoxRect.current || (clientX === 0 && clientY === 0)) {
       return;
     }
-    const { clientX, clientY } = e;
     const { top, right, bottom, left, width, height } = scrollBoxRect.current;
     const threshold = 0.1;
     const maxVelocity = 4;
@@ -100,11 +71,41 @@ export function useDrag<T>(dragContextId: string) {
     }
   };
 
-  const handleDragEnd: DragEventHandler = (e) => {
+  const handleDragStart: (payload: T) => DragEventHandler =
+    (payload) => (e) => {
+      const dragHandle = dragTargetRef?.current?.querySelector("#dragHandle");
+      const mouseDownTarget = mouseDownTargetRef.current;
+      if (
+        dragHandle &&
+        mouseDownTarget &&
+        !dragHandle.contains(mouseDownTarget)
+      ) {
+        e.preventDefault();
+        return false;
+      }
+      e.stopPropagation();
+      setDragContext(dragContextId);
+      setIsDragging(true);
+      const data = JSON.stringify(payload);
+      e.dataTransfer.clearData();
+      e.dataTransfer.dropEffect = "none";
+      e.dataTransfer.setData("text/plain", data);
+      const target = e.target as HTMLElement;
+      setOffset(target);
+      const scrollBoxElement = document.querySelector(
+        "#scrollBox"
+      ) as HTMLElement;
+      scrollBox.current = scrollBoxElement;
+      scrollBoxRect.current = scrollBoxElement?.getBoundingClientRect();
+      window.ondrag = autoScroll;
+    };
+
+  const handleDragEnd: DragEventHandler = () => {
     stopScrolling();
     setIsDragging(false);
     setDragContext(undefined);
     removeOffset();
+    window.ondrag = null;
   };
 
   const stopScrolling = () => {
@@ -136,7 +137,6 @@ export function useDrag<T>(dragContextId: string) {
   return {
     isDragging,
     handleDragStart,
-    handleDrag,
     handleDragEnd,
     handleMouseDown,
     handleTouchStart,
@@ -170,8 +170,6 @@ export function useDrop<D extends ListDragDirection>(
   direction: D
 ) {
   const [overlapping, setOverlapping] = useState<ListDragOffsetDirection<D>>();
-  // const dragEnterLeave = useRef(0);
-  const dragEnteredElements = useRef(new Set());
   const [dragContext, setDragContext] = useContext(DragContext)!;
   let currentFrame: number;
 
@@ -179,9 +177,7 @@ export function useDrop<D extends ListDragDirection>(
     e.preventDefault();
     if (
       e.dataTransfer.types[0] !== "text/plain" ||
-      dragContext !== dragContextId ||
-      // dragEnterLeave.current === 0 // firefox fires dragover after drop 😤
-      dragEnteredElements.current.size === 0
+      dragContext !== dragContextId
     ) {
       return false;
     }
@@ -207,28 +203,20 @@ export function useDrop<D extends ListDragDirection>(
     removeOffset();
     cancelAnimationFrame(currentFrame);
     currentFrame = requestAnimationFrame(() => setOverlapping(undefined));
-    // dragEnterLeave.current = 0;
-    dragEnteredElements.current.clear();
     setDragContext(undefined);
+    window.ondrag = null;
     e.preventDefault();
   };
 
   const handleDragEnter: DragEventHandler = (e) => {
     e.preventDefault();
-    // firefox shenanigans again...
-    if ((e.relatedTarget as HTMLElement)?.nodeType == 3) return;
-    if (e.target === e.relatedTarget) return;
-    dragEnteredElements.current.add(e.target);
-    // dragEnterLeave.current++;
   };
   const handleDragLeave: DragEventHandler = (e) => {
-    // dragEnterLeave.current--;
-    dragEnteredElements.current.delete(e.target);
-    // if (dragEnterLeave.current === 0) {
-    if (dragEnteredElements.current.size === 0) {
-      cancelAnimationFrame(currentFrame);
-      currentFrame = requestAnimationFrame(() => setOverlapping(undefined));
+    if (!(e.currentTarget as HTMLElement).hasAttribute("draggable")) {
+      return;
     }
+    cancelAnimationFrame(currentFrame);
+    currentFrame = requestAnimationFrame(() => setOverlapping(undefined));
   };
 
   const calcOverlapping = (
@@ -254,12 +242,6 @@ export function useDrop<D extends ListDragDirection>(
     }
   };
 
-  useEffect(() => {
-    if (!dragContext) {
-      setOverlapping(undefined);
-    }
-  }, [dragContext]);
-
   return {
     overlapping,
     handleDragOver,
@@ -284,9 +266,11 @@ const setOffset = (dragTarget?: HTMLElement) => {
     "--drag-over-offset-y",
     `${offsetY}px`
   );
+  document.documentElement.dataset.isDragging = "true";
 };
 
 const removeOffset = () => {
   document.documentElement.style.removeProperty("--drag-over-offset-x");
   document.documentElement.style.removeProperty("--drag-over-offset-y");
+  delete document.documentElement.dataset.isDragging;
 };

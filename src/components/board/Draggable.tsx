@@ -35,7 +35,6 @@ export default function Draggable<
   const {
     isDragging,
     handleDragStart,
-    handleDrag,
     handleDragEnd,
     handleMouseDown,
     handleTouchStart,
@@ -59,7 +58,6 @@ export default function Draggable<
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
       onDragStart={handleDragStart(item)}
-      onDrag={handleDrag}
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}

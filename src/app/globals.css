@@ -108,7 +108,7 @@ form select:invalid {
   @apply shadow-red-500 dark:shadow-red-500;
 }
 
-.stop-panning:has(.dragging) {
+html[data-is-dragging="true"] .stop-panning {
   overflow: hidden !important;
 }
 
@@ -126,7 +126,7 @@ form select:invalid {
   top: calc(-1 * var(--drag-over-offset-y));
 }
 
-.over-bottom:not(:has(+ .dragging))::after {
+.over-bottom::after {
   bottom: calc(-1 * var(--drag-over-offset-y));
 }
 
@@ -134,8 +134,13 @@ form select:invalid {
 .over-top:first-child ~ *,
 :not(.dragging) + .over-top,
 :not(.dragging) + .over-top ~ *,
-.over-bottom:not(:has(+ .dragging)):not(:last-of-type) ~ * {
+.over-bottom:not(:last-of-type) ~ * {
   transform: translateY(var(--drag-over-offset-y));
+}
+
+.over-bottom + .dragging,
+.over-bottom + .dragging ~ * {
+  transform: translateY(0);
 }
 
 .over-left::before,
@@ -152,7 +157,7 @@ form select:invalid {
   left: calc(-1 * var(--drag-over-offset-x));
 }
 
-.over-right:not(:has(+ .dragging))::after {
+.over-right::after {
   right: calc(-1 * var(--drag-over-offset-x));
 }
 
@@ -160,6 +165,11 @@ form select:invalid {
 .over-left:first-child ~ *,
 :not(.dragging) + .over-left,
 :not(.dragging) + .over-left ~ *,
-.over-right:not(:has(+ .dragging)):not(:last-of-type) ~ * {
+.over-right:not(:last-of-type) ~ * {
   transform: translateX(var(--drag-over-offset-x));
+}
+
+.over-right + .dragging,
+.over-right + .dragging ~ * {
+  transform: translateX(0);
 }
