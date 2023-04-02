@@ -31,11 +31,8 @@ export default function GlobalSearch({
       router.push(`/boards?${queryString}`, {
         forceOptimisticNavigation: true,
       });
-      if (query.length === 0) {
-        mutate([], { revalidate: false });
-      }
     },
-    [createQueryString, mutate, router]
+    [createQueryString, router]
   );
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
