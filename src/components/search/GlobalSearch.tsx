@@ -20,7 +20,7 @@ export default function GlobalSearch({
   const query = searchParams?.get("q") ?? "";
   const [queryState, setQueryState] = useState(query);
   const debouncedQuery = useDebounce(queryState, 300);
-  const { data, mutate, isLoading } = useSearch(debouncedQuery);
+  const { data, isLoading } = useSearch(debouncedQuery);
 
   const updateSearchParam = useCallback(
     (query: string) => {
@@ -46,7 +46,7 @@ export default function GlobalSearch({
   );
 
   return (
-    <section className={className}>
+    <section className={className} data-active={queryState.length > 0}>
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="relative">
           <span className="absolute left-0 mx-3 top-1/2 -translate-y-1/2 pointer-events-none">

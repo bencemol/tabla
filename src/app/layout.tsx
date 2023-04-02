@@ -21,12 +21,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className + " bg-white dark:bg-zinc-900"}>
+      <body
+        className={
+          inter.className +
+          "flex flex-col sm:grid grid-cols-[auto_minmax(0,1fr)] min-h-screen bg-white dark:bg-zinc-900"
+        }
+      >
         {children}
-        <div
-          id="debug"
-          className="border-2 border-red-700 fixed z-50 pointer-events-none"
-        ></div>
       </body>
     </html>
   );

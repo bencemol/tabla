@@ -106,7 +106,7 @@ form select:invalid {
 }
 
 mark {
-  @apply bg-[#ffc700];
+  @apply bg-transparent font-bold dark:text-[#ffc700];
 }
 
 html[data-is-dragging="true"] .stop-panning {
