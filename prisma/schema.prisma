@@ -70,7 +70,7 @@ model VerificationToken {
 
 model Board {
   id        String      @id @default(cuid())
-  name      String
+  name      String      @db.Text
   tasks     Task[]
   states    TaskState[]
   owner     User        @relation(fields: [ownerId], references: [id])
@@ -84,8 +84,8 @@ model Board {
 
 model Task {
   id          String    @id @default(cuid())
-  title       String
-  description String?
+  title       String    @db.Text
+  description String?   @db.Text
   board       Board     @relation(fields: [boardId], references: [id], onDelete: Cascade)
   boardId     String
   priority    Int       @default(autoincrement())
@@ -102,7 +102,7 @@ model Task {
 
 model TaskState {
   id        String   @id @default(cuid())
-  name      String
+  name      String   @db.Text
   order     Int      @default(autoincrement())
   board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
   boardId   String
