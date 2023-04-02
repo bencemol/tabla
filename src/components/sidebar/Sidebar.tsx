@@ -24,7 +24,7 @@ export default async function Sidebar() {
   const boards = await getBoards();
 
   return (
-    <aside className="hidden sm:block w-60 h-full p-4 border-r-2 border-zinc-100 dark:border-zinc-800">
+    <aside className="hidden sm:block w-60 h-full p-4 sticky top-0 border-r-2 border-zinc-100 dark:border-zinc-800">
       <Logo className="mb-10 mt-1" />
       <div className="mb-6">
         <CreateBoard className="w-full" />

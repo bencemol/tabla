@@ -10,11 +10,8 @@
 
 @layer utilities {
   .shadow-solid {
+    box-shadow: 4px 4px 0 var(--tw-shadow-color);
     animation: 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards lift;
-  }
-
-  .invalid {
-    animation: 100ms cubic-bezier(0.4, 0, 0.2, 1) forwards lift;
   }
 
   @keyframes lift {
@@ -34,7 +31,7 @@
 
 *:focus-visible:focus {
   @apply outline-none;
-  @apply shadow-solid shadow-[#ffc700];
+  @apply shadow-solid shadow-[#ffc700] dark:shadow-[#ffc700];
 }
 
 html,
@@ -104,8 +101,12 @@ form select {
 form input:invalid,
 form textarea:invalid,
 form select:invalid {
-  @apply shadow-solid invalid;
-  @apply shadow-red-500 dark:shadow-red-500;
+  @apply shadow-solid;
+  @apply shadow-red-500;
+}
+
+mark {
+  @apply bg-[#ffc700];
 }
 
 html[data-is-dragging="true"] .stop-panning {

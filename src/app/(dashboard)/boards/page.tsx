@@ -1,5 +1,6 @@
 import CreateBoard from "@/components/board/CreateBoard";
 import Header from "@/components/board/Header";
+import GlobalSearch from "@/components/search/GlobalSearch";
 import { Separator } from "@/components/separator/Separator";
 import { getServerSessionUser, isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -53,6 +54,7 @@ export default async function Boards() {
           <div className="space-y-12">
             <p>Here&apos;s a list of all your Boards ({boards.length}):</p>
             <CreateBoard className="w-full justify-center" />
+            <GlobalSearch />
             {boards.map((board) => (
               /* @ts-expect-error Async Server Component */
               <Card key={board.id} board={board} />
