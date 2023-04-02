@@ -5,7 +5,13 @@ import { useCreateQueryString } from "@/lib/use-create-query-string";
 import { useDebounce } from "@/lib/use-debounce";
 import { IconSearch } from "@tabler/icons-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChangeEventHandler, useCallback, useEffect, useState } from "react";
+import {
+  ChangeEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Spinner from "../spinner/Spinner";
 import SearchResult from "./SearchResult";
 
@@ -14,6 +20,7 @@ export default function GlobalSearch({
 }: {
   className?: string;
 }) {
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const createQueryString = useCreateQueryString();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -45,6 +52,14 @@ export default function GlobalSearch({
     [debouncedQuery, updateSearchParam]
   );
 
+  useEffect(() => {
+    if (query.length === 0) {
+      searchInputRef.current!.value = "";
+      setQueryState("");
+      updateSearchParam("");
+    }
+  }, [query, updateSearchParam]);
+
   return (
     <section className={className} data-active={queryState.length > 0}>
       <form onSubmit={(e) => e.preventDefault()}>
@@ -53,11 +68,11 @@ export default function GlobalSearch({
             {isLoading ? <Spinner /> : <IconSearch />}
           </span>
           <input
-            aria-roledescription="search"
+            ref={searchInputRef}
             type="text"
             placeholder="Search Boards, Tasks, Descriptions..."
             className="max-w-full py-3 pl-12"
-            defaultValue={query}
+            defaultValue={queryState}
             onChange={handleChange}
           ></input>
         </div>
