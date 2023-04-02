@@ -1,6 +1,5 @@
 import CreateBoard from "@/components/board/CreateBoard";
 import Header from "@/components/board/Header";
-import GlobalSearch from "@/components/search/GlobalSearch";
 import { Separator } from "@/components/separator/Separator";
 import { getServerSessionUser, isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -10,7 +9,6 @@ import { TaskStateWithTasks } from "@/models/task-state";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import styles from "./styles.module.css";
 
 const greetings = ["Hey", "Hello", "Hi", "Howdy", "G'day", "Good day"];
 
@@ -55,7 +53,6 @@ export default async function Boards() {
           <div className="space-y-12">
             <p>Here&apos;s a list of all your Boards ({boards.length}):</p>
             <CreateBoard className="w-full justify-center" />
-            <GlobalSearch className={styles.search} />
             <div className="space-y-12">
               {boards.map((board) => (
                 /* @ts-expect-error Async Server Component */
