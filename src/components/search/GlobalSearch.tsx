@@ -53,12 +53,12 @@ export default function GlobalSearch({
   );
 
   useEffect(() => {
-    if (query.length === 0) {
-      searchInputRef.current!.value = "";
-      setQueryState("");
-      updateSearchParam("");
+    if (query !== debouncedQuery) {
+      setQueryState(query);
+      searchInputRef.current!.value = query;
     }
-  }, [query, updateSearchParam]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
 
   return (
     <section className={className} data-active={queryState.length > 0}>
