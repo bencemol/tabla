@@ -70,7 +70,7 @@ export default function GlobalSearch({
           <input
             ref={searchInputRef}
             type="text"
-            placeholder="Search Boards, Tasks, Descriptions..."
+            placeholder="Search for Boards, Tasks, Descriptions..."
             className="max-w-full py-3 pl-12"
             defaultValue={queryState}
             onChange={handleChange}
@@ -81,7 +81,7 @@ export default function GlobalSearch({
       <div className="mt-8 space-y-8">
         {queryState.length > 0 &&
           data?.map((board) => (
-            <SearchResult key={board.id} query={queryState} board={board} />
+            <SearchResult key={board.id} query={debouncedQuery} board={board} />
           ))}
       </div>
     </section>

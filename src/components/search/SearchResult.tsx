@@ -37,7 +37,8 @@ export default function SearchResult({ board, query }: SearchResultProps) {
             {board.tasks.map((task, i) => (
               <Fragment key={task.id}>
                 <Link
-                  href={`/boards/${board.id}/tasks/${task.id}`}
+                  href={`/boards/${board.id}/tasks/${task.id}#${task.id}`}
+                  scroll={false}
                   className="grid gap-2 grid-flow-row rounded-md p-2 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-800 dark:focus:bg-zinc-800 transition-colors"
                 >
                   <h3 className="flex items-center gap-2">

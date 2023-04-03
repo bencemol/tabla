@@ -84,6 +84,14 @@ export default function Popover({
     [pos, bounds?.top, bounds?.left, bounds?.bottom, bounds?.right]
   );
 
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.removeProperty("overflow");
+    }
+  }, [isOpen]);
+
   return (
     <div ref={wrapper} className="hidden">
       {isOpen &&

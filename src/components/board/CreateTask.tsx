@@ -23,7 +23,7 @@ export function CreateTask({ boardId, className = "" }: CreateTaskProps) {
         variant="primary"
       >
         <IconPlus />
-        <span className="hidden md:inline">Create Task</span>
+        <span className="hidden lg:inline">Create Task</span>
       </Button>
       <CreateTaskModal
         boardId={boardId}

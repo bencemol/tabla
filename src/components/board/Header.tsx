@@ -57,7 +57,7 @@ export default function Header({
               </Link>
               <Link
                 href="/boards/search"
-                className={`p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
+                className={`hidden sm:block p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
               >
                 <IconSearch />
               </Link>
