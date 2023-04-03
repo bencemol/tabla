@@ -21,7 +21,7 @@ export default async function Landing({
   const providers = authOptions.providers;
 
   return (
-    <main className="min-h-screen relative">
+    <main className="col-span-2 min-h-screen relative">
       <GhostBoard />
       <section className="p-4 absolute inset-0 grid place-items-center">
         <div className="w-full max-w-md space-y-4 border-2 border-t-8 rounded-md p-4  shadow-xl bg-white dark:bg-zinc-900">
