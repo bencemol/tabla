@@ -18,7 +18,7 @@ export default function SearchResult({ board, query }: SearchResultProps) {
     .replaceAll(regex, (match) => `\\b${match}`);
 
   return (
-    <div className="p-4 grid grid-flow-row border-2 border-t-8 rounded-md text-zinc-800 dark:text-zinc-200">
+    <div className="p-4 grid grid-flow-row border-2 border-t-8 rounded-md text-zinc-800 dark:text-zinc-200 animate-in slide-in-from-bottom-3">
       <Link
         href={`/boards/${board.id}`}
         className="rounded-md p-2 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-800 dark:focus:bg-zinc-800 transition-colors"
@@ -50,13 +50,12 @@ export default function SearchResult({ board, query }: SearchResultProps) {
                       />
                     </span>
                   </h3>
-                  <p>
-                    <Highlight
-                      text={task.description ?? ""}
-                      highlight={startsWithRegex}
-                      hideOnNoMatch={true}
-                    />
-                  </p>
+                  <Highlight
+                    text={task.description ?? ""}
+                    highlight={startsWithRegex}
+                    hideOnNoMatch={true}
+                    wrapper="p"
+                  />
                 </Link>
                 {i < board.tasks.length - 1 && <Separator />}
               </Fragment>
