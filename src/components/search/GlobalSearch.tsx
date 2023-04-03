@@ -35,7 +35,7 @@ export default function GlobalSearch({
         "q",
         query.length === 0 ? null : query
       );
-      router.push(`/boards?${queryString}`, {
+      router.push(`/boards/search?${queryString}`, {
         forceOptimisticNavigation: true,
       });
     },
@@ -74,6 +74,7 @@ export default function GlobalSearch({
             className="max-w-full py-3 pl-12"
             defaultValue={queryState}
             onChange={handleChange}
+            autoFocus={query.length === 0}
           ></input>
         </div>
       </form>

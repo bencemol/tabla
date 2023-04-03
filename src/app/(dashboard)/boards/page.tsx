@@ -43,8 +43,8 @@ export default async function Boards() {
   const greeting = greetings[Math.floor(rand() * greetings.length)];
 
   return (
-    <>
-      <Header session={session} />
+    <section>
+      <Header session={session} className="sticky top-0 z-10" />
       <section className="p-4 pt-12 pb-48 flex justify-center">
         <div className="w-full h-max max-w-xl space-y-4">
           <h1>
@@ -62,7 +62,7 @@ export default async function Boards() {
           </div>
         </div>
       </section>
-    </>
+    </section>
   );
 }
 

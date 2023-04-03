@@ -9,27 +9,36 @@ import {
   IconChevronDown,
   IconLogout,
   IconPencil,
+  IconSearch,
   IconUser,
 } from "@tabler/icons-react";
 import { Session } from "next-auth";
 import { SessionProvider, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
+import Logo from "../logo/Logo";
 import { Separator } from "../separator/Separator";
 import CreateBoard from "./CreateBoard";
 import { CreateTask } from "./CreateTask";
-import Logo from "../logo/Logo";
 
 type HeaderProps = {
   session?: Session;
   board?: Board;
   boards?: Board[];
+  className?: string;
 };
 
-export default function Header({ session, board, boards }: HeaderProps) {
+export default function Header({
+  session,
+  board,
+  boards,
+  className = "",
+}: HeaderProps) {
   return (
     <SessionProvider session={session}>
-      <header className="grid grid-flow-col gap-2 items-center grid-cols-[minmax(0,1fr)_auto_min-content] p-4 border-b-2 border-zinc-100 dark:border-zinc-800">
+      <header
+        className={`grid grid-flow-col gap-2 items-center grid-cols-[minmax(0,1fr)_auto_min-content] p-4 border-b-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 ${className}`}
+      >
         {board && boards && (
           <>
             <Title board={board} className="hidden sm:block items-center" />
@@ -39,18 +48,33 @@ export default function Header({ session, board, boards }: HeaderProps) {
               className="block sm:hidden min-w-0 -ml-3 max-w-min"
             />
             <section className="ml-auto flex gap-3">
+              <CreateTask className="" boardId={board.id} />
               <Link
                 href={`/boards/${board.id}/edit`}
-                className={`flex items-center gap-2 p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
+                className={`p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
               >
                 <IconPencil />
-                <span className="hidden lg:inline">Edit Board</span>
               </Link>
-              <CreateTask className="" boardId={board.id} />
+              <Link
+                href="/boards/search"
+                className={`p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
+              >
+                <IconSearch />
+              </Link>
             </section>
           </>
         )}
-        {!board && !boards && <Logo className="sm:hidden" />}
+        {!board && !boards && (
+          <>
+            <Logo className="sm:hidden" />
+            <Link
+              href="/boards/search"
+              className={`p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
+            >
+              <IconSearch />
+            </Link>
+          </>
+        )}
         <ProfileMenu className="ml-1 col-start-3 self-end" />
       </header>
     </SessionProvider>

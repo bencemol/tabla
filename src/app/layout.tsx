@@ -24,7 +24,7 @@ export default function RootLayout({
       <body
         className={
           inter.className +
-          "flex flex-col sm:grid grid-cols-[auto_minmax(0,1fr)] min-h-screen bg-white dark:bg-zinc-900"
+          " sm:grid grid-cols-[auto_minmax(0,1fr)] min-h-screen bg-white dark:bg-zinc-900"
         }
       >
         {children}
