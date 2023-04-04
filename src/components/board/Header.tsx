@@ -51,13 +51,13 @@ export default function Header({
               <CreateTask className="" boardId={board.id} />
               <Link
                 href={`/boards/${board.id}/edit`}
-                className={`p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
+                className={`p-2 border-2 border-black dark:border-zinc-700 rounded-md active:translate-y-0.5 transition-transform`}
               >
                 <IconPencil />
               </Link>
               <Link
                 href="/boards/search"
-                className={`hidden sm:block p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
+                className={`hidden sm:block p-2 border-2 border-black dark:border-zinc-700 rounded-md active:translate-y-0.5 transition-transform`}
               >
                 <IconSearch />
               </Link>
@@ -69,7 +69,7 @@ export default function Header({
             <Logo className="sm:invisible mr-auto" />
             <Link
               href="/boards/search"
-              className="p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform"
+              className="p-2 border-2 border-black dark:border-zinc-700 rounded-md active:translate-y-0.5 transition-transform"
             >
               <IconSearch />
             </Link>
@@ -130,7 +130,7 @@ const ProfileMenu = ({ className = "" }: { className?: string }) => {
   return (
     <button
       type="button"
-      className={`relative m-auto h-12 aspect-square rounded-full border-2 border-black dark:border-white overflow-hidden active:translate-y-0.5 transition-transform ${className}`}
+      className={`relative m-auto h-12 aspect-square rounded-full border-2 border-black dark:border-zinc-700 overflow-hidden active:translate-y-0.5 transition-transform ${className}`}
       onClick={toggle}
     >
       <h2 className="absolute m-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
