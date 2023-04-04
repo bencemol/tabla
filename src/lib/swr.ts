@@ -64,7 +64,8 @@ export function useSearch(query: string) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: startsWithQuery }),
       });
-    }
+    },
+    { keepPreviousData: true }
   );
 
   return {

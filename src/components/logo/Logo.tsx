@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Logo({ className = "" }) {
   return (
-    <Link href="/boards" className={className}>
+    <Link href="/boards" className={className} tabIndex={-1}>
       <h1 className="flex gap-2 items-center">
         <img
           src="/tabla_logo_light.svg"

@@ -79,7 +79,7 @@ export default function GlobalSearch({
         </div>
       </form>
       <div className="mt-8 space-y-8">
-        {!isLoading && data?.length === 0 && <NoResults />}
+        {(!debouncedQuery.length || !data?.length) && <RecentBoards />}
         {debouncedQuery.length > 0 &&
           data?.map((board) => (
             <SearchResult key={board.id} query={debouncedQuery} board={board} />
@@ -89,16 +89,14 @@ export default function GlobalSearch({
   );
 }
 
-function NoResults() {
+function RecentBoards() {
   const { data, isLoading } = useBoards();
 
   return isLoading ? null : (
     <div>
-      <h2 className="text-center animate-in slide-in-from-bottom-3">
-        There are no matches for your query 🤔
-        <br />
+      <p className="animate-in slide-in-from-bottom-3">
         Check out your recent Boards:
-      </h2>
+      </p>
       <div className="mt-8 space-y-8">
         {data?.map((board) => (
           <SearchResult key={board.id} board={{ ...board, tasks: [] }} />
