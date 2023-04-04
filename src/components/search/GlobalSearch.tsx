@@ -26,7 +26,7 @@ export default function GlobalSearch({
   const searchParams = useSearchParams();
   const query = searchParams?.get("q") ?? "";
   const [queryState, setQueryState] = useState(query);
-  const debouncedQuery = useDebounce(queryState, 300);
+  const debouncedQuery = useDebounce(queryState, 500);
   const { data, isLoading } = useSearch(debouncedQuery);
 
   const updateSearchParam = useCallback(
@@ -79,7 +79,7 @@ export default function GlobalSearch({
         </div>
       </form>
       <div className="mt-8 space-y-8">
-        {queryState.length > 0 &&
+        {debouncedQuery.length > 0 &&
           data?.map((board) => (
             <SearchResult key={board.id} query={debouncedQuery} board={board} />
           ))}

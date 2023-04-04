@@ -66,10 +66,10 @@ export default function Header({
         )}
         {!board && !boards && (
           <>
-            <Logo className="sm:hidden" />
+            <Logo className="sm:invisible mr-auto" />
             <Link
               href="/boards/search"
-              className={`p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform`}
+              className="p-2 border-2 border-black dark:border-white rounded-md active:translate-y-0.5 transition-transform"
             >
               <IconSearch />
             </Link>
