@@ -11,7 +11,7 @@
 @layer utilities {
   .shadow-solid {
     box-shadow: 4px 4px 0 var(--tw-shadow-color);
-    animation: 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards lift;
+    animation: 150ms cubic-bezier(0.4, 0, 0.2, 1) lift;
   }
 
   @keyframes lift {
@@ -91,16 +91,16 @@ form fieldset:invalid:not(:focus-within) label {
 form input,
 form textarea,
 form select {
-  @apply w-full max-w-[50ch];
+  @apply w-full max-w-[60ch];
   @apply p-2;
   @apply bg-white dark:bg-zinc-900;
   @apply border-2 rounded-md;
   @apply transition-colors;
 }
 
-form input:invalid,
-form textarea:invalid,
-form select:invalid {
+form input:not(:focus):invalid,
+form textarea:not(:focus):invalid,
+form select:not(:focus):invalid {
   @apply shadow-solid;
   @apply shadow-red-500;
 }
