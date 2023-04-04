@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearch } from "@/lib/swr";
+import { useBoards, useSearch } from "@/lib/swr";
 import { useCreateQueryString } from "@/lib/use-create-query-string";
 import { useDebounce } from "@/lib/use-debounce";
 import { IconSearch } from "@tabler/icons-react";
@@ -79,11 +79,31 @@ export default function GlobalSearch({
         </div>
       </form>
       <div className="mt-8 space-y-8">
+        {!isLoading && data?.length === 0 && <NoResults />}
         {debouncedQuery.length > 0 &&
           data?.map((board) => (
             <SearchResult key={board.id} query={debouncedQuery} board={board} />
           ))}
       </div>
     </section>
+  );
+}
+
+function NoResults() {
+  const { data, isLoading } = useBoards();
+
+  return isLoading ? null : (
+    <div>
+      <h2 className="text-center animate-in slide-in-from-bottom-3">
+        There are no matches for your query 🤔
+        <br />
+        Check out your recent Boards:
+      </h2>
+      <div className="mt-8 space-y-8">
+        {data?.map((board) => (
+          <SearchResult key={board.id} board={{ ...board, tasks: [] }} />
+        ))}
+      </div>
+    </div>
   );
 }

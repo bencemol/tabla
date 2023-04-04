@@ -1,19 +1,19 @@
 import { BoardWithTasks } from "@/models/board";
+import { IconLayoutBoard } from "@tabler/icons-react";
 import Link from "next/link";
-import Highlight from "./Highlight";
-import { IconCheckbox, IconLayoutBoard } from "@tabler/icons-react";
-import { Separator } from "../separator/Separator";
 import { Fragment } from "react";
+import { Separator } from "../separator/Separator";
+import Highlight from "./Highlight";
 
 type SearchResultProps = {
   board: BoardWithTasks;
-  query: string;
+  query?: string;
 };
 
 export default function SearchResult({ board, query }: SearchResultProps) {
   const regex = new RegExp(/\b\w+\b/gi);
   const startsWithRegex = query
-    .replaceAll(/[^\w\s]/g, "")
+    ?.replaceAll(/[^\w\s]/g, "")
     .replaceAll(" ", "|")
     .replaceAll(regex, (match) => `\\b${match}`);
 

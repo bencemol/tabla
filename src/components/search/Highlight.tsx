@@ -2,7 +2,7 @@ import { ElementType, Fragment } from "react";
 
 type HighlightProps = {
   text: string;
-  highlight: string;
+  highlight?: string;
   hideOnNoMatch?: boolean;
   wrapper?: ElementType;
 };
@@ -13,7 +13,9 @@ export default function Highlight({
   hideOnNoMatch = false,
   wrapper: Wrapper = Fragment,
 }: HighlightProps) {
-  const regex = new RegExp(`(${highlight})`, "gi");
+  const regex = highlight
+    ? new RegExp(`(${highlight})`, "gi")
+    : new RegExp(".^"); // don't match anything
   const parts = text.split(regex);
 
   const template =

@@ -1,10 +1,24 @@
-import { BoardWithTasks } from "@/models/board";
+import { Board, BoardWithTasks } from "@/models/board";
 import { Task } from "@/models/task";
 import { TaskState } from "@/models/task-state";
 import useSWR from "swr";
 
 const fetcher = (input: RequestInfo, init?: RequestInit) =>
   fetch(input, init).then((res) => res.json());
+
+export function useBoards() {
+  const { data, error, isLoading, mutate } = useSWR<Board[]>(
+    "/api/boards",
+    fetcher
+  );
+
+  return {
+    data,
+    mutate,
+    isLoading,
+    error,
+  };
+}
 
 export function useTasks(boardId: string) {
   const { data, error, isLoading, mutate } = useSWR<Task[]>(
