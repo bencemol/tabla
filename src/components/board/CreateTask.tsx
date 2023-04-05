@@ -6,6 +6,7 @@ import { useTasks } from "@/lib/swr";
 import { Prisma } from "@prisma/client";
 import { IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
+import TextArea from "../textarea/TextArea";
 
 type CreateTaskProps = {
   boardId: string;
@@ -95,13 +96,11 @@ export function CreateTaskModal({
         </fieldset>
         <fieldset>
           <label htmlFor="description">Description</label>
-          <textarea
+          <TextArea
             id="description"
             name="description"
             placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the a batteries a little."
-            rows={5}
-            cols={30}
-            className="resize-none"
+            className="resize-none min-h-[10rem] max-h-96"
           />
         </fieldset>
         <footer>

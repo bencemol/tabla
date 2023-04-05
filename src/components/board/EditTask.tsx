@@ -9,6 +9,7 @@ import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteTask from "./DeleteTask";
+import TextArea from "../textarea/TextArea";
 
 type EditTaskProps = {
   boardId: string;
@@ -71,13 +72,11 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
         </section>
         <section>
           <label htmlFor="description">Description</label>
-          <textarea
+          <TextArea
             id="description"
             name="description"
             placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the a batteries a little."
-            rows={5}
-            cols={30}
-            className="resize-none"
+            className="resize-none min-h-[10rem] max-h-96"
             defaultValue={task.description ?? undefined}
           />
         </section>
