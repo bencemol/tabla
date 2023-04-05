@@ -34,26 +34,6 @@
   @apply shadow-solid shadow-[#ffc700] dark:shadow-[#ffc700];
 }
 
-html,
-body {
-  max-width: 100vw;
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  @apply text-sm;
-}
-
-body {
-  @apply text-base;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

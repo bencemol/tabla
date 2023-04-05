@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Board } from "@/models/board";
 import { getServerSession } from "next-auth";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import Logo from "../logo/Logo";
 import BoardsNav from "./BoardsNav";
@@ -24,12 +25,18 @@ export default async function Sidebar() {
   const boards = await getBoards();
 
   return (
-    <aside className="hidden sm:block w-60 h-full max-h-screen p-4 sticky top-0 border-r-2 border-zinc-100 dark:border-zinc-800">
-      <Logo className="block mb-10 mt-1" />
+    <aside className="hidden sm:flex flex-col w-60 h-full max-h-screen overflow-hidden p-4 sticky top-0 border-r-2 border-zinc-100 dark:border-zinc-800">
+      <Link href="/boards" className="block mb-10 mt-1" tabIndex={-1}>
+        <Logo />
+      </Link>
       <div className="mb-6">
         <CreateBoard className="w-full" />
       </div>
-      <BoardsNav boards={boards} linkClassName="mb-1" />
+      <BoardsNav
+        boards={boards}
+        className="overflow-x-auto"
+        linkClassName="mb-1"
+      />
     </aside>
   );
 }

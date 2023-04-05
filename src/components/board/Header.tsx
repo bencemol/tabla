@@ -66,7 +66,9 @@ export default function Header({
         )}
         {!board && !boards && (
           <>
-            <Logo className="sm:invisible mr-auto" />
+            <Link href="/boards" className="sm:invisible mr-auto" tabIndex={-1}>
+              <Logo />
+            </Link>
             <Link
               href="/boards/search"
               className="p-2 border-2 border-black dark:border-zinc-700 rounded-md active:translate-y-0.5 transition-transform"

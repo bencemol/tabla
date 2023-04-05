@@ -16,7 +16,7 @@ export default function BoardsNav({
 }: BoardsProps) {
   return (
     <nav className={className}>
-      <ul className="grid gap-1">
+      <ul className="sticky top-0 bg-white dark:bg-zinc-900">
         <li>
           <ActiveLink
             href="/boards"
@@ -27,8 +27,8 @@ export default function BoardsNav({
             All Boards ({boards.length})
           </ActiveLink>
         </li>
+        <Separator />
       </ul>
-      <Separator />
       <ul>
         {boards.map(({ id, name }) => (
           <li key={id}>

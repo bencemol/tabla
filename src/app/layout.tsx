@@ -20,13 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={
-          inter.className +
-          " sm:grid grid-cols-[auto_minmax(0,1fr)] min-h-screen bg-white dark:bg-zinc-900"
-        }
-      >
+    <html lang="en" className="text-sm">
+      <body className={inter.className + " bg-white dark:bg-zinc-900"}>
         {children}
       </body>
     </html>
