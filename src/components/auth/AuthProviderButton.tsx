@@ -9,6 +9,7 @@ import {
 } from "@tabler/icons-react";
 import { signIn } from "next-auth/react";
 import Button from "../button/Button";
+import { useState } from "react";
 
 const buttonVariant: { [key: string]: string } = {
   mockProvider: "!bg-black",
@@ -27,9 +28,17 @@ export default function AuthProviderButton({
   name: string;
   callbackUrl?: string;
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleClick = async () => {
+    setIsLoading(true);
+    await signIn(id, { callbackUrl });
+  };
+
   return (
     <Button
-      onClick={() => signIn(id, { callbackUrl })}
+      onClick={handleClick}
+      isLoading={isLoading}
       className={`block w-full justify-center !text-white !border-transparent ${buttonVariant[id]}`}
       variant="primary"
     >
