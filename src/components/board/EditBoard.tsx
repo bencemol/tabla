@@ -55,7 +55,7 @@ export default function EditBoard({ board }: EditBoardProps) {
         onClose={handleUpdate}
         onConfirm={handleConfirm}
       >
-        <section>
+        <fieldset>
           <label htmlFor="name">Name</label>
           <input
             id="name"
@@ -65,7 +65,7 @@ export default function EditBoard({ board }: EditBoardProps) {
             required
             defaultValue={board.name}
           />
-        </section>
+        </fieldset>
         <footer>
           <Button onClick={handleUpdate}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>

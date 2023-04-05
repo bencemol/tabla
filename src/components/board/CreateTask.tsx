@@ -83,6 +83,7 @@ export function CreateTaskModal({
         isLoading={isLoading}
         onClose={onClose}
         onConfirm={handleConfirm}
+        className="slide-in-from-bottom-3"
       >
         <fieldset>
           <label htmlFor="title">Title</label>

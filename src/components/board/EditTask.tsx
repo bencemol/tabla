@@ -59,7 +59,7 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
         onClose={handleClose}
         onConfirm={handleConfirm}
       >
-        <section>
+        <fieldset>
           <label htmlFor="title">Title</label>
           <input
             id="title"
@@ -69,8 +69,8 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
             required
             defaultValue={task.title}
           />
-        </section>
-        <section>
+        </fieldset>
+        <fieldset>
           <label htmlFor="description">Description</label>
           <TextArea
             id="description"
@@ -79,7 +79,7 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
             className="resize-none min-h-[10rem] max-h-96"
             defaultValue={task.description ?? undefined}
           />
-        </section>
+        </fieldset>
         <footer>
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>

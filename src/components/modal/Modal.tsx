@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FormEvent,
   MouseEvent,
@@ -10,6 +12,7 @@ type ModalProps = {
   title: string;
   isOpen: boolean;
   isLoading?: boolean;
+  className?: string;
   onConfirm?: (data: any) => Promise<void>;
   onClose?: () => void;
   children: React.ReactNode;
@@ -19,6 +22,7 @@ export default function Modal({
   title,
   isOpen,
   isLoading,
+  className,
   onConfirm,
   onClose,
   children,
@@ -82,7 +86,7 @@ export default function Modal({
       ref={dialogRef}
       onClick={dismiss}
       onCancel={handleCancel}
-      className="fixed w-full max-w-[60ch] mx-auto my-0 sm:!my-40 p-6 bg-transparent backdrop:backdrop-blur-sm backdrop:overflow-hidden will-change-contents animate-in slide-in-from-bottom-3"
+      className={`fixed w-full max-w-[60ch] mx-auto my-0 sm:!my-40 p-6 bg-transparent backdrop:backdrop-blur-sm backdrop:overflow-hidden will-change-contents animate-in ${className}`}
     >
       <main className="rounded-md border-2 shadow-lg bg-white dark:bg-zinc-900">
         <form

@@ -57,6 +57,7 @@ export default function CreateBoard({ className = "", onClose = () => {} }) {
         isLoading={isLoading}
         onClose={handleClose}
         onConfirm={handleConfirm}
+        className="slide-in-from-bottom-3"
       >
         <fieldset>
           <label htmlFor="name">Name</label>

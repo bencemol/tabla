@@ -23,5 +23,7 @@ export default async function TaskPage({
     notFound();
   }
 
+  // await new Promise((res) => setTimeout(res, 3000));
+
   return <EditTask boardId={boardId} task={task} />;
 }

@@ -55,7 +55,7 @@ export default function EditState({
         onClose={handleUpdate}
         onConfirm={handleConfirm}
       >
-        <section>
+        <fieldset>
           <label htmlFor="name">Name</label>
           <input
             id="name"
@@ -65,7 +65,7 @@ export default function EditState({
             required
             defaultValue={taskState.name}
           />
-        </section>
+        </fieldset>
         <footer>
           <Button onClick={handleUpdate}>Cancel</Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>
