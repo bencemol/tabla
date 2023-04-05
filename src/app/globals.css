@@ -71,7 +71,7 @@ form fieldset:invalid:not(:focus-within) label {
 form input,
 form textarea,
 form select {
-  @apply w-full max-w-[60ch];
+  @apply w-full max-w-[60ch] min-h-[42px];
   @apply p-2;
   @apply bg-white dark:bg-zinc-900;
   @apply border-2 rounded-md;

@@ -29,7 +29,7 @@ export default function Button({
   return (
     <button
       type={type}
-      className={`relative border-2 rounded-md transition-colors disabled:cursor-not-allowed ${variants[variant]} ${className}`}
+      className={`relative min-h-[42px] border-2 rounded-md transition-colors disabled:cursor-not-allowed ${variants[variant]} ${className}`}
       style={{
         transitionProperty:
           "transform, color, background-color, border-color, text-decoration-color, fill, stroke",
