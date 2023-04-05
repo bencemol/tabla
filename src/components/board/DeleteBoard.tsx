@@ -42,6 +42,7 @@ export default function DeleteBoard({
       isLoading={isLoading}
       onConfirm={handleConfirm}
       onClose={onClose}
+      className="slide-in-from-bottom-3"
     >
       <section {...props}>
         <p>

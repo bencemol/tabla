@@ -43,6 +43,7 @@ export default function DeleteTask({
       isLoading={isLoading}
       onConfirm={handleConfirm}
       onClose={onClose}
+      className="slide-in-from-bottom-3"
     >
       <section {...props}>
         <p>

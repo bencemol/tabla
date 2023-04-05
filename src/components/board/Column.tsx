@@ -68,7 +68,6 @@ export default function Column({
   return (
     <section
       className={`relative flex flex-col [&:hover_.edit]:opacity-100 ${className}`}
-      key={state.id}
     >
       <header
         id="dragHandle"

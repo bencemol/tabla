@@ -1,9 +1,8 @@
+import { useTaskStates } from "@/lib/swr";
 import { TaskStateWithTasks } from "@/models/task-state";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
-import { useTaskStates } from "@/lib/swr";
 
 type DeleteTaskProps = {
   taskState: TaskStateWithTasks;
@@ -45,6 +44,7 @@ export function DeleteState({
       isLoading={isLoading}
       onConfirm={handleConfirm}
       onClose={onClose}
+      className="slide-in-from-bottom-3"
     >
       <section {...props}>
         <p>
