@@ -24,7 +24,7 @@ export default function SearchResult({ board, query }: SearchResultProps) {
         className="rounded-md p-2 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-800 dark:focus:bg-zinc-800 transition-colors"
       >
         <h2 className="flex items-center gap-2">
-          <IconLayoutBoard />
+          <IconLayoutBoard className="shrink-0" />
           <span>
             <Highlight text={board.name} highlight={startsWithRegex} />
           </span>

@@ -3,7 +3,7 @@
 import { useBoards, useSearch } from "@/lib/swr";
 import { useCreateQueryString } from "@/lib/use-create-query-string";
 import { useDebounce } from "@/lib/use-debounce";
-import { IconSearch } from "@tabler/icons-react";
+import { IconLayoutBoard, IconSearch } from "@tabler/icons-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ChangeEventHandler,
@@ -14,6 +14,7 @@ import {
 } from "react";
 import Spinner from "../spinner/Spinner";
 import SearchResult from "./SearchResult";
+import Link from "next/link";
 
 export default function GlobalSearch({
   className = "",
@@ -99,7 +100,20 @@ function RecentBoards() {
       </p>
       <div className="mt-8 space-y-8">
         {data?.map((board) => (
-          <SearchResult key={board.id} board={{ ...board, tasks: [] }} />
+          <div
+            key={board.id}
+            className="p-4 grid grid-flow-row border-2 border-t-8 rounded-md animate-in slide-in-from-bottom-3"
+          >
+            <Link
+              href={`/boards/${board.id}`}
+              className="rounded-md p-2 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-800 dark:focus:bg-zinc-800 transition-colors"
+            >
+              <h2 className="flex items-center gap-2">
+                <IconLayoutBoard className="shrink-0" />
+                <span>{board.name}</span>
+              </h2>
+            </Link>
+          </div>
         ))}
       </div>
     </div>
