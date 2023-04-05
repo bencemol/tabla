@@ -29,7 +29,7 @@ export default function TaskCard({
       {...props}
     >
       <article className="space-y-2">
-        <h3>{task.title}</h3>
+        <h3 style={{ wordBreak: "break-word" }}>{task.title}</h3>
         {task.description && (
           <p className="line-clamp-3" style={{ wordBreak: "break-word" }}>
             {task.description}
