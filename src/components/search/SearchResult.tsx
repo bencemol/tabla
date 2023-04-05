@@ -47,6 +47,7 @@ export default function SearchResult({ board, query }: SearchResultProps) {
                   <Highlight
                     text={task.description ?? ""}
                     highlight={startsWithRegex}
+                    contextualize={true}
                     hideOnNoMatch={true}
                     wrapper="p"
                   />
