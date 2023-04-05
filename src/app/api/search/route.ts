@@ -21,8 +21,9 @@ export async function POST(req: NextRequest) {
       ],
     },
     include: {
-      tasks: { where: { title: { search }, description: { search } } },
+      tasks: { where: { title: { search }, description: { search } }, take: 5 },
     },
+    take: 5,
   });
   const boards = BoardWithTasks.array().parse(data);
   return NextResponse.json(boards);
