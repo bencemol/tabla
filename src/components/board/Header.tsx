@@ -143,6 +143,7 @@ const ProfileMenu = ({ className = "" }: { className?: string }) => {
           src={session.user.image}
           alt="Profile picture"
           className="relative"
+          referrerPolicy="no-referrer"
         />
       )}
       <Popover isOpen={isOpen} onClick={toggle} pos="bottom-right">
