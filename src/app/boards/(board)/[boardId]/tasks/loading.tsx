@@ -5,32 +5,38 @@ import { IconTrash } from "@tabler/icons-react";
 
 export default function Loading() {
   return (
-    <GhostModal>
+    <GhostModal hasTitle={false}>
       <fieldset>
-        <label htmlFor="title">{"\u00A0"}</label>
         <input
           disabled
           id="title"
           name="title"
           type="text"
-          className="bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="border-transparent bg-zinc-200 dark:bg-zinc-800 animate-pulse"
         />
       </fieldset>
       <fieldset>
-        <label htmlFor="description">{"\u00A0"}</label>
+        <label
+          htmlFor="description"
+          className="w-24 rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+        >
+          {"\u00A0"}
+        </label>
         <TextArea
           disabled
           id="description"
           name="description"
-          className="resize-none min-h-[10rem] max-h-96 bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="resize-none min-h-[20rem] max-h-96 border-transparent bg-zinc-200 dark:bg-zinc-800 animate-pulse"
         />
       </fieldset>
-      <footer>
-        <Button>{"\u00A0"}</Button>
-        <Button type="submit" variant="primary">
+      <footer className="grid-cols-[repeat(3,1fr)]">
+        <Button className="col-start-3 border-transparent bg-zinc-200 dark:bg-zinc-800 animate-pulse">
           {"\u00A0"}
         </Button>
-        <Button variant="danger" className="-order-1 mr-auto">
+        <Button
+          variant="danger"
+          className="-order-1 mr-auto border-transparent bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+        >
           <IconTrash className="invisible" />
         </Button>
       </footer>
