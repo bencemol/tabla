@@ -4,6 +4,7 @@
 import Button from "@/components/button/Button";
 import Popover from "@/components/popover/Popover";
 import BoardsNav from "@/components/sidebar/BoardsNav";
+import { useBoards } from "@/lib/swr";
 import { Board } from "@/models/board";
 import {
   IconChevronDown,
@@ -15,7 +16,8 @@ import {
 import { Session } from "next-auth";
 import { SessionProvider, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useMemo, useState } from "react";
 import Logo from "../logo/Logo";
 import { Separator } from "../separator/Separator";
 import CreateBoard from "./CreateBoard";
@@ -23,21 +25,21 @@ import { CreateTask } from "./CreateTask";
 
 type HeaderProps = {
   session?: Session;
-  board?: Board;
-  boards?: Board[];
   className?: string;
 };
 
-export default function Header({
-  session,
-  board,
-  boards,
-  className = "",
-}: HeaderProps) {
+export default function Header({ session, className = "" }: HeaderProps) {
+  const pathName = usePathname(); // TODO change this to useParams when Next.js 13.3 releases
+  const { data: boards } = useBoards();
+  const board = useMemo(() => {
+    const boardId = pathName?.match(/(?:\/boards\/)(\w+).*/)?.[1];
+    return boards?.find((board) => board.id === boardId);
+  }, [boards, pathName]);
+
   return (
     <SessionProvider session={session}>
       <header
-        className={`grid grid-flow-col gap-2 items-center grid-cols-[minmax(0,1fr)_auto_min-content] p-4 border-b-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 ${className}`}
+        className={`h-20 grid grid-flow-col gap-2 items-center grid-cols-[minmax(0,1fr)_auto_min-content] p-4 border-b-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 ${className}`}
       >
         {board && boards && (
           <>
@@ -64,7 +66,7 @@ export default function Header({
             </section>
           </>
         )}
-        {!board && !boards && (
+        {!board && (
           <>
             <Link href="/boards" className="sm:invisible mr-auto" tabIndex={-1}>
               <Logo />
@@ -109,7 +111,7 @@ const MobileNav = ({
     <Button variant="flat" onClick={toggle} className={className}>
       <Title board={board} />
       <IconChevronDown className="shrink-0" />
-      <Popover isOpen={isOpen} onClick={toggle}>
+      <Popover isOpen={isOpen}>
         <CreateBoard
           className="w-full !border-none !text-inherit !translate-y-0 !bg-transparent hover:!bg-zinc-100 dark:hover:!bg-zinc-700"
           onClose={() => setIsOpen(false)}

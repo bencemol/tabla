@@ -1,15 +1,9 @@
-import Header from "@/components/board/Header";
-
 export default function Loading() {
   const columns = [[0, 1, 2, 3, 4], [0, 1, 2], [0, 1, 2, 3, 4, 5, 6, 7], []];
 
   return (
-    <section className="max-h-screen grid grid-rows-[auto_1fr]">
-      <Header />
-      <ul
-        id="scrollBox"
-        className="mt-4 pb-4 px-4 grid grid-flow-col auto-cols-[minmax(20ch,_35ch)] overflow-hidden animate-in fade-in-90"
-      >
+    <section>
+      <ul className="mt-4 pb-4 px-4 grid grid-flow-col auto-cols-[minmax(20ch,_35ch)] overflow-hidden animate-in fade-in-90">
         {columns.map((tasks, index) => (
           <Column key={index} tasks={tasks} />
         ))}

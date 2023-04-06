@@ -6,7 +6,7 @@ export default function GhostModal({ children }: GhostModalProps) {
   return (
     <dialog
       open
-      className="fixed w-full max-w-[60ch] mx-auto my-0 sm:!my-40 p-6 bg-transparent backdrop:backdrop-blur-sm backdrop:overflow-hidden z-50 animate-in slide-in-from-bottom-3"
+      className="fixed top-0 w-full max-w-[60ch] mx-auto mt-0 sm:!mt-40 p-6 bg-transparent backdrop:backdrop-blur-sm backdrop:overflow-hidden z-50 animate-in slide-in-from-bottom-3"
     >
       <main className="rounded-md border-2 shadow-lg bg-white dark:bg-zinc-900">
         <form

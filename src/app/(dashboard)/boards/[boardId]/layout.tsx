@@ -1,12 +1,10 @@
 import Columns from "@/components/board/Columns";
-import Header from "@/components/board/Header";
 import { getServerSessionUser, isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Board } from "@/models/board";
 import { Task } from "@/models/task";
 import { TaskState } from "@/models/task-state";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth";
 import { notFound, redirect } from "next/navigation";
 
 async function getBoards() {
@@ -65,17 +63,13 @@ export default async function BoardLayout({
   if (!(await isAuthorized(boardId))) {
     redirect("/boards");
   }
-  const session = (await getServerSession())!;
-  const [board, boards, states, tasks] = await Promise.all([
-    getBoard(boardId),
-    getBoards(),
+  const [states, tasks] = await Promise.all([
     getStates(boardId),
     getTasks(boardId),
   ]);
 
   return (
-    <section className="max-h-screen grid grid-rows-[auto_1fr]">
-      <Header session={session} board={board} boards={boards} />
+    <section className="max-h-[calc(100vh-5rem)] grid grid-rows-1">
       <Columns
         className="mt-4 pb-4 px-4 animate-in fade-in-70"
         boardId={boardId}

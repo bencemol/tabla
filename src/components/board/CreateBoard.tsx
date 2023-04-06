@@ -2,6 +2,7 @@
 
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
+import { useBoards } from "@/lib/swr";
 import { Board } from "@/models/board";
 import { IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
@@ -12,6 +13,7 @@ export default function CreateBoard({ className = "", onClose = () => {} }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
+  const { mutate } = useBoards();
   const isLoading = isFetching || isPending;
 
   const handleClose = () => {
@@ -31,6 +33,7 @@ export default function CreateBoard({ className = "", onClose = () => {} }) {
       console.error(e);
     }
     startTransition(() => {
+      mutate();
       router.push(`/boards/${board.id}`);
       router.refresh();
       onClose();

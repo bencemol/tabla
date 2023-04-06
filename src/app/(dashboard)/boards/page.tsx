@@ -1,5 +1,4 @@
 import CreateBoard from "@/components/board/CreateBoard";
-import Header from "@/components/board/Header";
 import { Separator } from "@/components/separator/Separator";
 import { getServerSessionUser, isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -43,25 +42,22 @@ export default async function Boards() {
   const greeting = greetings[Math.floor(rand() * greetings.length)];
 
   return (
-    <section>
-      <Header session={session} className="sticky top-0 z-10" />
-      <section className="p-4 pt-12 pb-48 flex justify-center">
-        <div className="w-full h-max max-w-xl space-y-4">
-          <h1>
-            {greeting} {session.user?.name} 👋
-          </h1>
+    <section className="p-4 pt-12 pb-48 flex justify-center">
+      <div className="w-full h-max max-w-xl space-y-4">
+        <h1>
+          {greeting} {session.user?.name} 👋
+        </h1>
+        <div className="space-y-12">
+          <p>Here&apos;s a list of all your Boards ({boards.length}):</p>
+          <CreateBoard className="w-full justify-center" />
           <div className="space-y-12">
-            <p>Here&apos;s a list of all your Boards ({boards.length}):</p>
-            <CreateBoard className="w-full justify-center" />
-            <div className="space-y-12">
-              {boards.map((board) => (
-                /* @ts-expect-error Async Server Component */
-                <Card key={board.id} board={board} />
-              ))}
-            </div>
+            {boards.map((board) => (
+              /* @ts-expect-error Async Server Component */
+              <Card key={board.id} board={board} />
+            ))}
           </div>
         </div>
-      </section>
+      </div>
     </section>
   );
 }
