@@ -8,7 +8,7 @@ export default function Loading() {
         <div className="space-y-12">
           <Button
             variant="primary"
-            className="w-full justify-center !bg-zinc-200 dark:!bg-zinc-800 !border-transparent animate-pulse"
+            className="w-full justify-center !bg-zinc-200 dark:!bg-zinc-800 !border-zinc-200 dark:border-zinc-800 animate-pulse"
           />
           <p className="w-full max-w-[12rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
             {"\u00A0"}
