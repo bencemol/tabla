@@ -4,7 +4,7 @@ import { Separator } from "@/components/separator/Separator";
 
 export default function Loading() {
   return (
-    <>
+    <main className="sm:grid grid-cols-[auto_minmax(0,1fr)] min-h-screen bg-white dark:bg-zinc-900">
       <aside className="hidden sm:flex flex-col w-60 h-full max-h-screen overflow-hidden p-4 sticky top-0 border-r-2 border-zinc-100 dark:border-zinc-800" />
       <section>
         <Header className="sticky top-0 z-10" />
@@ -30,7 +30,7 @@ export default function Loading() {
           </div>
         </section>
       </section>
-    </>
+    </main>
   );
 }
 
