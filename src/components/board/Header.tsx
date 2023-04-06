@@ -8,6 +8,7 @@ import { useBoards } from "@/lib/swr";
 import { Board } from "@/models/board";
 import {
   IconChevronDown,
+  IconCode,
   IconLogout,
   IconPencil,
   IconUser,
@@ -143,6 +144,13 @@ const ProfileMenu = ({ className = "" }: { className?: string }) => {
           {session?.user?.name}
         </p>
         <Separator />
+        <Link
+          href="/about"
+          className="flex items-center gap-2 p-2 border-2 border-transparent rounded-md hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-800 dark:focus:bg-zinc-800 transition-colors data-[active=true]:bg-zinc-200 data-[active=true]:hover:bg-zinc-200 data-[active=true]:dark:bg-zinc-700 data-[active=true]:dark:hover:bg-zinc-700"
+        >
+          <IconCode />
+          About
+        </Link>
         <Button
           variant="flat"
           className="w-full hover:!bg-zinc-100 dark:hover:!bg-zinc-700"
