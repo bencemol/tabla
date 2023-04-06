@@ -106,6 +106,7 @@ const MobileNav = ({
         <Separator />
         <BoardsNav
           boards={boards}
+          className="max-h-96 overflow-auto"
           linkClassName="data-[active=true]:!bg-transparent data-[active=true]:hover:!bg-zinc-100 data-[active=true]:dark:hover:!bg-zinc-700"
         />
       </Popover>

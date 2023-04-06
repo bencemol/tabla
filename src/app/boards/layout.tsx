@@ -18,7 +18,7 @@ export default async function BoardsLayout({ children }: BoardsProps) {
       {/* @ts-expect-error Async Server Component */}
       <Sidebar />
       <section>
-        <Header session={session} className="sticky top-0 z-10" />
+        <Header session={session} className="sticky top-0 z-20" />
         {children}
       </section>
     </main>

@@ -3,6 +3,7 @@
 import {
   FormEvent,
   MouseEvent,
+  MouseEventHandler,
   ReactEventHandler,
   useEffect,
   useRef,
@@ -70,6 +71,7 @@ export default function Modal({
     ) {
       onClose?.();
     }
+    event.stopPropagation();
   };
 
   const handleCancel: ReactEventHandler<HTMLDialogElement> = (e) => {
