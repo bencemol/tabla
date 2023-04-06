@@ -10,7 +10,6 @@ import {
   IconChevronDown,
   IconLogout,
   IconPencil,
-  IconSearch,
   IconUser,
 } from "@tabler/icons-react";
 import { Session } from "next-auth";
@@ -57,12 +56,6 @@ export default function Header({ session, className = "" }: HeaderProps) {
               >
                 <IconPencil />
               </Link>
-              <Link
-                href="/boards/search"
-                className={`hidden sm:block p-2 border-2 border-black dark:border-zinc-700 rounded-md active:translate-y-0.5 transition-transform`}
-              >
-                <IconSearch />
-              </Link>
             </section>
           </>
         )}
@@ -70,12 +63,6 @@ export default function Header({ session, className = "" }: HeaderProps) {
           <>
             <Link href="/boards" className="sm:invisible mr-auto" tabIndex={-1}>
               <Logo />
-            </Link>
-            <Link
-              href="/boards/search"
-              className="p-2 border-2 border-black dark:border-zinc-700 rounded-md active:translate-y-0.5 transition-transform"
-            >
-              <IconSearch />
             </Link>
           </>
         )}
