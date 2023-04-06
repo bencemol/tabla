@@ -127,6 +127,7 @@ const MobileNav = ({
 const ProfileMenu = ({ className = "" }: { className?: string }) => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const toggle = () => setIsOpen((isOpen) => !isOpen);
 
   return (
@@ -155,7 +156,11 @@ const ProfileMenu = ({ className = "" }: { className?: string }) => {
         <Button
           variant="flat"
           className="w-full hover:!bg-zinc-100 dark:hover:!bg-zinc-700"
-          onClick={() => signOut()}
+          onClick={() => {
+            setIsLoading(true);
+            signOut();
+          }}
+          isLoading={isLoading}
         >
           <IconLogout />
           Sign Out
