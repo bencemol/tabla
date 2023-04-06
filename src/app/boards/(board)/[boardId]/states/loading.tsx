@@ -6,21 +6,35 @@ export default function Loading() {
   return (
     <GhostModal>
       <fieldset>
-        <label htmlFor="name">{"\u00A0"}</label>
+        <label
+          htmlFor="name"
+          className="w-12 rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+        >
+          {"\u00A0"}
+        </label>
         <input
           disabled
           id="name"
           name="name"
           type="text"
-          className="bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="border-transparent bg-zinc-200 dark:bg-zinc-800 animate-pulse"
         />
       </fieldset>
       <footer>
-        <Button>{"\u00A0"}</Button>
-        <Button type="submit" variant="primary">
+        <Button className="border-transparent bg-zinc-200 dark:bg-zinc-800 animate-pulse">
           {"\u00A0"}
         </Button>
-        <Button variant="danger" className={`-order-1 mr-auto`}>
+        <Button
+          type="submit"
+          variant="primary"
+          className="border-transparent bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+        >
+          {"\u00A0"}
+        </Button>
+        <Button
+          variant="danger"
+          className="-order-1 mr-auto border-transparent bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+        >
           <IconTrash className="invisible" />
         </Button>
       </footer>
