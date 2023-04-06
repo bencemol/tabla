@@ -34,7 +34,7 @@ export default function CreateBoard({ className = "", onClose = () => {} }) {
     }
     startTransition(() => {
       mutate();
-      router.push(`/boards/${board.id}`);
+      // TODO call revalidatePath("/boards") when Next.js allows it
       router.refresh();
       onClose();
     });

@@ -1,51 +1,55 @@
+import Header from "@/components/board/Header";
+import Button from "@/components/button/Button";
+import { Separator } from "@/components/separator/Separator";
+
 export default function Loading() {
-  const columns = [[0, 1, 2, 3, 4], [0, 1, 2], [0, 1, 2, 3, 4, 5, 6, 7], []];
-
   return (
-    <section>
-      <ul className="mt-4 pb-4 px-4 grid grid-flow-col auto-cols-[minmax(20ch,_35ch)] overflow-hidden animate-in fade-in-90">
-        {columns.map((tasks, index) => (
-          <Column key={index} tasks={tasks} />
-        ))}
-      </ul>
-    </section>
+    <main className="sm:grid grid-cols-[auto_minmax(0,1fr)] min-h-screen bg-white dark:bg-zinc-900">
+      <aside className="hidden sm:flex flex-col w-60 h-full max-h-screen overflow-hidden p-4 sticky top-0 border-r-2 border-zinc-100 dark:border-zinc-800" />
+      <section>
+        <Header className="sticky top-0 z-10" />
+        <section className="p-4 pt-12 pb-48 flex justify-center">
+          <div className="w-full h-max max-w-xl space-y-4">
+            <h1 className="w-full max-w-[14rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+              {"\u00A0"}
+            </h1>
+            <div className="space-y-12">
+              <p className="w-full max-w-[12rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+                {"\u00A0"}
+              </p>
+              <Button
+                variant="primary"
+                className="w-full justify-center !border-transparent !bg-zinc-200 dark:!bg-zinc-800 animate-pulse"
+              />
+              <div className="space-y-12">
+                {new Array(5).fill(0).map((_, index) => (
+                  <Card key={index} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
   );
 }
 
-function Column({ tasks }: { tasks: number[] }) {
+function Card() {
   return (
-    <section className="relative mr-6 flex flex-col">
-      <header
-        id="dragHandle"
-        className="h-14 grid grid-flow-col items-center -m-1 p-1 pb-3 sticky -top-1 z-10 cursor-grab bg-white dark:bg-zinc-900"
-      >
-        <h5 className="mr-1 line-clamp-2 w-32 rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
-          {"\u00A0"}
-        </h5>
-      </header>
-      <ul className="grow flex flex-col py-2 mb-10">
-        {tasks?.map((_, index) => (
-          <Task key={index} />
+    <div className="block border-2 border-t-8 border-zinc-200 dark:border-zinc-800 space-y-4 rounded-md p-4 overflow-hidden">
+      <h2 className="w-full max-w-[14rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+        {"\u00A0"}
+      </h2>
+      <Separator />
+      <div className="flex gap-2 justify-evenly flex-wrap">
+        {new Array(3).fill(0).map((_, index) => (
+          <div key={index} className="last:text-right max-w-[20ch]">
+            <small className="w-32 block rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+              {"\u00A0"}
+            </small>
+          </div>
         ))}
-      </ul>
-    </section>
-  );
-}
-
-function Task() {
-  return (
-    <div className="mb-3 px-3 py-2 rounded-md border-2 border-t-8 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-left">
-      <article className="space-y-2">
-        <h3 className="w-full max-w-[11rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
-          {"\u00A0"}
-        </h3>
-        <p className="w-full max-w-[13rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
-          {"\u00A0"}
-        </p>
-        <p className="w-full max-w-[12rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
-          {"\u00A0"}
-        </p>
-      </article>
+      </div>
     </div>
   );
 }

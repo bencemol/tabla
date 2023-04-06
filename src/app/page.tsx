@@ -5,15 +5,15 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-type LandingParams = {
+type LoginParams = {
   searchParams: {
     callbackUrl?: string;
   };
 };
 
-export default async function Landing({
+export default async function Login({
   searchParams: { callbackUrl },
-}: LandingParams) {
+}: LoginParams) {
   const session = await getServerSession();
   if (session) {
     redirect("/boards");

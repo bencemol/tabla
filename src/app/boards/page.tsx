@@ -9,6 +9,8 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+export const revalidate = 0; // TODO remove this when programmatic revalidation is possible
+
 const greetings = ["Hey", "Hello", "Hi", "Howdy", "G'day", "Good day"];
 
 async function getBoards() {
