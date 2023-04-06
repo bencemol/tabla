@@ -77,7 +77,7 @@ export default async function BoardLayout({
     <section className="max-h-screen grid grid-rows-[auto_1fr]">
       <Header session={session} board={board} boards={boards} />
       <Columns
-        className="mt-4 pb-4 px-4"
+        className="mt-4 pb-4 px-4 animate-in fade-in-70"
         boardId={boardId}
         states={states}
         tasks={tasks}
