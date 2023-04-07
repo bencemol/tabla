@@ -19,7 +19,7 @@ function Column({ tasks }: { tasks: number[] }) {
         id="dragHandle"
         className="h-14 grid grid-flow-col items-center -m-1 p-1 pb-3 sticky -top-1 z-10 cursor-grab bg-white dark:bg-zinc-900"
       >
-        <h5 className="mr-1 line-clamp-2 w-32 rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+        <h5 className="mr-1 line-clamp-2 w-32 rounded-md bg-zinc-200 dark:!bg-zinc-800 animate-pulse">
           {"\u00A0"}
         </h5>
       </header>
@@ -36,13 +36,13 @@ function Task() {
   return (
     <div className="mb-3 px-3 py-2 rounded-md border-2 border-t-8 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-left">
       <article className="space-y-2">
-        <h3 className="w-full max-w-[11rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+        <h3 className="w-full max-w-[11rem] rounded-md bg-zinc-200 dark:!bg-zinc-800 animate-pulse">
           {"\u00A0"}
         </h3>
-        <p className="w-full max-w-[13rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+        <p className="w-full max-w-[13rem] rounded-md bg-zinc-200 dark:!bg-zinc-800 animate-pulse">
           {"\u00A0"}
         </p>
-        <p className="w-full max-w-[12rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+        <p className="w-full max-w-[12rem] rounded-md bg-zinc-200 dark:!bg-zinc-800 animate-pulse">
           {"\u00A0"}
         </p>
       </article>

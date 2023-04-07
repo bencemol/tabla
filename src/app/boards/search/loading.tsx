@@ -10,7 +10,7 @@ export default function Loading() {
             variant="primary"
             className="w-full justify-center !bg-zinc-200 dark:!bg-zinc-800 !border-zinc-200 dark:border-zinc-800 animate-pulse"
           />
-          <p className="w-full max-w-[12rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+          <p className="w-full max-w-[12rem] rounded-md bg-zinc-200 dark:!bg-zinc-800 animate-pulse">
             {"\u00A0"}
           </p>
           <div className="space-y-12">
@@ -27,7 +27,7 @@ export default function Loading() {
 function Card() {
   return (
     <div className="block border-2 border-t-8 border-zinc-200 dark:border-zinc-800 space-y-4 rounded-md p-4 overflow-hidden">
-      <h2 className="w-full max-w-[14rem] rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+      <h2 className="w-full max-w-[14rem] rounded-md bg-zinc-200 dark:!bg-zinc-800 animate-pulse">
         {"\u00A0"}
       </h2>
     </div>

@@ -12,13 +12,13 @@ export default function Loading() {
           id="title"
           name="title"
           type="text"
-          className="border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:!bg-zinc-800 animate-pulse"
         />
       </fieldset>
       <fieldset>
         <label
           htmlFor="description"
-          className="w-24 rounded-md bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="w-24 rounded-md bg-zinc-200 dark:!bg-zinc-800 animate-pulse"
         >
           {"\u00A0"}
         </label>
@@ -26,16 +26,16 @@ export default function Loading() {
           disabled
           id="description"
           name="description"
-          className="resize-none min-h-[20rem] max-h-96 border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="resize-none min-h-[20rem] max-h-96 border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:!bg-zinc-800 animate-pulse"
         />
       </fieldset>
       <footer className="grid-cols-[repeat(3,1fr)]">
-        <Button className="col-start-3 border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+        <Button className="col-start-3 border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:!bg-zinc-800 animate-pulse">
           {"\u00A0"}
         </Button>
         <Button
           variant="danger"
-          className="-order-1 mr-auto border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="-order-1 mr-auto border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:!bg-zinc-800 animate-pulse"
         >
           <IconTrash className="invisible" />
         </Button>

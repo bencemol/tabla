@@ -8,7 +8,7 @@ export default function Loading() {
       <fieldset>
         <label
           htmlFor="name"
-          className="w-12 rounded-md border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="w-12 rounded-md border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:!bg-zinc-800 animate-pulse"
         >
           {"\u00A0"}
         </label>
@@ -17,23 +17,23 @@ export default function Loading() {
           id="name"
           name="name"
           type="text"
-          className="border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:!bg-zinc-800 animate-pulse"
         />
       </fieldset>
       <footer>
-        <Button className="border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+        <Button className="border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:!bg-zinc-800 animate-pulse">
           {"\u00A0"}
         </Button>
         <Button
           type="submit"
           variant="primary"
-          className="border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:!bg-zinc-800 animate-pulse"
         >
           {"\u00A0"}
         </Button>
         <Button
           variant="danger"
-          className="-order-1 mr-auto border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800 animate-pulse"
+          className="-order-1 mr-auto border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:!bg-zinc-800 animate-pulse"
         >
           <IconTrash className="invisible" />
         </Button>
