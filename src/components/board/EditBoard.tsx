@@ -7,6 +7,7 @@ import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteBoard from "./DeleteBoard";
+import { useBoards } from "@/lib/swr";
 
 type EditBoardProps = {
   board: BoardWithTasks;
@@ -15,18 +16,21 @@ type EditBoardProps = {
 export default function EditBoard({ board }: EditBoardProps) {
   const router = useRouter();
 
+  const { mutate } = useBoards();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUpdate = () => {
     setIsModalOpen(false);
+    mutate();
     router.push(`/boards/${board.id}`);
     router.refresh();
   };
 
   const handleDelete = () => {
     setIsModalOpen(false);
+    mutate();
     router.push("/boards");
     router.refresh();
   };
