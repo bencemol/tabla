@@ -29,7 +29,8 @@ const mockUser: User = {
   id: "clfmwi6xd000108ma5l6sffuu",
   name: "Jane Doe",
   email: "jane.doe@mail.org",
-  image: "https://upload.wikimedia.org/wikipedia/en/b/b5/Converge-JaneDoe.jpg",
+  image:
+    "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='white' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.25' class='icon icon-tabler icon-tabler-mood-tongue' viewBox='0 0 24 24'%3e%3cpath stroke='none' d='M0 0h24v24H0z'/%3e%3cpath d='M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0M9 10h.01M15 10h.01'/%3e%3cpath d='M10 14v2a2 2 0 0 0 4 0v-2m1.5 0h-7'/%3e%3c/svg%3e",
 };
 
 const MockProvider = CredentialsProvider({
