@@ -7,100 +7,123 @@ const easeIn = "cubic-bezier(0.4, 0, 1, 1)";
 const easeOut = "cubic-bezier(0, 0, 0.2, 1)";
 const easeInOut = "cubic-bezier(0.4, 0, 0.2, 1)";
 
-function dragBefore(fromSelector: string, toSelector: string) {
+function liftAnimation(element: HTMLElement) {
+  const animation = element.animate(
+    [{ transform: "translate(0, 0)" }, { transform: "translate(10%, 0)" }],
+    {
+      delay: 4000,
+      duration: 300,
+      fill: "forwards",
+      easing: easeIn,
+    }
+  );
+  animation.pause();
+  return animation;
+}
+
+function dragAnimation(from: HTMLElement, dragDistance: number) {
+  const animation = from.animate(
+    [
+      {
+        transform: `translate(10%, ${-dragDistance}px)`,
+      },
+    ],
+    {
+      duration: dragDistance * 2.5,
+      fill: "forwards",
+      easing: easeInOut,
+    }
+  );
+  animation.pause();
+  return animation;
+}
+
+function staggerAnimation(
+  tasks: Element[],
+  dragDistance: number,
+  draggedElementHeight: number
+) {
+  const staggerAnimation = tasks.map((task, i) => {
+    const animation = task.animate(
+      [
+        { transform: "translateY(0)" },
+        { transform: `translateY(${draggedElementHeight}px)` },
+      ],
+      {
+        duration: 600,
+        easing: easeInOut,
+        fill: "forwards",
+        delay: 300 + (i * dragDistance) / 5.3,
+      }
+    );
+    animation.pause();
+    return animation;
+  });
+  return staggerAnimation;
+}
+
+function dropAnimation(el: HTMLElement, dragDistance: number) {
+  const animation = el.animate(
+    [{ transform: `translate(0, ${-dragDistance}px)` }],
+    {
+      duration: 300,
+      fill: "forwards",
+      easing: easeOut,
+    }
+  );
+  animation.pause();
+  return animation;
+}
+
+function createDragAnimationTimeline(fromSelector: string, toSelector: string) {
   const from = document.querySelector(fromSelector) as HTMLElement;
   const to = document.querySelector(toSelector) as HTMLElement;
+  const fromRect = from.getBoundingClientRect();
+  const toRect = to.getBoundingClientRect();
+  const dragDistance = fromRect.top - toRect.top;
   let taskElementsAbove = document.querySelectorAll(
     `${toSelector}, ${toSelector} ~ li:not(${fromSelector}):not(${fromSelector} ~ *)`
   );
   const tasksAbove = Array.from(taskElementsAbove);
   tasksAbove.reverse();
-  const fromRect = from.getBoundingClientRect();
-  const toRect = to.getBoundingClientRect();
-  const deltaY = fromRect.top - toRect.top;
+
   from.style["zIndex"] = "10";
-  const liftOptions = {
-    delay: 4000,
-    duration: 300,
-    fill: "forwards",
-    easing: easeIn,
-  } as KeyframeAnimationOptions;
-  const liftFrames = [
-    { transform: "translate(0, 0)" },
-    { transform: "translate(10%, 0)" },
-  ] as Keyframe[];
-  const dragOptions = {
-    duration: deltaY * 2.5,
-    fill: "forwards",
-    easing: easeInOut,
-  } as KeyframeAnimationOptions;
-  const dragFrames = [
-    {
-      transform: `translate(10%, ${-deltaY}px)`,
-    },
-  ] as Keyframe[];
-  const staggerOptions = {
-    duration: 600,
-    easing: easeInOut,
-    fill: "forwards",
-  } as KeyframeAnimationOptions;
-  const staggerFrames = [
-    { transform: "translateY(0)" },
-    { transform: `translateY(${fromRect.height}px)` },
-  ];
-  const dropOptions = {
-    duration: 300,
-    fill: "forwards",
-    easing: easeOut,
-  } as KeyframeAnimationOptions;
-  const dropFrames = [
-    { transform: `translate(0, ${-deltaY}px)` },
-  ] as Keyframe[];
-  const liftAnimation = from.animate(liftFrames, liftOptions);
-  liftAnimation.pause();
-  const dragAnimation = from.animate(dragFrames, dragOptions);
-  dragAnimation.pause();
-  const staggerAnimation = tasksAbove.map((task, i) => {
-    const animation = task.animate(staggerFrames, {
-      ...staggerOptions,
-      delay: 300 + (i * deltaY) / 5.3,
-    });
-    animation.pause();
-    return animation;
-  });
-  const dropAnimation = from.animate(dropFrames, dropOptions);
-  dropAnimation.pause();
-  liftAnimation.finished
+
+  const lift = liftAnimation(from);
+  const drag = dragAnimation(from, dragDistance);
+  const stagger = staggerAnimation(tasksAbove, dragDistance, fromRect.height);
+  const drop = dropAnimation(from, dragDistance);
+  lift.finished
     .then(() => {
-      dragAnimation.play();
-      staggerAnimation.forEach((animation) => animation.play());
-      return dragAnimation.finished;
+      drag.play();
+      stagger.forEach((animation) => animation.play());
+      return drag.finished;
     })
     .then(() => {
-      dropAnimation.play();
-      return dropAnimation.finished;
+      drop.play();
+      return drop.finished;
     })
     .catch(() => {});
 
-  dropAnimation.addEventListener("finish", () => {
-    liftAnimation.cancel();
-    dragAnimation.cancel();
-    staggerAnimation.forEach((animation) => animation.cancel());
-    dropAnimation.cancel();
+  drop.addEventListener("finish", () => {
+    lift.cancel();
+    drag.cancel();
+    stagger.forEach((animation) => animation.cancel());
+    drop.cancel();
     from.removeAttribute("style");
     to.parentElement!.insertBefore(from, to);
   });
 
   return {
-    play: () => liftAnimation.play(),
+    play: () => lift.play(),
     cancel: () => {
-      liftAnimation.cancel();
-      dragAnimation.cancel();
-      staggerAnimation.forEach((animation) => animation.cancel());
-      dropAnimation.cancel();
+      lift.cancel();
+      drag.cancel();
+      stagger.forEach((animation) => animation.cancel());
+      drop.cancel();
     },
-    animation: dropAnimation,
-    finished: dropAnimation.finished,
+    animation: drop,
+    finished: drop.finished,
   };
 }
 
@@ -112,10 +135,10 @@ function animateBoard() {
     ["#col_3 li:nth-child(5)", "#col_3 li:nth-child(3)"],
     ["#col_4 li:nth-child(6)", "#col_4 li:nth-child(1)"],
   ];
-  let timeline: ReturnType<typeof dragBefore>[] = [];
+  let timeline: ReturnType<typeof createDragAnimationTimeline>[] = [];
   const play = () => {
     frames.forEach((frame, index) => {
-      const animation = dragBefore(...frame);
+      const animation = createDragAnimationTimeline(...frame);
       timeline.push(animation);
       if (index > 0) {
         timeline[index - 1].animation.onfinish = () => animation.play();
