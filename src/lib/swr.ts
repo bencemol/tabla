@@ -9,7 +9,8 @@ const fetcher = (input: RequestInfo, init?: RequestInit) =>
 export function useBoards() {
   const { data, error, isLoading, mutate } = useSWR<Board[]>(
     "/api/boards",
-    fetcher
+    fetcher,
+    { suspense: true }
   );
 
   return {
