@@ -93,6 +93,13 @@ html[data-is-dragging="true"] .stop-panning {
   overflow: hidden !important;
 }
 
+.over-top:first-child *,
+.over-bottom:first-child *,
+.over-left:first-child *,
+.over-right:first-child * {
+  pointer-events: none;
+}
+
 .over-top::before,
 .over-bottom::after {
   content: "";

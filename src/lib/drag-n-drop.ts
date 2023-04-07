@@ -172,6 +172,7 @@ export function useDrop<D extends ListDragDirection>(
 ) {
   const [overlapping, setOverlapping] = useState<ListDragOffsetDirection<D>>();
   const [dragContext, setDragContext] = useContext(DragContext)!;
+  const dragEnteredCount = useRef(0);
   let currentFrame: number;
 
   const handleDragOver: DragEventHandler = (e) => {
@@ -182,7 +183,7 @@ export function useDrop<D extends ListDragDirection>(
     ) {
       return false;
     }
-    const dropTarget = e.currentTarget.firstElementChild!;
+    const dropTarget = e.currentTarget.firstElementChild;
     currentFrame = requestAnimationFrame(() =>
       calcOverlapping(dropTarget, e.clientX, e.clientY)
     );
@@ -191,6 +192,7 @@ export function useDrop<D extends ListDragDirection>(
   const handleDrop: (
     callback: (data: any, over?: ListDragOffsetDirection<D>) => void
   ) => DragEventHandler = (callback) => (e) => {
+    e.preventDefault();
     if (dragContext !== dragContextId) {
       return false;
     }
@@ -203,18 +205,18 @@ export function useDrop<D extends ListDragDirection>(
     } catch {}
     removeOffset();
     cancelAnimationFrame(currentFrame);
-    currentFrame = requestAnimationFrame(() => setOverlapping(undefined));
     setDragContext(undefined);
-    clearInterval(scrollInterval);
     window.ondrag = null;
-    e.preventDefault();
   };
 
   const handleDragEnter: DragEventHandler = (e) => {
     e.preventDefault();
+    dragEnteredCount.current++;
   };
+
   const handleDragLeave: DragEventHandler = (e) => {
-    if (!(e.currentTarget as HTMLElement).hasAttribute("draggable")) {
+    dragEnteredCount.current--;
+    if (dragEnteredCount.current > 0) {
       return;
     }
     cancelAnimationFrame(currentFrame);
@@ -222,7 +224,7 @@ export function useDrop<D extends ListDragDirection>(
   };
 
   const calcOverlapping = (
-    dropTarget: Element,
+    dropTarget: Element | null,
     clientX: number,
     clientY: number
   ) => {
@@ -243,6 +245,15 @@ export function useDrop<D extends ListDragDirection>(
       setOverlapping(newOverlapping as ListDragOffsetDirection<D>);
     }
   };
+
+  useEffect(() => {
+    if (dragContext) {
+      return;
+    }
+    dragEnteredCount.current = 0;
+    clearInterval(scrollInterval);
+    setOverlapping(undefined);
+  }, [dragContext]);
 
   return {
     overlapping,
