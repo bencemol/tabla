@@ -2,9 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
 @layer base {
+  * {
+    box-sizing: border-box;
+    @apply border-black dark:border-zinc-700;
+  }
+
+  *:focus-visible:focus {
+    @apply outline-none;
+    @apply shadow-solid shadow-supernova dark:shadow-supernova;
+  }
+
   html {
     -webkit-tap-highlight-color: transparent;
+  }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  h4 {
+    @apply text-base;
+  }
+
+  h5 {
+    @apply text-sm;
+  }
+
+  form label {
+    @apply block mb-1 transition-colors;
+  }
+
+  form fieldset:invalid:not(:focus-within) label {
+    @apply text-red-800 dark:text-red-400;
+  }
+
+  form input,
+  form textarea,
+  form select {
+    @apply w-full min-h-[42px];
+    @apply p-2;
+    @apply bg-white dark:bg-zinc-900;
+    @apply border-2 rounded-md;
+    @apply transition-colors;
+  }
+
+  form input:not(:focus):invalid,
+  form textarea:not(:focus):invalid,
+  form select:not(:focus):invalid {
+    @apply shadow-solid;
+    @apply shadow-red-500;
   }
 }
 
@@ -22,142 +83,4 @@
       box-shadow: 4px 4px 0 var(--tw-shadow-color);
     }
   }
-}
-
-* {
-  box-sizing: border-box;
-  @apply border-black dark:border-zinc-700;
-}
-
-*:focus-visible:focus {
-  @apply outline-none;
-  @apply shadow-solid shadow-[#ffc700] dark:shadow-[#ffc700];
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
-h1 {
-  @apply text-2xl;
-}
-
-h2 {
-  @apply text-xl;
-}
-
-h3 {
-  @apply text-lg;
-}
-
-h4 {
-  @apply text-base;
-}
-
-h5 {
-  @apply text-sm;
-}
-
-form label {
-  @apply block mb-1 transition-colors;
-}
-
-form fieldset:invalid:not(:focus-within) label {
-  @apply text-red-800 dark:text-red-400;
-}
-
-form input,
-form textarea,
-form select {
-  @apply w-full min-h-[42px];
-  @apply p-2;
-  @apply bg-white dark:bg-zinc-900;
-  @apply border-2 rounded-md;
-  @apply transition-colors;
-}
-
-form input:not(:focus):invalid,
-form textarea:not(:focus):invalid,
-form select:not(:focus):invalid {
-  @apply shadow-solid;
-  @apply shadow-red-500;
-}
-
-mark {
-  @apply bg-transparent font-bold text-black dark:text-[#ffc700];
-}
-
-html[data-is-dragging="true"] .stop-panning {
-  overflow: hidden !important;
-}
-
-.over-top:first-child *,
-.over-bottom:first-child *,
-.over-left:first-child *,
-.over-right:first-child * {
-  pointer-events: none;
-}
-
-.over-top::before,
-.over-bottom::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: var(--drag-over-offset-y);
-  left: 0;
-}
-
-:not(.dragging) + .over-top::before,
-.over-top:first-child::before {
-  top: calc(-1 * var(--drag-over-offset-y));
-}
-
-.over-bottom::after {
-  bottom: calc(-1 * var(--drag-over-offset-y));
-}
-
-.over-top:first-child,
-.over-top:first-child ~ *,
-:not(.dragging) + .over-top,
-:not(.dragging) + .over-top ~ *,
-.over-bottom:not(:last-of-type) ~ * {
-  transform: translateY(var(--drag-over-offset-y));
-}
-
-.over-bottom + .dragging,
-.over-bottom + .dragging ~ * {
-  transform: translateY(0);
-}
-
-.over-left::before,
-.over-right::after {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: var(--drag-over-offset-x);
-  top: 0;
-}
-
-:not(.dragging) + .over-left::before,
-.over-left:first-child::before {
-  left: calc(-1 * var(--drag-over-offset-x));
-}
-
-.over-right::after {
-  right: calc(-1 * var(--drag-over-offset-x));
-}
-
-.over-left:first-child,
-.over-left:first-child ~ *,
-:not(.dragging) + .over-left,
-:not(.dragging) + .over-left ~ *,
-.over-right:not(:last-of-type) ~ * {
-  transform: translateX(var(--drag-over-offset-x));
-}
-
-.over-right + .dragging,
-.over-right + .dragging ~ * {
-  transform: translateX(0);
 }

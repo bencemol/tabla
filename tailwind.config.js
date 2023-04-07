@@ -9,7 +9,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        supernova: "#ffc700",
+      },
+    },
   },
   plugins: [require("tailwindcss-animate")],
 };

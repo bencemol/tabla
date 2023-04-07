@@ -28,7 +28,12 @@ export default function Highlight({
     !hideOnNoMatch || parts.length > 1
       ? parts.map((part, i) =>
           regex.test(part) ? (
-            <mark key={i}>{part}</mark>
+            <mark
+              key={i}
+              className="bg-transparent font-bold text-black dark:text-supernova"
+            >
+              {part}
+            </mark>
           ) : (
             <Fragment key={i}>{part}</Fragment>
           )
