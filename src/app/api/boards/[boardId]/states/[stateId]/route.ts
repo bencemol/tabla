@@ -1,4 +1,5 @@
 import { isAuthorized } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { TaskState, TaskStateUpdateInput } from "@/models/task-state";
 import { NextRequest, NextResponse } from "next/server";
 
