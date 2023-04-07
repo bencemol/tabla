@@ -101,7 +101,7 @@ export function CreateTaskModal({
             id="description"
             name="description"
             placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the a batteries a little."
-            className="resize-none min-h-[10rem] max-h-96"
+            className="resize-none min-h-[20rem] max-h-96"
           />
         </fieldset>
         <footer>
