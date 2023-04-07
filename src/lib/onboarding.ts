@@ -2,7 +2,6 @@ import { db } from "@/lib/db";
 
 export async function createSampleBoard(ownerId: string) {
   console.log(`creating sample board for ${ownerId}`);
-  debugger;
   const { id: boardId } = await db.board.create({
     data: {
       name: "Roadmap to the 🌙",
