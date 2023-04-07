@@ -40,6 +40,9 @@ export default function About() {
                 <Link href="https://next-auth.js.org/">NextAuth.js</Link>
               </li>
               <li>
+                <Link href="https://www.prisma.io/">Prisma</Link>
+              </li>
+              <li>
                 <Link href="https://swr.vercel.app/">SWR</Link>
               </li>
               <li>
