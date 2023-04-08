@@ -3,7 +3,7 @@ export default function Loading() {
 
   return (
     <section>
-      <ul className="mt-4 pb-4 px-4 grid grid-flow-col auto-cols-[minmax(20ch,_35ch)] overflow-hidden animate-in fade-in-90">
+      <ul className="mt-4 pb-4 px-4 grid grid-flow-col auto-cols-[minmax(28ch,_35ch)] overflow-hidden animate-in fade-in-90">
         {columns.map((tasks, index) => (
           <Column key={index} tasks={tasks} />
         ))}

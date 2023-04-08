@@ -71,7 +71,7 @@ export default function Columns({
     <SWRConfig value={{ fallback }}>
       <ul
         id="scrollBox"
-        className={`grid grid-flow-col auto-cols-[minmax(20ch,_35ch)] overflow-auto stop-panning ${className}`}
+        className={`grid grid-flow-col auto-cols-[minmax(28ch,_35ch)] overflow-auto stop-panning ${className}`}
       >
         <DragContext.Provider value={dragState}>
           {taskStates?.map((state, index) => (
