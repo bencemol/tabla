@@ -2,6 +2,7 @@ import Header from "@/components/board/Header";
 import Providers from "@/components/providers/Providers";
 import Sidebar from "@/components/sidebar/Sidebar";
 import { authOptions } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { Board } from "@/models/board";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
