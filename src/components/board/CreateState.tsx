@@ -59,11 +59,11 @@ export default function CreateState({ boardId }: { boardId: string }) {
           <form
             ref={formRef}
             autoComplete="off"
-            className="grow flex flex-col mb-3 sticky top-0 animate-in slide-in-from-bottom-1"
+            className="grow flex flex-col mb-3 space-y-3 sticky top-0 animate-in slide-in-from-bottom-1"
             onSubmit={handleSubmit}
             onReset={() => setIsFormOpen(false)}
           >
-            <fieldset className="pb-3">
+            <fieldset>
               <label htmlFor="name" className="hidden">
                 Column Name
               </label>
