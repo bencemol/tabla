@@ -42,10 +42,14 @@ const CreateBoardInline = forwardRef<HTMLElement, CreateBoardInlineProps>(
       await mutate();
       router.refresh();
       setIsFormOpen(false);
+      onToggle?.(false);
       setIsLoading(false);
     };
 
     useEffect(() => {
+      if (!isFormOpen) {
+        return;
+      }
       onToggle?.(isFormOpen);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFormOpen]);
@@ -62,8 +66,7 @@ const CreateBoardInline = forwardRef<HTMLElement, CreateBoardInlineProps>(
       <section ref={ref}>
         {!isFormOpen ? (
           <Button
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={() => {
               setIsFormOpen(true);
             }}
             variant="primary"
@@ -76,7 +79,10 @@ const CreateBoardInline = forwardRef<HTMLElement, CreateBoardInlineProps>(
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            onReset={() => setIsFormOpen(false)}
+            onReset={() => {
+              setIsFormOpen(false);
+              onToggle?.(false);
+            }}
             className="border-2 border-t-8 space-y-8 rounded-md p-4 shadow-md animate-in zoom-in-95"
             autoComplete="off"
           >
