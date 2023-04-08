@@ -1,7 +1,6 @@
 "use client";
 
-import useIsomorphicLayoutEffect from "@/lib/use-isomorphic-layout-effect";
-import { TextareaHTMLAttributes, useRef } from "react";
+import { TextareaHTMLAttributes, useLayoutEffect, useRef } from "react";
 
 type TextAreaProps = {} & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
@@ -19,7 +18,8 @@ export default function TextArea({
     textArea.style.height = `${height}px`;
   };
 
-  useIsomorphicLayoutEffect(adjustHeight, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useLayoutEffect(adjustHeight, [textAreaRef.current]);
 
   return (
     <textarea
