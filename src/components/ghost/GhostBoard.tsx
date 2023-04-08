@@ -1,11 +1,8 @@
 "use client";
 
+import { easeIn, easeInOut, easeOut } from "@/lib/easing";
 import { mulberry32 } from "@/lib/random";
 import { useEffect, useRef } from "react";
-
-const easeIn = "cubic-bezier(0.4, 0, 1, 1)";
-const easeOut = "cubic-bezier(0, 0, 0.2, 1)";
-const easeInOut = "cubic-bezier(0.4, 0, 0.2, 1)";
 
 function liftAnimation(element: HTMLElement) {
   const animation = element.animate(

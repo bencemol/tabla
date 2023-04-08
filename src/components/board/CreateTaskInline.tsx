@@ -1,8 +1,8 @@
+import { useTasks } from "@/lib/swr";
 import { Prisma } from "@prisma/client";
 import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
-import { FormEventHandler, useRef, useState } from "react";
+import { FormEventHandler, useEffect, useRef, useState } from "react";
 import Button from "../button/Button";
-import { useTasks } from "@/lib/swr";
 
 export default function CreateTaskInline({
   boardId,
@@ -40,6 +40,14 @@ export default function CreateTaskInline({
     }
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    if (isLoading) {
+      formRef.current?.setAttribute("inert", "");
+    } else {
+      formRef.current?.removeAttribute("inert");
+    }
+  }, [isLoading]);
 
   return (
     <section className="flex flex-col h-16 dark:border-zinc-800">
