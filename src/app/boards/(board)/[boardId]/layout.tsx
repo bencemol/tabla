@@ -1,20 +1,11 @@
 import Columns from "@/components/board/Columns";
-import { getServerSessionUser, isAuthorized } from "@/lib/auth";
+import { isAuthorized } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Board } from "@/models/board";
 import { Task } from "@/models/task";
 import { TaskState } from "@/models/task-state";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-
-async function getBoards() {
-  const user = await getServerSessionUser();
-  const data = await db.board.findMany({
-    where: { ownerId: user.id },
-    orderBy: { createdAt: "desc" },
-  });
-  return Board.array().parse(data);
-}
 
 async function getBoard(id: string) {
   const board = await db.board.findUnique({ where: { id } });

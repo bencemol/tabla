@@ -76,7 +76,7 @@ export default function CreateTaskInline({
               type="text"
               id="title"
               name="title"
-              placeholder="e.g. Take coffee break"
+              placeholder="What needs to be done?"
               required
               autoFocus
             />

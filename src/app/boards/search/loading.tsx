@@ -1,4 +1,3 @@
-import Header from "@/components/board/Header";
 import Button from "@/components/button/Button";
 
 export default function Loading() {

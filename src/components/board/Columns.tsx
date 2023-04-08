@@ -4,7 +4,7 @@ import { DragContext } from "@/lib/drag-n-drop";
 import { useTaskStates } from "@/lib/swr";
 import { Task } from "@/models/task";
 import { TaskState } from "@/models/task-state";
-import { useDeferredValue, useState } from "react";
+import { useState } from "react";
 import { SWRConfig } from "swr";
 import Column from "./Column";
 import CreateState from "./CreateState";
@@ -36,7 +36,6 @@ export default function Columns({
     [`/api/boards/${boardId}/tasks`]: tasks,
     ...tasksFallback,
   };
-  const deferredFallback = useDeferredValue(fallback);
 
   const { data: taskStates, mutate } = useTaskStates(boardId, states);
 
@@ -69,7 +68,7 @@ export default function Columns({
   };
 
   return (
-    <SWRConfig value={{ fallback: deferredFallback }}>
+    <SWRConfig value={{ fallback }}>
       <ul
         id="scrollBox"
         className={`grid grid-flow-col auto-cols-[minmax(20ch,_35ch)] overflow-auto stop-panning ${className}`}

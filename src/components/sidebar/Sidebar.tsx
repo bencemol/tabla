@@ -1,28 +1,14 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import CreateBoard from "@/components/board/CreateBoard";
-import { authOptions } from "@/lib/auth";
-import { db } from "@/lib/db";
-import { Board } from "@/models/board";
-import { getServerSession } from "next-auth";
+import { useBoards } from "@/lib/swr";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import Logo from "../logo/Logo";
 import BoardsNav from "./BoardsNav";
 
-async function getBoards() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    redirect("/");
-  }
-  const data = await db.board.findMany({
-    where: { ownerId: session.user.id },
-    orderBy: { createdAt: "desc" },
-  });
-  return Board.array().parse(data);
-}
-
-export default async function Sidebar() {
-  const boards = await getBoards();
+export default function Sidebar() {
+  const { data: boards } = useBoards();
 
   return (
     <aside className="hidden sm:flex flex-col w-60 h-full max-h-screen overflow-hidden p-4 sticky top-0 border-r-2 border-zinc-100 dark:border-zinc-800">
@@ -33,7 +19,7 @@ export default async function Sidebar() {
         <CreateBoard className="w-full" />
       </div>
       <BoardsNav
-        boards={boards}
+        boards={boards ?? []}
         className="overflow-x-auto"
         linkClassName="mb-1"
       />
