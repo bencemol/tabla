@@ -4,6 +4,7 @@ import { useBoards, useSearch } from "@/lib/swr";
 import { useCreateQueryString } from "@/lib/use-create-query-string";
 import { useDebounce } from "@/lib/use-debounce";
 import { IconLayoutBoard, IconSearch } from "@tabler/icons-react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ChangeEventHandler,
@@ -14,7 +15,6 @@ import {
 } from "react";
 import Spinner from "../spinner/Spinner";
 import SearchResult from "./SearchResult";
-import Link from "next/link";
 
 export default function GlobalSearch({
   className = "",
@@ -36,7 +36,7 @@ export default function GlobalSearch({
         "q",
         query.length === 0 ? null : query
       );
-      router.push(`/boards/search?${queryString}`, {
+      router.replace(`/boards/search?${queryString}`, {
         forceOptimisticNavigation: true,
       });
     },
@@ -59,7 +59,7 @@ export default function GlobalSearch({
       searchInputRef.current!.value = query;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, []);
 
   return (
     <section className={className} data-active={queryState.length > 0}>
