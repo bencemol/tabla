@@ -78,8 +78,7 @@ export default function EditTask({ boardId, task }: EditTaskProps) {
           <TextArea
             id="title"
             name="title"
-            rows={1}
-            className="resize-none text-xl border-transparent hover:border-inherit focus:border-inherit invalid:border-inherit"
+            className="resize-none overflow-hidden text-xl border-transparent min-h-[3rem] hover:border-inherit focus:border-inherit invalid:border-inherit"
             placeholder="e.g. Take coffee break"
             required
             defaultValue={task.title}

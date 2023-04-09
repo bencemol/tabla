@@ -13,13 +13,14 @@ export default function TextArea({
 
   const adjustHeight = () => {
     const textArea = textAreaRef.current!;
-    textArea.style.removeProperty("height");
-    const height = Math.max(textArea.scrollHeight, textArea.offsetHeight);
-    textArea.style.height = `${height}px`;
+    setTimeout(() => {
+      textArea.style.height = "inherit";
+      const height = textArea.scrollHeight;
+      textArea.style.height = `${height}px`;
+    });
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useLayoutEffect(adjustHeight, [textAreaRef.current]);
+  useLayoutEffect(adjustHeight, []);
 
   return (
     <textarea
