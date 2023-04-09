@@ -1,5 +1,6 @@
 "use client";
 
+import { easeOut } from "@/lib/easing";
 import { useBoards } from "@/lib/swr";
 import { IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
@@ -7,6 +8,7 @@ import {
   FormEventHandler,
   forwardRef,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -46,6 +48,30 @@ const CreateBoardInline = forwardRef<HTMLElement, CreateBoardInlineProps>(
       setIsLoading(false);
     };
 
+    const scaleIn = () => {
+      const form = formRef.current!;
+      const children = form.querySelectorAll("*");
+      form.animate(
+        [{ transform: "scaleY(0)" }, { transform: "scaleY(100%)" }],
+        { duration: 150, easing: easeOut }
+      );
+      children.forEach((child) =>
+        child.animate([{ opacity: 0 }, { opacity: 1 }], {
+          delay: 100,
+          duration: 150,
+          easing: easeOut,
+          fill: "forwards",
+        })
+      );
+    };
+
+    useLayoutEffect(() => {
+      if (!isFormOpen) {
+        return;
+      }
+      scaleIn();
+    }, [isFormOpen]);
+
     useEffect(() => {
       if (!isFormOpen) {
         return;
@@ -83,7 +109,7 @@ const CreateBoardInline = forwardRef<HTMLElement, CreateBoardInlineProps>(
               setIsFormOpen(false);
               onToggle?.(false);
             }}
-            className="border-2 border-t-8 space-y-8 rounded-md p-4 shadow-md animate-in zoom-in-95"
+            className="border-2 border-t-8 space-y-8 rounded-md p-4 shadow-md origin-top [&>*]:opacity-0"
             autoComplete="off"
           >
             <fieldset>

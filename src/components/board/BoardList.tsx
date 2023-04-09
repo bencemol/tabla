@@ -25,7 +25,7 @@ export default function BoardList() {
     if (isOpen) {
       list.animate(
         [
-          { transform: `translateY(-${height / 3}px)` },
+          { transform: `translateY(-${height}px)` },
           { transform: "translateY(0)" },
         ],
         options
