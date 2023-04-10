@@ -2,7 +2,7 @@
 
 import { easeOut } from "@/lib/easing";
 import { useBoards } from "@/lib/swr";
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import BoardCard from "./BoardCard";
 import CreateBoardInline from "./CreateBoardInline";
 
@@ -10,6 +10,12 @@ export default function BoardList() {
   const { data } = useBoards();
   const listRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLElement>(null);
+  const collapsedFormHeight = useRef(0);
+
+  useLayoutEffect(() => {
+    collapsedFormHeight.current =
+      formRef.current?.getBoundingClientRect().height ?? 0;
+  }, []);
 
   const animateList = (isOpen: boolean) => {
     const list = listRef.current;
@@ -18,6 +24,7 @@ export default function BoardList() {
       return;
     }
     const { height } = formRect;
+    const deltaY = height - collapsedFormHeight.current;
     const options: KeyframeAnimationOptions = {
       duration: 150,
       easing: easeOut,
@@ -25,7 +32,7 @@ export default function BoardList() {
     if (isOpen) {
       list.animate(
         [
-          { transform: `translateY(-${height}px)` },
+          { transform: `translateY(-${deltaY}px)` },
           { transform: "translateY(0)" },
         ],
         options
@@ -33,7 +40,7 @@ export default function BoardList() {
     } else {
       list.animate(
         [
-          { transform: `translateY(${height}px)` },
+          { transform: `translateY(${deltaY}px)` },
           { transform: "translateY(0)" },
         ],
         options

@@ -52,7 +52,7 @@ const CreateBoardInline = forwardRef<HTMLElement, CreateBoardInlineProps>(
       const form = formRef.current!;
       const children = form.querySelectorAll("*");
       form.animate(
-        [{ transform: "scaleY(0)" }, { transform: "scaleY(100%)" }],
+        [{ transform: "scaleY(25%)" }, { transform: "scaleY(100%)" }],
         { duration: 150, easing: easeOut }
       );
       children.forEach((child) =>
