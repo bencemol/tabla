@@ -37,7 +37,7 @@ export default function SearchResult({ board, query }: SearchResultProps) {
             {board.tasks.map((task, i) => (
               <Fragment key={task.id}>
                 <Link
-                  href={`/boards/${board.id}/tasks/${task.id}#${task.id}`}
+                  href={`/boards/${board.id}/tasks/${task.id}`}
                   scroll={false}
                   className="block space-y-2 break-words rounded-md p-2 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-800 dark:focus:bg-zinc-800 transition-colors"
                 >
