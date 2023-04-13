@@ -50,18 +50,20 @@ const CreateBoardInline = forwardRef<HTMLElement, CreateBoardInlineProps>(
 
     const scaleIn = () => {
       const form = formRef.current!;
-      const children = form.querySelectorAll("*");
+      const children = form.querySelectorAll("&>*");
       form.animate(
         [{ transform: "scaleY(25%)" }, { transform: "scaleY(100%)" }],
         { duration: 150, easing: easeOut }
       );
       children.forEach((child) =>
-        child.animate([{ opacity: 0 }, { opacity: 1 }], {
-          delay: 100,
-          duration: 150,
-          easing: easeOut,
-          fill: "forwards",
-        })
+        child.animate(
+          [{ transform: "scaleY(200%)" }, { transform: "scaleY(100%)" }],
+          {
+            duration: 150,
+            easing: easeOut,
+            fill: "forwards",
+          }
+        )
       );
     };
 
@@ -109,7 +111,7 @@ const CreateBoardInline = forwardRef<HTMLElement, CreateBoardInlineProps>(
               setIsFormOpen(false);
               onToggle?.(false);
             }}
-            className="border-2 border-t-8 space-y-8 rounded-md p-4 shadow-md origin-top [&>*]:opacity-0"
+            className="border-2 border-t-8 space-y-8 rounded-md p-4 shadow-md origin-top "
             autoComplete="off"
           >
             <fieldset>
