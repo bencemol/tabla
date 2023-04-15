@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: { default: "Tábla", template: "%s | Tábla" },
   description: "An experimental Kanban board",
   icons: {
-    icon: "/favicon.svg",
+    icon: ["/favicon.svg", "/favicon.png"],
     shortcut: "/tabla_logo_dark.svg",
   },
 };
