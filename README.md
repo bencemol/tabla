@@ -1,6 +1,9 @@
 <div align="center">
   <a href="https://tabla.bmolnar.dev">
-    <img src="public/tabla_logo_dark.svg" alt="Logo" width="80" height="80">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="public/tabla_logo_light.svg">
+      <img src="public/tabla_logo_dark.svg" alt="Logo" width="80" height="80">
+    </picture>
   </a>
 
   <h2 align="center">Tábla</h2>
