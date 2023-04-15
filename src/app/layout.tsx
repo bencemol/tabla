@@ -9,8 +9,13 @@ export const metadata: Metadata = {
   description: "An experimental Kanban board",
   icons: {
     icon: [
+      {
+        url: "/favicon.png",
+        type: "image/png",
+        rel: "alternate icon",
+        sizes: "any",
+      },
       { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.png", type: "image/png" },
     ],
     shortcut: "/tabla_logo_dark.svg",
   },
