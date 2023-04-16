@@ -153,7 +153,7 @@ const ProfileMenu = ({ className = "" }: { className?: string }) => {
         </Link>
         <Button
           variant="flat"
-          className="w-full hover:!bg-zinc-100 dark:hover:!bg-zinc-700"
+          className="w-full hover:!bg-zinc-100 dark:hover:!bg-zinc-800"
           onClick={() => {
             setIsLoading(true);
             signOut();
