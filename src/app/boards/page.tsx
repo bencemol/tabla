@@ -21,9 +21,9 @@ export default async function Boards() {
 
   return (
     <section className="p-4 pt-12 pb-48 flex justify-center">
-      <div className="space-y-12">
+      <div className="w-full max-w-xl space-y-12">
         <SearchInput />
-        <div className="w-full h-max max-w-xl space-y-4">
+        <div className="w-full h-max space-y-4">
           <h1>
             {greeting} {session.user?.name} 👋
           </h1>
