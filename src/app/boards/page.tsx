@@ -1,8 +1,13 @@
 import BoardList from "@/components/board/BoardList";
 import SearchInput from "@/components/search/SearchInput";
 import { mulberry32 } from "@/lib/random";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Boards",
+};
 
 const greetings = ["Hey", "Hello", "Hi", "Howdy", "G'day", "Good day"];
 

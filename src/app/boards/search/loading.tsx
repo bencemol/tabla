@@ -1,4 +1,3 @@
-import Button from "@/components/button/Button";
 import SearchInput from "@/components/search/SearchInput";
 
 export default function Loading() {

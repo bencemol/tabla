@@ -75,7 +75,7 @@ export default function GlobalSearch({
             className="max-w-full py-3 pl-12"
             defaultValue={queryState}
             onChange={handleChange}
-            autoFocus={query.length === 0}
+            autoFocus
           ></input>
         </div>
       </form>

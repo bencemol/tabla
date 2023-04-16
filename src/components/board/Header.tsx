@@ -39,7 +39,7 @@ export default function Header({ session, className = "" }: HeaderProps) {
   return (
     <SessionProvider session={session}>
       <header
-        className={`h-20 grid grid-flow-col gap-2 items-center grid-cols-[minmax(0,1fr)_auto_min-content] p-4 border-b-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 ${className}`}
+        className={`h-20 grid grid-flow-col gap-2 items-center grid-cols-[minmax(0,1fr)_auto_min-content] p-4 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 ${className}`}
       >
         {board && boards && (
           <>
