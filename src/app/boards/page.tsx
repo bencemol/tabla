@@ -1,4 +1,5 @@
 import BoardList from "@/components/board/BoardList";
+import SearchInput from "@/components/search/SearchInput";
 import { mulberry32 } from "@/lib/random";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -15,11 +16,14 @@ export default async function Boards() {
 
   return (
     <section className="p-4 pt-12 pb-48 flex justify-center">
-      <div className="w-full h-max max-w-xl space-y-4">
-        <h1>
-          {greeting} {session.user?.name} 👋
-        </h1>
-        <BoardList />
+      <div className="space-y-12">
+        <SearchInput />
+        <div className="w-full h-max max-w-xl space-y-4">
+          <h1>
+            {greeting} {session.user?.name} 👋
+          </h1>
+          <BoardList />
+        </div>
       </div>
     </section>
   );
