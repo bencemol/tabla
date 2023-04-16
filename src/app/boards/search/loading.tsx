@@ -1,11 +1,15 @@
-import SearchInput from "@/components/search/SearchInput";
+import Button from "@/components/button/Button";
 
 export default function Loading() {
   return (
     <section className="p-4 pt-12 pb-48 flex justify-center">
       <div className="w-full h-max max-w-xl space-y-4">
         <div className="space-y-12">
-          <SearchInput disabled />
+          <Button
+            variant="primary"
+            className="w-full justify-center !bg-zinc-200 dark:!bg-zinc-800 !border-zinc-200 dark:!border-zinc-800 animate-pulse"
+            disabled
+          />
           <p className="w-full max-w-[12rem] rounded-md bg-zinc-200 dark:!bg-zinc-800 animate-pulse">
             {"\u00A0"}
           </p>
