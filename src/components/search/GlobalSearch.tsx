@@ -8,12 +8,14 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ChangeEventHandler,
+  KeyboardEventHandler,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from "react";
 import Spinner from "../spinner/Spinner";
+import ListNav from "./ListNav";
 import SearchResult from "./SearchResult";
 
 export default function GlobalSearch({
@@ -48,6 +50,12 @@ export default function GlobalSearch({
     setQueryState(query);
   };
 
+  const preventArrowUpDown: KeyboardEventHandler = (e) => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+    }
+  };
+
   useEffect(
     () => updateSearchParam(debouncedQuery),
     [debouncedQuery, updateSearchParam]
@@ -63,29 +71,36 @@ export default function GlobalSearch({
 
   return (
     <section className={className} data-active={queryState.length > 0}>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div className="relative">
-          <span className="absolute left-0 mx-3 top-1/2 -translate-y-1/2 pointer-events-none">
-            {isLoading ? <Spinner /> : <IconSearch />}
-          </span>
-          <input
-            ref={searchInputRef}
-            type="text"
-            placeholder="Search for Boards, Tasks, Descriptions..."
-            className="max-w-full py-3 pl-12"
-            defaultValue={queryState}
-            onChange={handleChange}
-            autoFocus
-          ></input>
+      <ListNav data={data}>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="relative">
+            <span className="absolute left-0 mx-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              {isLoading ? <Spinner /> : <IconSearch />}
+            </span>
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Search for Boards, Tasks, Descriptions..."
+              className="max-w-full py-3 pl-12"
+              defaultValue={queryState}
+              onChange={handleChange}
+              onKeyDown={preventArrowUpDown}
+              autoFocus
+            ></input>
+          </div>
+        </form>
+        <div className="mt-8 space-y-8">
+          {(!debouncedQuery.length || !data?.length) && <RecentBoards />}
+          {debouncedQuery.length > 0 &&
+            data?.map((board) => (
+              <SearchResult
+                key={board.id}
+                query={debouncedQuery}
+                board={board}
+              />
+            ))}
         </div>
-      </form>
-      <div className="mt-8 space-y-8">
-        {(!debouncedQuery.length || !data?.length) && <RecentBoards />}
-        {debouncedQuery.length > 0 &&
-          data?.map((board) => (
-            <SearchResult key={board.id} query={debouncedQuery} board={board} />
-          ))}
-      </div>
+      </ListNav>
     </section>
   );
 }
@@ -95,14 +110,12 @@ function RecentBoards() {
 
   return isLoading ? null : (
     <div>
-      <p className="animate-in slide-in-from-bottom-3">
-        Check out your recent Boards:
-      </p>
+      <p>Check out your recent Boards:</p>
       <div className="mt-8 space-y-8">
         {data?.map((board) => (
           <div
             key={board.id}
-            className="p-4 grid grid-flow-row border-2 border-t-8 rounded-md animate-in slide-in-from-bottom-3"
+            className="p-4 grid grid-flow-row border-2 border-t-8 rounded-md"
           >
             <Link
               href={`/boards/${board.id}`}

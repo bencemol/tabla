@@ -43,6 +43,10 @@
     @apply text-sm;
   }
 
+  a[data-active="true"] {
+    @apply bg-zinc-200 dark:bg-zinc-700;
+  }
+
   form label {
     @apply block mb-1 transition-colors;
   }
