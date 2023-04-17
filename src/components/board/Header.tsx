@@ -8,10 +8,10 @@ import { useBoards } from "@/lib/swr";
 import { Board } from "@/models/board";
 import {
   IconChevronDown,
-  IconCode,
-  IconLogout,
+  IconDoorExit,
   IconPencil,
   IconUser,
+  IconWriting,
 } from "@tabler/icons-react";
 import { Session } from "next-auth";
 import { SessionProvider, signOut, useSession } from "next-auth/react";
@@ -148,7 +148,7 @@ const ProfileMenu = ({ className = "" }: { className?: string }) => {
           href="/about"
           className="flex items-center gap-2 p-2 border-2 border-transparent rounded-md hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-800 dark:focus:bg-zinc-800 transition-colors data-[active=true]:bg-zinc-200 data-[active=true]:hover:bg-zinc-200 data-[active=true]:dark:bg-zinc-700 data-[active=true]:dark:hover:bg-zinc-700"
         >
-          <IconCode />
+          <IconWriting />
           About
         </Link>
         <Button
@@ -160,7 +160,7 @@ const ProfileMenu = ({ className = "" }: { className?: string }) => {
           }}
           isLoading={isLoading}
         >
-          <IconLogout />
+          <IconDoorExit />
           Sign Out
         </Button>
       </Popover>
