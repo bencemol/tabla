@@ -38,7 +38,7 @@ export default async function BoardsLayout({ children }: BoardsProps) {
       <Providers fallback={fallback}>
         <Sidebar />
         <section>
-          <Header session={session} className="sticky top-0 z-20" />
+          <Header session={session} />
           {children}
         </section>
       </Providers>

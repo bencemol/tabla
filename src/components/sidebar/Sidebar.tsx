@@ -13,7 +13,7 @@ export default function Sidebar() {
   return (
     <aside className="hidden sm:flex flex-col w-60 h-full max-h-screen overflow-hidden p-4 sticky top-0 border-r-2 border-zinc-100 dark:border-zinc-800">
       <Link href="/boards" className="block mb-10 mt-1" tabIndex={-1}>
-        <Logo />
+        <Logo variant="full" />
       </Link>
       <div className="mb-6">
         <CreateBoard className="w-full" />

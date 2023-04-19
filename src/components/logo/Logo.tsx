@@ -1,19 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 
-export default function Logo() {
+type LogoProps = {
+  variant?: "full" | "logo-only";
+};
+
+export default function Logo({ variant = "logo-only" }: LogoProps) {
   return (
-    <h1 className="flex gap-2 items-end">
+    <h1 className="flex gap-2 items-center">
       <img
         src="/tabla_logo_light.svg"
         alt="Tábla logo"
-        className="hidden w-9 aspect-square dark:block"
+        className="hidden w-10 aspect-square dark:block"
       />
       <img
         src="/tabla_logo_dark.svg"
         alt="Tábla logo"
-        className="w-9 aspect-square dark:hidden"
+        className="w-10 aspect-square dark:hidden"
       />
-      <span>Tábla</span>
+      {variant === "full" && <span>Tábla</span>}
     </h1>
   );
 }
