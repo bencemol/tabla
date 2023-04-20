@@ -20,7 +20,7 @@ export default function About() {
         <article className="w-full max-w-md space-y-4 border-2 border-t-8 rounded-md p-8 text-center grid gap-2 justify-center shadow-xl bg-white dark:bg-zinc-900 animate-in slide-in-from-bottom-3">
           <header className="mx-auto">
             <Link href="/">
-              <Logo />
+              <Logo variant="full" />
             </Link>
           </header>
           <section className="space-y-2">
