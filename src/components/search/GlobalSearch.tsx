@@ -42,6 +42,7 @@ export default function GlobalSearch({
         forceOptimisticNavigation: true,
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [createQueryString, router]
   );
 
