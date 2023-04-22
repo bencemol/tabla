@@ -33,11 +33,11 @@ export default function GlobalSearch({
   const { data, isLoading } = useSearch(debouncedQuery);
 
   const updateSearchParam = useCallback(
-    (query: string) => {
-      const queryString = createQueryString(
-        "q",
-        query.length === 0 ? null : query
-      );
+    (q: string) => {
+      if (query === q) {
+        return;
+      }
+      const queryString = createQueryString("q", q.length === 0 ? null : q);
       router.replace(`/boards/search?${queryString}`, {
         forceOptimisticNavigation: true,
       });
