@@ -24,31 +24,31 @@ export async function createSampleBoard(ownerId: string) {
       {
         boardId,
         stateId: states[0].id,
-        title: "💩 that needs to be done",
+        title: "drag me daddy",
         description: "move tasks between columns by dragging them",
       },
       {
         boardId,
         stateId: states[0].id,
-        title: "this 💩 is less important",
+        title: "priorities, priorities...",
         description: "columns can also be reordered by dragging the title",
       },
       {
         boardId,
         stateId: states[1].id,
-        title: "💩 is in progress",
+        title: "focused af",
         description: "click on a task to edit or delete one",
       },
       {
         boardId,
         stateId: states[1].id,
-        title: "some other 💩 that's in progress",
+        title: "does multitasking sooth your ADHD too?",
         description: "columns can be renamed with the little pencil icon above",
       },
       {
         boardId,
         stateId: states[2].id,
-        title: "💩 is done",
+        title: "finally at ☮️",
         description:
           "rename or delete the board with the big pencil button in the header",
       },
